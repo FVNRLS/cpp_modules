@@ -1,21 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   megaphone.cpp                                      :+:      :+:    :+:   */
+/*   PhoneBook.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmazurit <rmazurit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/20 11:30:27 by rmazurit          #+#    #+#             */
-/*   Updated: 2022/11/20 11:30:27 by rmazurit         ###   ########.fr       */
+/*   Created: 2022/11/20 14:47:27 by rmazurit          #+#    #+#             */
+/*   Updated: 2022/11/20 14:47:27 by rmazurit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
-#include <string>
+#ifndef PHONEBOOK_HPP
+# define PHONEBOOK_HPP
 
-int main(int argc, char **argv) {
+#include "Contacts.hpp"
+
+# define NUM_CONTACTS	8
 
 
+class	PhoneBook{
 
-	return (EXIT_SUCCESS);
-}
+private:
+	Contact		contacts[NUM_CONTACTS];
+
+public:
+	PhoneBook();
+	~PhoneBook();
+
+	int		index;
+
+	void	add();
+	void	search();
+	void	display_contact(const Contact& contact) const;
+	void	display_all_contacts() const;
+};
+
+#endif
