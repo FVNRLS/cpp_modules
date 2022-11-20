@@ -1,0 +1,10 @@
+.vscode
+CPP_00/cmake-build-debug
+**/cmake-build-debug/**
+**/.idea
+cmake-build-debug/**
+**/*.a
+**/*.o
+a.out
+megaphone
+.DS_Store
