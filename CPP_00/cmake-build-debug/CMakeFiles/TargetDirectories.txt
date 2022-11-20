@@ -1,0 +1,3 @@
+/Users/rmazurit/Documents/42_Projects/modules/CPP_00/cmake-build-debug/CMakeFiles/CPP_00.dir
+/Users/rmazurit/Documents/42_Projects/modules/CPP_00/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/rmazurit/Documents/42_Projects/modules/CPP_00/cmake-build-debug/CMakeFiles/rebuild_cache.dir
