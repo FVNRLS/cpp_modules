@@ -12,7 +12,7 @@
 
 #include "PhoneBook.hpp"
 
-int main(int argc, char **argv) {
+int main() {
 
 	PhoneBook	phonebook;
 	std::string	line;
@@ -22,18 +22,15 @@ int main(int argc, char **argv) {
 	while (!phonebook_closed){
 		std::cout << "PHONEBOOK: ";
 		std::getline(std::cin, line);
-		if (line == "ADD"){
-			std::cout << "add presed!";
+		if (line == "ADD")
 			phonebook.add();
-		}
 		else if (line == "SEARCH")
 			phonebook.search();
 		else if (line == "EXIT")
 			phonebook_closed = true;
-//		phonebook.display_all_contacts();
 	}
 
-	return (EXIT_SUCCESS);
+	return (0);
 }
 
 

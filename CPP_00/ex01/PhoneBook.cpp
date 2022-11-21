@@ -16,10 +16,31 @@ PhoneBook::PhoneBook() : contacts() {
 	this->index = 0;
 }
 
-PhoneBook::~PhoneBook(){
+PhoneBook::~PhoneBook() {
 }
 
-void	PhoneBook::display_contact(const Contact &contact) const{
+void	PhoneBook::add() {
+	Contact	contact;
+
+	if (this->index == NUM_CONTACTS)
+		this->index = 0;
+	this->contacts[this->index].set_contact(this->index);
+	this->index++;
+}
+
+void	PhoneBook::search() const {
+
+	this->display_all_contacts();
+}
+
+void	PhoneBook::display_all_contacts() const {
+	for (int i = 0; i < this->index; i++) {
+		display_contact(this->contacts[i]);
+	}
+
+}
+
+void	PhoneBook::display_contact(const Contact &contact) const {
 	std::cout << std::endl;
 	std::cout << "|Index     |First Name|Last Name |Nickname  |\n";
 
@@ -29,19 +50,3 @@ void	PhoneBook::display_contact(const Contact &contact) const{
 	std::cout << contact.get_nickname();
 	std::cout << std::endl;
 }
-
-void	PhoneBook::display_all_contacts() const {
-	for (int i = 0; i < 8; this->index) {
-		display_contact(this->contacts[i]);
-	}
-
-}
-
-void	PhoneBook::add(){
-
-}
-
-void	PhoneBook::search(){
-
-}
-

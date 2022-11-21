@@ -30,8 +30,8 @@ public:
 	int		index;
 
 	void	add();
-	void	search();
-	void	display_contact(const Contact& contact) const;
+	void	search() const;
+	void	display_contact(const Contact &contact) const;
 	void	display_all_contacts() const;
 };
 
