@@ -30,6 +30,29 @@ void	PhoneBook::add() {
 	phonebook_empty = false;
 }
 
+void	PhoneBook::search() const {
+
+	int		i;
+	bool 	index_undefined;
+
+	index_undefined = true;
+	while (index_undefined) {
+		i = this->get_index();
+		if (i == -1) {
+			std::cout << "|Index     |First Name|Last Name |Nickname  |"
+					  << std::endl;
+			this->display_all_contacts();
+			index_undefined = false;
+		}
+		else if (i >= 0 && i < NUM_CONTACTS) {
+			std::cout << "|Index     |First Name|Last Name |Nickname  |"
+					  << std::endl;
+			display_contact(this->contacts[i]);
+			index_undefined = false;
+		}
+	}
+}
+
 int	PhoneBook::get_index() const {
 	std::string	input;
 	int 		i;
@@ -58,30 +81,6 @@ int	PhoneBook::get_index() const {
 		}
 	}
 	return (i);
-}
-
-//TODO: implement max index comparisson - dont show index out of range of existing index
-void	PhoneBook::search() const {
-
-	int		i;
-	bool 	index_undefined;
-
-	index_undefined = true;
-	while (index_undefined) {
-		i = this->get_index();
-		if (i == -1) {
-			std::cout << "|Index     |First Name|Last Name |Nickname  |"
-					  << std::endl;
-			this->display_all_contacts();
-			index_undefined = false;
-		}
-		else if (i >= 0 && i < NUM_CONTACTS) {
-			std::cout << "|Index     |First Name|Last Name |Nickname  |"
-					  << std::endl;
-			display_contact(this->contacts[i]);
-			index_undefined = false;
-		}
-	}
 }
 
 void	PhoneBook::display_all_contacts() const {
