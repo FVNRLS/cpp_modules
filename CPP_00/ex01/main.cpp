@@ -16,18 +16,19 @@ int main() {
 
 	PhoneBook	phonebook;
 	std::string	line;
-	bool 		phonebook_closed;
 
-	phonebook_closed = false;
-	while (!phonebook_closed){
+	phonebook.is_closed = false;
+	while (!phonebook.is_closed){
 		std::cout << "PHONEBOOK: ";
 		std::getline(std::cin, line);
+		if (std::cin.eof())
+			break ;
 		if (line == "ADD")
 			phonebook.add();
 		else if (line == "SEARCH")
 			phonebook.search();
 		else if (line == "EXIT")
-			phonebook_closed = true;
+			phonebook.is_closed = true;
 	}
 	return (0);
 }

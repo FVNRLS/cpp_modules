@@ -14,84 +14,79 @@
 
 PhoneBook::PhoneBook() : contacts() {
 	this->index = 0;
-	phonebook_empty = true;
+	this->items = 0;
+	is_empty = true;
 }
 
 PhoneBook::~PhoneBook() {
 }
 
-//TODO: test with multiple data!
 void	PhoneBook::add() {
 	Contact	contact;
 
 	if (this->index == NUM_CONTACTS)
 		this->index = 0;
-	this->contacts[this->index].set_contact(this->index);
+	if (this->contacts[this->index].set_contact(this->index) == 1) {
+		this->is_closed = true;
+		return ;
+	}
 	this->index++;
-	phonebook_empty = false;
+	if (this->items < NUM_CONTACTS)
+		this->items++;
+	is_empty = false;
 }
 
-void	PhoneBook::search() const {
-
+void	PhoneBook::search()  {
 	int		i;
-	bool 	index_undefined;
 
-	index_undefined = true;
-	while (index_undefined) {
-		i = this->get_index();
-		if (i == -1) {
-			std::cout << "|Index     |First Name|Last Name |Nickname  |"
-					  << std::endl;
-			this->display_all_contacts();
-			index_undefined = false;
-		}
-		else if (i >= 0 && i < NUM_CONTACTS) {
-			std::cout << "|Index     |First Name|Last Name |Nickname  |"
-					  << std::endl;
-			display_contact(this->contacts[i]);
-			index_undefined = false;
-		}
+	if (this->is_empty) {
+		std::cout << "The phonebook is empty" << std::endl;
+		return ;
+	}
+	this->display_all_contacts();
+	i = this->get_index();
+	if (i == -2) {
+		this->is_closed = true;
+		return ;
+	}
+	else if (i == -1) {
+		return ;
+	}
+	else if (i < NUM_CONTACTS) {
+		std::cout << "Name:		" << this->contacts[i].get_name() << std::endl;
+		std::cout << "Family Name:	" << this->contacts[i].get_surname() << std::endl;
+		std::cout << "Nickname:	" << this->contacts[i].get_nickname() << std::endl;
+		std::cout << "Phone:		" << this->contacts[i].get_phone() << std::endl;
+		std::cout << "Darkest Secret:	" << this->contacts[i].get_darkest_secret() << std::endl;
+		return ;
 	}
 }
 
 int	PhoneBook::get_index() const {
 	std::string	input;
-	int 		i;
+	int 	i;
 
-	i = -1;
-
-	while (i == -1) {
-		std::cout << "Enter Contact Index:		";
-		std::getline(std::cin, input);
-		try {
-			i = std::stoi(input);
-		}
-		catch (const std::invalid_argument &arg) {
-			if (input.length() == 0)
-				return (-1);
-			std::cout << "Error. Invalid argument " << std::endl;
-			continue ;
-		}
-		catch (const std::out_of_range &arg) {
-			std::cout << "Error. Invalid argument " << std::endl;
-			continue ;
-		}
-		if (i >= input.length() || this->phonebook_empty) {
-			std::cout << "Error. Invalid argument " << std::endl;
-			i = -1;
-		}
+	std::cout << "Enter Contact Index:	";
+	std::getline(std::cin, input);
+	if (std::cin.eof())
+		return (-2);
+	i = std::atoi(input.c_str());
+	if (i <= 0 || i > this->items || this->is_empty) {
+		std::cout << "Contact not found " << std::endl;
+		return (-1);
 	}
-	return (i);
+	else
+		return (i - 1);
 }
 
 void	PhoneBook::display_all_contacts() const {
-	for (int i = 0; i < this->index; i++) {
+	std::cout << "|Index     |First Name|Last Name |Nickname  |" << std::endl;
+	for (int i = 0; i < this->items; i++) {
 		display_contact(this->contacts[i]);
 	}
 }
 
 void	PhoneBook::display_contact(const Contact &contact) const {
-//	std::cout << std::endl;
 	std::cout << "|";
 	this->print_info(contact.get_id());
 	this->print_info(contact.get_name());
