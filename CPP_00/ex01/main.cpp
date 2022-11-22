@@ -29,7 +29,6 @@ int main() {
 		else if (line == "EXIT")
 			phonebook_closed = true;
 	}
-
 	return (0);
 }
 

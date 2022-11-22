@@ -14,6 +14,7 @@
 
 PhoneBook::PhoneBook() : contacts() {
 	this->index = 0;
+	phonebook_empty = true;
 }
 
 PhoneBook::~PhoneBook() {
@@ -26,28 +27,35 @@ void	PhoneBook::add() {
 		this->index = 0;
 	this->contacts[this->index].set_contact(this->index);
 	this->index++;
+	phonebook_empty = false;
 }
 
-static int	get_index() {
+int	PhoneBook::get_index() const {
 	std::string	input;
 	int 		i;
 
 	i = -1;
-	std::cout << "Enter Contact Index:		";
-	std::getline(std::cin, input);
-	if (input.length() == 0)
-		return (-1);
+
 	while (i == -1) {
+		std::cout << "Enter Contact Index:		";
+		std::getline(std::cin, input);
 		try {
 			i = std::stoi(input);
 		}
-		catch (const std::invalid_argument &ia) {
-			std::cout << "Error. Invalid argument. " << std::endl;
-			std::cout << "Enter Contact Index:		";
-			std::getline(std::cin, input);
+		catch (const std::invalid_argument &arg) {
+			if (input.length() == 0)
+				return (-1);
+			std::cout << "Error. Invalid argument " << std::endl;
+			continue ;
 		}
-		if (input.length() == 0)
-			return (-1);
+		catch (const std::out_of_range &arg) {
+			std::cout << "Error. Invalid argument " << std::endl;
+			continue ;
+		}
+		if (i >= input.length() || this->phonebook_empty) {
+			std::cout << "Error. Invalid argument " << std::endl;
+			i = -1;
+		}
 	}
 	return (i);
 }
@@ -60,7 +68,7 @@ void	PhoneBook::search() const {
 
 	index_undefined = true;
 	while (index_undefined) {
-		i = get_index();
+		i = this->get_index();
 		if (i == -1) {
 			std::cout << "|Index     |First Name|Last Name |Nickname  |"
 					  << std::endl;
@@ -71,9 +79,8 @@ void	PhoneBook::search() const {
 			std::cout << "|Index     |First Name|Last Name |Nickname  |"
 					  << std::endl;
 			display_contact(this->contacts[i]);
+			index_undefined = false;
 		}
-		else
-			std::cout << "Error. Invalid argument. " << std::endl;
 	}
 }
 
@@ -81,11 +88,10 @@ void	PhoneBook::display_all_contacts() const {
 	for (int i = 0; i < this->index; i++) {
 		display_contact(this->contacts[i]);
 	}
-
 }
 
 void	PhoneBook::display_contact(const Contact &contact) const {
-	std::cout << std::endl;
+//	std::cout << std::endl;
 	std::cout << "|";
 	this->print_info(contact.get_id());
 	this->print_info(contact.get_name());
@@ -107,3 +113,4 @@ void 	PhoneBook::print_info(const std::string &str) const {
 		std::cout << str.substr(0, MAX_STR_LEN - 1) << ".";
 	std::cout << "|";
 }
+
