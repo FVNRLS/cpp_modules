@@ -16,6 +16,7 @@
 #include "Contacts.hpp"
 
 # define NUM_CONTACTS	8
+# define MAX_STR_LEN	10
 
 
 class	PhoneBook{
@@ -31,6 +32,7 @@ public:
 
 	void	add();
 	void	search() const;
+	void 	print_info(const std::string &str) const;
 	void	display_contact(const Contact &contact) const;
 	void	display_all_contacts() const;
 };
