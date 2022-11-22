@@ -20,6 +20,7 @@ PhoneBook::PhoneBook() : contacts() {
 PhoneBook::~PhoneBook() {
 }
 
+//TODO: test with multiple data!
 void	PhoneBook::add() {
 	Contact	contact;
 

@@ -15,7 +15,7 @@
 
 #include "Contacts.hpp"
 
-# define NUM_CONTACTS	8
+# define NUM_CONTACTS	1
 # define MAX_STR_LEN	10
 
 class	PhoneBook{

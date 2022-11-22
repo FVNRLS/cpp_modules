@@ -36,6 +36,7 @@ void	Contact::set_id(int id) {
 }
 
 void	Contact::set_name() {
+	this->_name.clear();
 	while (this->_name.length() == 0) {
 		std::cout << "Enter your Name:			";
 		std::getline(std::cin, this->_name);
@@ -45,6 +46,7 @@ void	Contact::set_name() {
 }
 
 void	Contact::set_surname() {
+	this->_surname.clear();
 	while (this->_surname.length() == 0) {
 		std::cout << "Enter your Family Name:		";
 		std::getline(std::cin, this->_surname);
@@ -54,6 +56,7 @@ void	Contact::set_surname() {
 }
 
 void	Contact::set_nickname() {
+	this->_nickname.clear();
 	while (this->_nickname.length() == 0) {
 		std::cout << "Enter your Nickname:		";
 		std::getline(std::cin, this->_nickname);
@@ -63,6 +66,7 @@ void	Contact::set_nickname() {
 }
 
 void	Contact::set_phone() {
+	this->_phone.clear();
 	while (this->_phone.length() == 0) {
 		std::cout << "Enter your Phone:			";
 		std::getline(std::cin, this->_phone);
@@ -72,6 +76,7 @@ void	Contact::set_phone() {
 }
 
 void	Contact::set_darkest_secret() {
+	this->_darkest_secret.clear();
 	while (this->_darkest_secret.length() == 0) {
 		std::cout << "Enter your Darkest Secret:	";
 		std::getline(std::cin, this->_darkest_secret);
