@@ -1,7 +1,7 @@
 # CPP Modules
 Various exercises and practices with the programming language C++
 
-## Main Topics:
+## Main Topics
 
 * I/O manipulations 
 * Classes 
