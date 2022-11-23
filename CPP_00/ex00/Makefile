@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rmazurit <rmazurit@student.42.fr>          +#+  +:+       +#+         #
+#    By: rmazurit <rmazurit@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/20 11:39:57 by rmazurit          #+#    #+#              #
-#    Updated: 2022/11/20 12:24:00 by rmazurit         ###   ########.fr        #
+#    Updated: 2022/11/23 14:22:57 by rmazurit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME	= megaphone
 CC		= c++
 RM		= rm -f
 FLAGS	= -Wall -Wextra -Werror -std=c++98
-SRC 	= megaphone.cpp \
+SRC 	= Megaphone.cpp \
 
 OBJ		=	$(addprefix obj/,$(SRC:.cpp=.o))
 DEP 	= 	${addprefix dep/,$(SRC:.cpp=.d)}

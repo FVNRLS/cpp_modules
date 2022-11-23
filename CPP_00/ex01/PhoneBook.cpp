@@ -12,52 +12,71 @@
 
 #include "PhoneBook.hpp"
 
-PhoneBook::PhoneBook() : contacts() {
+PhoneBook::PhoneBook() : _contacts() {
 	this->index = 0;
 	this->items = 0;
-	is_empty = true;
 }
 
 PhoneBook::~PhoneBook() {
+	return;
 }
 
+//GETTERS
+bool	PhoneBook::get_is_empty_flag() const {
+	return (this->_is_empty);
+}
+
+bool	PhoneBook::get_is_closed_flag() const {
+	return (this->_is_closed);
+}
+
+//SETTERS
+void	PhoneBook::set_is_empty_flag(bool flag) {
+	this->_is_empty = flag;
+}
+
+void	PhoneBook::set_is_closed_flag(bool flag) {
+	this->_is_closed = flag;
+}
+
+//MAIN FUNCTIONS
 void	PhoneBook::add() {
 	Contact	contact;
 
 	if (this->index == NUM_CONTACTS)
 		this->index = 0;
-	if (this->contacts[this->index].set_contact(this->index) == 1) {
-		this->is_closed = true;
+	if (this->_contacts[this->index].set_contact(this->index) == 1) {
+		set_is_closed_flag(true);
 		return ;
 	}
 	this->index++;
 	if (this->items < NUM_CONTACTS)
 		this->items++;
-	is_empty = false;
+	set_is_empty_flag(false);
 }
 
 void	PhoneBook::search()  {
 	int		i;
 
-	if (this->is_empty) {
+	if (this->get_is_empty_flag() == true) {
 		std::cout << "The phonebook is empty" << std::endl;
 		return ;
 	}
 	this->display_all_contacts();
 	i = this->get_index();
 	if (i == -2) {
-		this->is_closed = true;
+		set_is_closed_flag(true);
 		return ;
 	}
 	else if (i == -1) {
 		return ;
 	}
 	else if (i < NUM_CONTACTS) {
-		std::cout << "Name:		" << this->contacts[i].get_name() << std::endl;
-		std::cout << "Family Name:	" << this->contacts[i].get_surname() << std::endl;
-		std::cout << "Nickname:	" << this->contacts[i].get_nickname() << std::endl;
-		std::cout << "Phone:		" << this->contacts[i].get_phone() << std::endl;
-		std::cout << "Darkest Secret:	" << this->contacts[i].get_darkest_secret() << std::endl;
+		std::cout << "Name:		" << this->_contacts[i].get_name() << std::endl;
+		std::cout << "Family Name:	" << this->_contacts[i].get_surname() << std::endl;
+		std::cout << "Nickname:	" << this->_contacts[i].get_nickname() << std::endl;
+		std::cout << "Phone:		" << this->_contacts[i].get_phone() << std::endl;
+		std::cout << "Darkest Secret:	" << this->_contacts[i].get_darkest_secret() << std::endl;
 		return ;
 	}
 }
@@ -71,7 +90,7 @@ int	PhoneBook::get_index() const {
 	if (std::cin.eof())
 		return (-2);
 	i = std::atoi(input.c_str());
-	if (i <= 0 || i > this->items || this->is_empty) {
+	if (i <= 0 || i > this->items || get_is_empty_flag() == true) {
 		std::cout << "Contact not found " << std::endl;
 		return (-1);
 	}
@@ -82,7 +101,7 @@ int	PhoneBook::get_index() const {
 void	PhoneBook::display_all_contacts() const {
 	std::cout << "|Index     |First Name|Last Name |Nickname  |" << std::endl;
 	for (int i = 0; i < this->items; i++) {
-		display_contact(this->contacts[i]);
+		display_contact(this->_contacts[i]);
 	}
 }
 

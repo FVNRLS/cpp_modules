@@ -6,8 +6,14 @@ set(CMAKE_CXX_STANDARD 98)
 add_executable(CPP_00
 
         #SRC
-        ex02/tests.cpp
-        ex02/Account.cpp
+        ex01/main.cpp
+        ex01/Contacts.cpp
+        ex01/PhoneBook.cpp
+        #ex02/tests.cpp
+        #ex02/Account.cpp
 
         #HEADERS
-        ex02/Account.hpp)
+        ex01/Contacts.hpp
+        ex01/PhoneBook.hpp
+        #ex02/Account.hpp
+        )

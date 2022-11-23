@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   megaphone.cpp                                      :+:      :+:    :+:   */
+/*   Megaphone.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmazurit <rmazurit@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmazurit <rmazurit@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/20 11:30:27 by rmazurit          #+#    #+#             */
-/*   Updated: 2022/11/20 11:30:27 by rmazurit         ###   ########.fr       */
+/*   Updated: 2022/11/23 14:24:57 by rmazurit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int main(int argc, char **argv) {
 		return (EXIT_SUCCESS);
 	}
 	i = 1;
-	while (argv[i] != nullptr)
+	while (argv[i] != NULL)
 	{
 		for (int j = 0; j < (int)strlen(argv[i]); j++)
 			std::cout << (unsigned char)toupper(argv[i][j]);
@@ -29,6 +29,5 @@ int main(int argc, char **argv) {
 		i++;
 	}
 	std::cout << std::endl;
-
 	return (EXIT_SUCCESS);
 }

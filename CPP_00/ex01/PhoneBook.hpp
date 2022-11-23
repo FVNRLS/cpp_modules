@@ -18,10 +18,12 @@
 # define NUM_CONTACTS	8
 # define MAX_STR_LEN	10
 
-class	PhoneBook{
+class	PhoneBook {
 
 private:
-	Contact		contacts[NUM_CONTACTS];
+	Contact		_contacts[NUM_CONTACTS];
+	bool		_is_empty;
+	bool 		_is_closed;
 
 public:
 	PhoneBook();
@@ -29,11 +31,13 @@ public:
 
 	int		index;
 	int 	items;
-	bool	is_empty;
-	bool 	is_closed;
 
 	void	add();
 	void	search();
+	bool	get_is_empty_flag() const;
+	bool	get_is_closed_flag() const;
+	void	set_is_empty_flag(bool flag);
+	void	set_is_closed_flag(bool flag);
 	int		get_index() const;
 	void 	print_info(const std::string &str) const;
 	void	display_contact(const Contact &contact) const;
