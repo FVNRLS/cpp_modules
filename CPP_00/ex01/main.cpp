@@ -17,11 +17,9 @@ int main() {
 	PhoneBook	phonebook;
 	std::string	line;
 
-
-	phonebook.set_is_empty_flag(true);
-	phonebook.set_is_closed_flag(false);
-	while (phonebook.get_is_closed_flag() == false) {
-		std::cout << "PHONEBOOK: ";
+	while (true) {
+		if (!std::cin.eof())
+			std::cout << "PHONEBOOK: ";
 		std::getline(std::cin, line);
 		if (std::cin.eof())
 			break ;
@@ -30,7 +28,7 @@ int main() {
 		else if (line == "SEARCH")
 			phonebook.search();
 		else if (line == "EXIT")
-			phonebook.set_is_closed_flag(true);
+			break ;
 	}
 	return (0);
 }

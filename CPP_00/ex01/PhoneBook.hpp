@@ -21,27 +21,20 @@
 class	PhoneBook {
 
 private:
-	Contact		_contacts[NUM_CONTACTS];
-	bool		_is_empty;
-	bool 		_is_closed;
+	Contact	_contacts[NUM_CONTACTS];
+	int		_index;
+	int 	_items;
 
 public:
 	PhoneBook();
 	~PhoneBook();
 
-	int		index;
-	int 	items;
-
-	void	add();
-	void	search();
-	bool	get_is_empty_flag() const;
-	bool	get_is_closed_flag() const;
-	void	set_is_empty_flag(bool flag);
-	void	set_is_closed_flag(bool flag);
-	int		get_index() const;
-	void 	print_info(const std::string &str) const;
-	void	display_contact(const Contact &contact) const;
-	void	display_all_contacts() const;
+	void			add();
+	void			search();
+	int				get_index() const;
+	static void 	print_info(const std::string &str) ;
+	static void		display_contact(const Contact &contact) ;
+	void			display_all_contacts() const;
 };
 
 #endif

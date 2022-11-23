@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= megaphone
+NAME	= 	megaphone
 
 CC		= 	c++
 RM		= 	rm -f
@@ -18,7 +18,6 @@ FLAGS	= 	-Wall -Wextra -Werror -std=c++98
 SRC 	= 	megaphone.cpp \
 
 OBJ		=	$(addprefix obj/,$(SRC:.cpp=.o))
-DEP 	= 	${addprefix dep/,$(SRC:.cpp=.d)}
 
 ${NAME}: ${OBJ}
 	${CC} ${OBJ} -o ${NAME}
@@ -26,13 +25,13 @@ ${NAME}: ${OBJ}
 all: ${NAME}
 
 obj/%.o: %.cpp | obj
-	$(CC) -c $(CFLAGS) -MMD -MP $(INC) $< -o $@
+	$(CC) -c $(CFLAGS) $(INC) $< -o $@
 
 obj:
 	mkdir obj
 
 clean:
-	${RM} ${OBJ} ${DEP}
+	${RM} ${OBJ}
 
 fclean: clean
 	${RM} ${NAME}
@@ -41,5 +40,3 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re
-
--include $(DEP)

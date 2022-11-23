@@ -38,13 +38,13 @@ public:
 	std::string get_phone() const;
 	std::string	get_darkest_secret() const;
 
-	int 		set_contact(int id);
+	void 		set_contact(int id);
 	void		set_id(int id);
-	int 		set_name();
-	int 		set_surname();
-	int 		set_nickname();
-	int 		set_phone();
-	int 		set_darkest_secret();
+	void 		set_name();
+	void 		set_surname();
+	void 		set_nickname();
+	void 		set_phone();
+	void 		set_darkest_secret();
 
 };
 
