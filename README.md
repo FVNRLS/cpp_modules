@@ -1,6 +1,15 @@
 # CPP Modules
 Various exercises and practices with the programming language C++
 
+Main Topics:
+
+I/O manipulations
+Classes introduction
+Class methods and members keywords in C++
+Inheritance, Overloading and Polymorphism
+STL, Containers and Iterators
+Abstract types, Templates and Exceptions.
+
 ## Overview
 
 <br>
