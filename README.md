@@ -1,4 +1,4 @@
-# modules
+# CPP Modules
 Various exercises and practices with the programming language C++
 
 ## Overview
