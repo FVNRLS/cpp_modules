@@ -10,7 +10,4 @@ add_executable(CPP_00
         ex02/Account.cpp
 
         #HEADERS
-
-
         ex02/Account.hpp)
-
