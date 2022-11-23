@@ -12,10 +12,10 @@
 
 NAME	= megaphone
 
-CC		= c++
-RM		= rm -f
-FLAGS	= -Wall -Wextra -Werror -std=c++98
-SRC 	= Megaphone.cpp \
+CC		= 	c++
+RM		= 	rm -f
+FLAGS	= 	-Wall -Wextra -Werror -std=c++98
+SRC 	= 	megaphone.cpp \
 
 OBJ		=	$(addprefix obj/,$(SRC:.cpp=.o))
 DEP 	= 	${addprefix dep/,$(SRC:.cpp=.d)}
