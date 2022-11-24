@@ -1,15 +1,16 @@
 #include "Zombie.hpp"
 
 int main() {
-	std::string	name;
-	name = "stack";
 
-	Zombie	zombie_s(name);
 	Zombie	*zombie_h;
 
 	zombie_h = newZombie("heap");
-	randomChump("heap");
 	zombie_h->announce();
 	delete zombie_h;
+
+	std::cout << std::endl;
+
+	randomChump("stack");
+	std::cout << std::endl << "Zombie on stack was destroyed INSIDE the randomChump function!" << std::endl;
 	return (0);
 }

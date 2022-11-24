@@ -6,7 +6,7 @@
 #    By: rmazurit <rmazurit@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/20 11:39:57 by rmazurit          #+#    #+#              #
-#    Updated: 2022/11/23 11:16:20 by rmazurit         ###   ########.fr        #
+#    Updated: 2022/11/24 12:10:44 by rmazurit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME	= 	zombie
 CC		= 	c++
 RM		= 	rm -f
 FLAGS	= 	-Wall -Wextra -Werror -std=c++98
-SRC 	=	tests.cpp Account.cpp \
+SRC 	=	 main.cpp Zombie.cpp newZombie.cpp randomChump.cpp \
 
 OBJ		=	$(addprefix obj/,$(SRC:.cpp=.o))
 DEP 	= 	${addprefix dep/,$(SRC:.cpp=.d)}
