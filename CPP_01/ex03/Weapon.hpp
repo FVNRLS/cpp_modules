@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   Weapon.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmazurit <rmazurit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/25 13:15:05 by rmazurit          #+#    #+#             */
-/*   Updated: 2022/11/25 13:15:05 by rmazurit         ###   ########.fr       */
+/*   Created: 2022/11/25 13:14:09 by rmazurit          #+#    #+#             */
+/*   Updated: 2022/11/25 13:14:09 by rmazurit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Zombie.hpp"
+#ifndef WEAPON_HPP
+# define WEAPON_HPP
 
-int main() {
-	Zombie 		*horde;
-	const int	N = 5;
+#include <string>
+#include <iostream>
 
-	horde = zombieHorde(N, "Gosha");
+class	Weapon {
 
-	for (int i = 0; i < N; i++)
-		horde[i].announce();
-	delete [] horde;
-	return (0);
-}
+private:
+	std::string	_type;
+
+public:
+	Weapon(const std::string &type);
+	~Weapon();
+
+	std::string getType() const;
+	void		setType(const std::string &type);
+
+};
+
+#endif

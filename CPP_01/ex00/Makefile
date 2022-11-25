@@ -6,16 +6,16 @@
 #    By: rmazurit <rmazurit@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/20 11:39:57 by rmazurit          #+#    #+#              #
-#    Updated: 2022/11/24 23:27:45 by amenra           ###   ########.fr        #
+#    Updated: 2022/11/25 16:29:42 by rmazurit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= 	zombie
+NAME	= 	ex00
 
 CC		= 	c++
 RM		= 	rm -f
 FLAGS	= 	-Wall -Wextra -Werror -std=c++98
-SRC 	=	 main.cpp Zombie.cpp newZombie.cpp randomChump.cpp \
+SRC 	=	main.cpp newZombie.cpp randomChump.cpp Zombie.cpp \
 
 OBJ		=	$(addprefix obj/,$(SRC:.cpp=.o))
 DEP 	= 	${addprefix dep/,$(SRC:.cpp=.d)}

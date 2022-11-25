@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   HumanA.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmazurit <rmazurit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/25 13:15:05 by rmazurit          #+#    #+#             */
-/*   Updated: 2022/11/25 13:15:05 by rmazurit         ###   ########.fr       */
+/*   Created: 2022/11/25 13:17:35 by rmazurit          #+#    #+#             */
+/*   Updated: 2022/11/25 13:17:35 by rmazurit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Zombie.hpp"
+#ifndef HUMANA_HPP
+# define HUMANA_HPP
 
-int main() {
-	Zombie 		*horde;
-	const int	N = 5;
+# include "Weapon.hpp"
+# include <string>
+# include <iostream>
 
-	horde = zombieHorde(N, "Gosha");
+class	HumanA {
 
-	for (int i = 0; i < N; i++)
-		horde[i].announce();
-	delete [] horde;
-	return (0);
-}
+private:
+	std::string _name;
+	Weapon 		&_weapon;
+
+public:
+	HumanA(std::string name, Weapon &weapon);
+	~HumanA();
+
+	void	attack();
+};
+
+#endif

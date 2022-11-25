@@ -5,20 +5,19 @@
 #                                                     +:+ +:+         +:+      #
 #    By: rmazurit <rmazurit@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/11/25 13:15:44 by rmazurit          #+#    #+#              #
-#    Updated: 2022/11/25 13:15:44 by rmazurit         ###   ########.fr        #
+#    Created: 2022/11/20 11:39:57 by rmazurit          #+#    #+#              #
+#    Updated: 2022/11/25 16:29:49 by rmazurit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= 	ex01
+NAME	= 	ex03
 
 CC		= 	c++
 RM		= 	rm -f
 FLAGS	= 	-Wall -Wextra -Werror -std=c++98
-SRC 	=	 main.cpp Zombie.cpp zombieHorde.cpp\
+SRC 	=	main.cpp Weapon.cpp HumanA.cpp HumanB.cpp \
 
 OBJ		=	$(addprefix obj/,$(SRC:.cpp=.o))
-DEP 	= 	${addprefix dep/,$(SRC:.cpp=.d)}
 
 ${NAME}: ${OBJ}
 	${CC} ${OBJ} -o ${NAME}
@@ -26,13 +25,13 @@ ${NAME}: ${OBJ}
 all: ${NAME}
 
 obj/%.o: %.cpp | obj
-	$(CC) -c $(CFLAGS) -MMD -MP $(INC) $< -o $@
+	$(CC) -c $(CFLAGS) $(INC) $< -o $@
 
 obj:
 	mkdir obj
 
 clean:
-	${RM} ${OBJ} ${DEP}
+	${RM} ${OBJ}
 
 fclean: clean
 	${RM} ${NAME}
@@ -41,5 +40,3 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re
-
--include $(DEP)

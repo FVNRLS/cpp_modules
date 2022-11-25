@@ -5,12 +5,12 @@
 #                                                     +:+ +:+         +:+      #
 #    By: rmazurit <rmazurit@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/11/20 11:39:57 by rmazurit          #+#    #+#              #
-#    Updated: 2022/11/24 23:32:43 by amenra           ###   ########.fr        #
+#    Created: 2022/11/25 13:14:41 by rmazurit          #+#    #+#              #
+#    Updated: 2022/11/25 13:14:41 by rmazurit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= 	string
+NAME	= 	ex02
 
 CC		= 	c++
 RM		= 	rm -f
