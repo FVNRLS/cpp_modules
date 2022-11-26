@@ -29,6 +29,9 @@ add_executable(CPP_01
         # --- EX04 ---
             ex04/main.cpp
 
+        # --- EX05 ---
+            ex05/main.cpp
+
         #HEADERS
         #ex00/Zombie.hpp
         #ex01/Zombie.hpp
@@ -36,5 +39,5 @@ add_executable(CPP_01
         #ex03/Weapon.hpp
         #ex03/HumanA.hpp
         #ex03/HumanB.hpp
-        )
+        ex05/main.cpp ex05/Harl.hpp ex05/Harl.cpp)
 
