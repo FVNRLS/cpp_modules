@@ -12,9 +12,8 @@
 
 #include "PhoneBook.hpp"
 
-PhoneBook::PhoneBook() : _contacts() {
-	_index = 0;
-	_items = 0;
+PhoneBook::PhoneBook() : _contacts(), _index(0), _items(0) {
+	return ;
 }
 
 PhoneBook::~PhoneBook() {

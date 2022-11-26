@@ -26,7 +26,7 @@ ${NAME}: ${OBJ}
 all: ${NAME}
 
 obj/%.o: %.cpp | obj
-	$(CC) -c $(CFLAGS) -MMD -MP $(INC) $< -o $@
+	$(CC) -c $(FLAGS) -MMD -MP $(INC) $< -o $@
 
 obj:
 	mkdir obj

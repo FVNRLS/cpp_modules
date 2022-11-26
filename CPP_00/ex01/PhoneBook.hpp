@@ -25,16 +25,17 @@ private:
 	int		_index;
 	int 	_items;
 
+	static void		display_contact(const Contact &contact);
+	int				get_index() const;
+	static void 	print_info(const std::string &str);
+	void			display_all_contacts() const;
+
 public:
 	PhoneBook();
 	~PhoneBook();
 
 	void			add();
 	void			search();
-	int				get_index() const;
-	static void 	print_info(const std::string &str) ;
-	static void		display_contact(const Contact &contact) ;
-	void			display_all_contacts() const;
 };
 
 #endif
