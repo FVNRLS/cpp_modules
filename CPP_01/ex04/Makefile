@@ -36,7 +36,6 @@ clean:
 fclean: clean
 	${RM} ${NAME}
 	rm -rf obj
-	rm *.replace #todo: delete!
 
 re: fclean all
 
