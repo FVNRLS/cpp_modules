@@ -22,31 +22,33 @@ Harl::~Harl() {
 
 void	Harl::debug() {
 	std::cout << "[ DEBUG ]" << std::endl;
-	std::cout << "debugging..." << std::endl;
+	std::cout << "I love having extra bacon for my 7XL-double-cheese-triple-pickle-special- ketchup burger." << std::endl;
+	std::cout << "I really do!" << std::endl;
 	std::cout << std::endl;
 }
 
 void	Harl::info() {
 	std::cout << "[ INFO ]" << std::endl;
-	std::cout << "printing some info..." << std::endl;
+	std::cout << "I cannot believe adding extra bacon costs more money." << std::endl;
+	std::cout << "You didn’t put enough bacon in my burger! If you did, I wouldn’t be asking for more!" << std::endl;
 	std::cout << std::endl;
 }
 
 void	Harl::warning() {
 	std::cout << "[ WARNING ]" << std::endl;
-	std::cout << "printing a warning message..." << std::endl;
+	std::cout << "I think I deserve to have some extra bacon for free." << std::endl;
+	std::cout << "I've been coming for years whereas you started working here since last month." << std::endl;
 	std::cout << std::endl;
 }
 
 void	Harl::error() {
 	std::cout << "[ ERROR ]" << std::endl;
-	std::cout << "printing a error message..." << std::endl;
+	std::cout << "This is unacceptable, I want to speak to the manager now." << std::endl;
 	std::cout << std::endl;
 }
 
 void	Harl::wrong_func(std::string &level) {
-	std::cout << "a complain " << level << " doesn't exist..." << std::endl;
-	std::cout << std::endl;
+	std::cout << "[ Probably complaining about insignificant problems ]" << std::endl;
 }
 
 void	Harl::create_complains_list() {
@@ -62,12 +64,31 @@ void	Harl::create_complains_list() {
 }
 
 void    Harl::complain(std::string level) {
+	int	i;
 	create_complains_list();
-	for (int i = 0; i < NUM_FUNCTIONS; ++i) {
-		if (_complains[i] == level) {
-			(this->*_funcs[i])();
-			return ;
-		}
+
+	i = 0;
+	while (i < NUM_FUNCTIONS) {
+		if (level == _complains[i])
+			break ;
+		i++;
 	}
-	wrong_func(level);
+
+	switch (i)
+	{
+		case 4:
+			wrong_func(level);
+			break;
+		case 0:
+			(this->*_funcs[i])();
+			i++;
+		case 1:
+			(this->*_funcs[i])();
+			i++;
+		case 2:
+			(this->*_funcs[i])();
+			i++;
+		case 3:
+			(this->*_funcs[i])();
+	}
 }

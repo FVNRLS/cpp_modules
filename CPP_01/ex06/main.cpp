@@ -12,25 +12,16 @@
 
 #include "Harl.hpp"
 
-int	main() {
-
+int	main(int argc, char **argv) {
 	Harl		harl;
-	std::string input;
+	std::string msg;
 
-	harl.complain("ERROR");
-	harl.complain("WARNING");
-	harl.complain("INFO");
-	harl.complain("DEBUG");
-	harl.complain("WRONG_MESSAGE");
-	std::cout << std::endl;
-
-	while (true)
+	if (argc < 2 || argc > 3)
 	{
-		std::cout << "Enter a message or press ctrl+D to exit:	";
-		getline(std::cin, input);
-		if (std::cin.eof())
-			break ;
-		harl.complain(input);
+		harl.complain("WRONG_MESSAGE");
+		return (EXIT_SUCCESS);
 	}
+	msg = argv[1];
+	harl.complain(msg);
 	return (EXIT_SUCCESS);
 }

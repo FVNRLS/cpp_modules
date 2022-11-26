@@ -6,11 +6,11 @@
 #    By: rmazurit <rmazurit@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/20 11:39:57 by rmazurit          #+#    #+#              #
-#    Updated: 2022/11/26 15:46:41 by rmazurit         ###   ########.fr        #
+#    Updated: 2022/11/26 15:56:03 by rmazurit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= 	ex05
+NAME	= 	harlFilter
 
 CC		= 	c++
 RM		= 	rm -f
