@@ -1,7 +1,17 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: rmazurit <rmazurit@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/11/27 13:41:10 by rmazurit          #+#    #+#              #
+#    Updated: 2022/11/27 13:47:31 by rmazurit         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME		=	ex00
-
 CXX			=	c++
-
 CXXFLAGS	=	-Wall -Wextra -Werror -std=c++98
 
 #directories
@@ -69,10 +79,6 @@ fclean: clean
 
 #re rule
 re: fclean all
-
-#run rule
-run: all
-	./$(NAME)
 
 #phony
 .PHONY: all clean fclean re run

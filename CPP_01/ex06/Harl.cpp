@@ -47,7 +47,7 @@ void	Harl::error() {
 	std::cout << std::endl;
 }
 
-void	Harl::wrong_func(std::string &level) {
+void	Harl::wrong_func() {
 	std::cout << "[ Probably complaining about insignificant problems ]" << std::endl;
 }
 
@@ -77,7 +77,7 @@ void    Harl::complain(std::string level) {
 	switch (i)
 	{
 		case 4:
-			wrong_func(level);
+			wrong_func();
 			break;
 		case 0:
 			(this->*_funcs[i])();

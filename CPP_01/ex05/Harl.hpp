@@ -25,18 +25,18 @@ private:
 	void		(Harl::*_funcs[NUM_FUNCTIONS])();
 	std::string	_complains[NUM_FUNCTIONS];
 
-public:
-	Harl();
-	~Harl();
-
 	void	debug();
 	void	info();
 	void	warning();
 	void	error();
 	void	wrong_func(std::string &level);
 	void	create_complains_list();
-	void    complain(std::string level);
 
-	};
+public:
+	Harl();
+	~Harl();
+
+	void    complain(std::string level);
+};
 
 #endif
