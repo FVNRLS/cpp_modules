@@ -14,10 +14,15 @@ Various exercises and practices with the programming language C++
 ## Overview
 
 
-[CPP_00](https://github.com/FVNRLS/cpp_modules/tree/main/CPP_00) | [CPP_01](https://github.com/FVNRLS/cpp_modules/tree/main/CPP_01) |
-|-------------|-------------|
-[ex00](https://github.com/FVNRLS/cpp_modules/tree/main/CPP_00/ex00) | [ex00](https://github.com/FVNRLS/cpp_modules/tree/main/CPP_01/ex00) |
-[ex01](https://github.com/FVNRLS/cpp_modules/tree/main/CPP_00/ex01) | 
-[ex02](https://github.com/FVNRLS/cpp_modules/tree/main/CPP_00/ex02) | 
+| [CPP_00](https://github.com/FVNRLS/cpp_modules/tree/main/CPP_00)    | [CPP_01](https://github.com/FVNRLS/cpp_modules/tree/main/CPP_01)    |
+|---------------------------------------------------------------------|---------------------------------------------------------------------|
+| [ex00](https://github.com/FVNRLS/cpp_modules/tree/main/CPP_00/ex00) | [ex00](https://github.com/FVNRLS/cpp_modules/tree/main/CPP_01/ex00) |
+| [ex01](https://github.com/FVNRLS/cpp_modules/tree/main/CPP_00/ex01) | [ex01](https://github.com/FVNRLS/cpp_modules/tree/main/CPP_01/ex01) |
+| [ex02](https://github.com/FVNRLS/cpp_modules/tree/main/CPP_00/ex02) | [ex02](https://github.com/FVNRLS/cpp_modules/tree/main/CPP_01/ex02) |
+|                                                                     | [ex03](https://github.com/FVNRLS/cpp_modules/tree/main/CPP_01/ex03) |
+|                                                                     | [ex04](https://github.com/FVNRLS/cpp_modules/tree/main/CPP_01/ex04) |
+|                                                                     | [ex05](https://github.com/FVNRLS/cpp_modules/tree/main/CPP_01/ex05) |
+|                                                                     | [ex06](https://github.com/FVNRLS/cpp_modules/tree/main/CPP_01/ex06) |
+
 
 
