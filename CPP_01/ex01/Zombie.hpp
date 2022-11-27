@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Zombie.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmazurit <rmazurit@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmazurit <rmazurit@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 13:15:25 by rmazurit          #+#    #+#             */
-/*   Updated: 2022/11/25 13:15:25 by rmazurit         ###   ########.fr       */
+/*   Updated: 2022/11/27 14:16:32 by rmazurit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ class	Zombie {
 
 private:
 	std::string	_name;
-
 
 public:
 	Zombie();

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   HumanB.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmazurit <rmazurit@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmazurit <rmazurit@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 13:19:42 by rmazurit          #+#    #+#             */
-/*   Updated: 2022/11/25 13:19:42 by rmazurit         ###   ########.fr       */
+/*   Updated: 2022/11/27 14:19:32 by rmazurit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,3 @@ void	HumanB::attack() {
 	else
 		std::cout << "\033[1;33m" << _name << "\033[0m" << " attacks with their " << _weapon->getType() << std::endl;
 }
-
-
