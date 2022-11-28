@@ -31,9 +31,7 @@ CUT			=	\033[K
 
 #source files
 SRC_FILES	=	main.cpp \
-				newZombie.cpp \
-				randomChump.cpp \
-				Zombie.cpp \
+				Fixed.cpp \
 
 OBJ_FILES	=	$(SRC_FILES:.cpp=.o)
 
