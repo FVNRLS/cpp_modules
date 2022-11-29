@@ -6,10 +6,12 @@ set(CMAKE_CXX_STANDARD 98)
 add_executable(CPP_02
 
         ### -- EX00 ---
-        ex00/main.cpp
-        ex00/Fixed.cpp
-        ex00/Fixed.hpp
+        #ex00/main.cpp
+        #ex00/Fixed.cpp
+        #ex00/Fixed.hpp
 
         ### -- EX01 ---
-
+        ex01/main.cpp
+        ex01/Fixed.cpp
+        ex01/Fixed.hpp
         )
