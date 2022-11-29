@@ -11,7 +11,13 @@ add_executable(CPP_02
         #ex00/Fixed.hpp
 
         ### -- EX01 ---
-        ex01/main.cpp
-        ex01/Fixed.cpp
-        ex01/Fixed.hpp
-        )
+        #ex01/main.cpp
+        #ex01/Fixed.cpp
+        #ex01/Fixed.hpp
+
+        ### -- EX02 ---
+        ex02/main.cpp
+        ex02/Fixed.cpp
+
+
+        ex02/Fixed.hpp)

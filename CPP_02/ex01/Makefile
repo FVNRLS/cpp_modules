@@ -6,11 +6,11 @@
 #    By: rmazurit <rmazurit@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/28 12:23:00 by rmazurit          #+#    #+#              #
-#    Updated: 2022/11/28 12:23:00 by rmazurit         ###   ########.fr        #
+#    Updated: 2022/11/29 13:27:37 by rmazurit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		=	ex00
+NAME		=	ex01
 CXX			=	c++
 CXXFLAGS	=	-Wall -Wextra -Werror -std=c++98
 
@@ -31,9 +31,7 @@ CUT			=	\033[K
 
 #source files
 SRC_FILES	=	main.cpp \
-				newZombie.cpp \
-				randomChump.cpp \
-				Zombie.cpp \
+				Fixed.cpp \
 
 OBJ_FILES	=	$(SRC_FILES:.cpp=.o)
 
