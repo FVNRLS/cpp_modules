@@ -30,5 +30,8 @@ int main() {
 	std::cout << "c is " << c.toInt() << " as integer" << std::endl;
 	std::cout << "d is " << d.toInt() << " as integer" << std::endl;
 
+//	std::cout << "a is " << a.toFloat() << " as float" << std::endl;
+
+
 	return 0;
 }

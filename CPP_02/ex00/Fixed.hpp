@@ -14,8 +14,7 @@
 
 #include <iostream>
 
-class Fixed
-{
+class Fixed {
 	private:
 		int					_fp_value;
 		static const int	_fract_bits;

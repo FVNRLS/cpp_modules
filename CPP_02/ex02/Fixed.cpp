@@ -146,12 +146,10 @@ const Fixed	&Fixed::max(const Fixed &first, const Fixed &second) {
 		return (second);
 }
 
-// Getter
 int	Fixed::getRawBits() const {
 	return (this->_fp_value);
 }
 
-// Setter
 void	Fixed::setRawBits(int const raw) {
 	this->_fp_value = raw;
 }
