@@ -10,7 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
+#ifndef FIXED_HPP
+# define FIXED_HPP
 
 #include <string>
 #include <iostream>
@@ -61,3 +62,5 @@ public:
 };
 
 std::ostream	&operator<<(std::ostream &o, Fixed const &fixed);
+
+#endif
