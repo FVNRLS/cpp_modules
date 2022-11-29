@@ -19,9 +19,9 @@ int	main(int argc, char **argv) {
 	if (argc < 2 || argc > 3)
 	{
 		harl.complain("WRONG_MESSAGE");
-		return (EXIT_SUCCESS);
+		return (1);
 	}
 	msg = argv[1];
 	harl.complain(msg);
-	return (EXIT_SUCCESS);
+	return (0);
 }
