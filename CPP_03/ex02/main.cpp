@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ScavTrap.hpp"
+#include "FragTrap.hpp"
 
 int	main() {
 	std::cout << "\033[1;31m******** TESTING CLAPTRAP ********\033[0m" << std::endl;
@@ -34,6 +35,22 @@ int	main() {
 	std::cout << std::endl << "\033[1;31m******** TESTING SCAVTRAP derived functions ********\033[0m" << std::endl;
 	serena.be_repaired(50); //function was not redefined, so it accesses the base-class object and doesn't affect the child
 	serena.get_info();
+
+	std::cout << std::endl;
+
+	std::cout << "\033[1;31m******** TESTING FRAGTRAP ********\033[0m" << std::endl;
+	FragTrap	frag("Frag");
+	frag.get_info();
+	frag.high_fives_guys();
+	for (int i = 0; i < 5; i++) {
+		frag.attack("others");
+	}
+	frag.get_info();
+
+	std::cout << std::endl << "\033[1;31m******** TESTING FRAGTRAP derived functions ********\033[0m" << std::endl;
+	frag.be_repaired(50); //function was not redefined, so it accesses the base-class object and doesn't affect the child
+	frag.take_damage(100); //the same as above..
+	frag.get_info();
 
 	return (0);
 }
