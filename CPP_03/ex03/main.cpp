@@ -15,15 +15,19 @@
 int	main() {
 	std::cout << "\033[1;31m******** TESTING DIAMONDTRAP ********\033[0m" << std::endl;
 	DiamondTrap diamond;
+	std::cout << "----------------------------------------------" << std::endl;
 	DiamondTrap ruby("Ruby");
+	std::cout << "----------------------------------------------" << std::endl;
 	DiamondTrap diamond_brother(diamond);
 
 	std::cout << std::endl;
 
 	diamond.whoAmI();
 	diamond.attack("a target");
+	std::cout << "----------------------------------------------" << std::endl;
 	ruby.whoAmI();
 	ruby.attack("a target");
+	std::cout << "----------------------------------------------" << std::endl;
 	diamond_brother.whoAmI();
 
 	std::cout << std::endl;
