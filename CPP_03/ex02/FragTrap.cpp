@@ -64,9 +64,3 @@ void	FragTrap::attack(const std::string &target) {
 void 	FragTrap::high_fives_guys() {
 	std::cout << "Give high five, guys!" << std::endl;
 }
-
-void	FragTrap::get_info() {
-	std::cout << "-----------------------------------------------------------" << std::endl;
-	std::cout << "FragTrap " << _name << ": hit points: " << _hit_points << " | energy points: " << _energy_points << std::endl;
-	std::cout << "----------------------------------------------------------" << std::endl;
-}

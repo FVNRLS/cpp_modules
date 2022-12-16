@@ -13,16 +13,9 @@
 #ifndef SCAVTRAP_HPP
 # define SCAVTRAP_HPP
 
-# include <iostream>
 # include "ClapTrap.hpp"
 
 class ScavTrap : public ClapTrap {
-
-private:
-	std::string	_name;
-	int			_hit_points;
-	int			_energy_points;
-	int			_damage;
 
 public:
 	ScavTrap();
@@ -34,7 +27,6 @@ public:
 
 	void	attack(const std::string &target);
 	void 	guard_gate();
-	void	get_info();
 };
 
 #endif

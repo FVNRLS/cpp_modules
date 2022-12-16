@@ -13,16 +13,9 @@
 #ifndef FRAGTRAP_HPP
 # define FRAGTRAP_HPP
 
-# include <iostream>
 # include "ClapTrap.hpp"
 
 class FragTrap : public ClapTrap {
-
-private:
-	std::string	_name;
-	int			_hit_points;
-	int			_energy_points;
-	int			_damage;
 
 public:
 	FragTrap();
@@ -34,7 +27,6 @@ public:
 
 	void	attack(const std::string &target);
 	void 	high_fives_guys();
-	void	get_info();
 };
 
 
