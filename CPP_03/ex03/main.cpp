@@ -13,7 +13,7 @@
 #include "DiamondTrap.hpp"
 
 int	main() {
-	std::cout << "\033[1;31m******** TESTING CLAPTRAP ********\033[0m" << std::endl;
+	std::cout << "\033[1;31m******** TESTING DIAMONDTRAP ********\033[0m" << std::endl;
 	DiamondTrap diamond;
 	DiamondTrap ruby("Ruby");
 	DiamondTrap diamond_brother(diamond);
