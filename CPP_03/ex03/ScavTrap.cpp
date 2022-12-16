@@ -64,9 +64,3 @@ void	ScavTrap::attack(const std::string &target) {
 void 	ScavTrap::guard_gate() {
 	std::cout << "ScavTrap " << _name << " is in gate-keeper mode" << std::endl;
 }
-
-void	ScavTrap::get_info() {
-	std::cout << "-----------------------------------------------------------" << std::endl;
-	std::cout << "ScavTrap " << _name << ": hit points: " << _hit_points << " | energy points: " << _energy_points << std::endl;
-	std::cout << "----------------------------------------------------------" << std::endl;
-}

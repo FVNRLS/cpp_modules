@@ -81,10 +81,3 @@ void	ClapTrap::be_repaired(unsigned int amount) {
 	this->_hit_points += amount;
 	this->_energy_points--;
 }
-
-void	ClapTrap::get_info() {
-	std::cout << "-----------------------------------------------------------" << std::endl;
-	std::cout << "ClapTrap " << _name << ": hit points: " << _hit_points << " | energy points: " << _energy_points << std::endl;
-	std::cout << "----------------------------------------------------------" << std::endl;
-}
-
