@@ -32,8 +32,13 @@ int	main() {
 	serena.get_info();
 
 	std::cout << std::endl << "\033[1;31m******** TESTING SCAVTRAP derived functions ********\033[0m" << std::endl;
-	serena.be_repaired(50); //function was not redefined, so it accesses the base-class object and doesn't affect the child
+	serena.be_repaired(50);
 	serena.get_info();
+	serena.take_damage(150);
+	serena.get_info();
+	serena.take_damage(150);
+
+	std::cout << std::endl;
 
 	return (0);
 }

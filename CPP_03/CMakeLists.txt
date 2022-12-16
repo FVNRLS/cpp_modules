@@ -19,13 +19,13 @@ add_executable(
 #            ex01/ScavTrap.hpp
 
         ### -- EX02 ---
-            ex02/main.cpp
-            ex02/ClapTrap.cpp
-            ex02/ClapTrap.hpp
-            ex02/ScavTrap.cpp
-            ex02/ScavTrap.hpp
-            ex02/FragTrap.cpp
-            ex02/FragTrap.hpp
+#            ex02/main.cpp
+#            ex02/ClapTrap.cpp
+#            ex02/ClapTrap.hpp
+#            ex02/ScavTrap.cpp
+#            ex02/ScavTrap.hpp
+#            ex02/FragTrap.cpp
+#            ex02/FragTrap.hpp
 
         ### -- EX03 ---
 #            ex03/main.cpp

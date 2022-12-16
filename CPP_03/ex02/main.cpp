@@ -33,7 +33,7 @@ int	main() {
 	serena.get_info();
 
 	std::cout << std::endl << "\033[1;31m******** TESTING SCAVTRAP derived functions ********\033[0m" << std::endl;
-	serena.be_repaired(50); //function was not redefined, so it accesses the base-class object and doesn't affect the child
+	serena.be_repaired(50);
 	serena.get_info();
 
 	std::cout << std::endl;
@@ -48,8 +48,8 @@ int	main() {
 	frag.get_info();
 
 	std::cout << std::endl << "\033[1;31m******** TESTING FRAGTRAP derived functions ********\033[0m" << std::endl;
-	frag.be_repaired(50); //function was not redefined, so it accesses the base-class object and doesn't affect the child
-	frag.take_damage(100); //the same as above..
+	frag.be_repaired(50);
+	frag.take_damage(100);
 	frag.get_info();
 
 	return (0);
