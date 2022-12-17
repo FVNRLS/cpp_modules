@@ -15,6 +15,7 @@
 Dog::Dog() : Animal() {
 	_type = "Dog";
 	std::cout << _type << " was created" << std::endl;
+	_brain = new Brain();
 }
 
 Dog::Dog(const Dog &src) : Animal(src) {
@@ -23,16 +24,29 @@ Dog::Dog(const Dog &src) : Animal(src) {
 }
 
 Dog::~Dog() {
+	delete(_brain);
 	std::cout << _type << " was destroyed" << std::endl;
 }
 
 Dog	&Dog::operator=(const Dog &src) {
+	std::cout << "Dog assignation operator called" << std::endl;
 	if (this == &src)
 		return *this;
 	_type = src._type;
-	return (*this);
+	_brain = new Brain();
+	*_brain = *src._brain;
+	return *this;
 }
 
 void	Dog::make_sound() const {
 	std::cout << _type << ": Woof..." << std::endl;
+}
+
+void	Dog::get_ideas() const {
+	for (int i = 0; i < NUM_IDEAS; i++)
+		std::cout << "\tIdea " << (i + 1) << " of the dog is: " << _brain->get_idea(i) << std::endl;
+}
+
+void	Dog::set_idea(int i, const std::string &idea) {
+	this->_brain->set_idea(i, idea);
 }

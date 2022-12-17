@@ -1,33 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   WrongAnimal.hpp                                    :+:      :+:    :+:   */
+/*   Brain.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmazurit <rmazurit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/16 19:02:27 by rmazurit          #+#    #+#             */
-/*   Updated: 2022/12/16 19:02:27 by rmazurit         ###   ########.fr       */
+/*   Created: 2022/12/17 17:09:39 by rmazurit          #+#    #+#             */
+/*   Updated: 2022/12/17 17:09:39 by rmazurit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WRONGANIMAL_HPP
-# define WRONGANIMAL_HPP
+#ifndef BRAIN_HPP
+# define BRAIN_HPP
 
-#include "Animal.hpp"
+#include <iostream>
 
-class WrongAnimal {
+#define NUM_IDEAS	4
 
-protected:
-	std::string	_type;
+class Brain {
+
+private:
+	std::string	_ideas[100];
 
 public:
-	WrongAnimal();
-	WrongAnimal(const WrongAnimal &src);
-	virtual ~WrongAnimal();
+	Brain();
+	Brain(const Brain &src);
+	~Brain();
 
-	WrongAnimal	&operator=(const WrongAnimal &src);
+	Brain	&operator=(const Brain &src);
 
-	virtual void	make_sound() const;
+	std::string	get_idea(int i) const;
+	void		set_idea(int i, std::string const &idea);
 };
 
 #endif

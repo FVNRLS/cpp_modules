@@ -55,8 +55,25 @@ int	main() {
 		WrongAnimal	wrong_animal;
 		WrongCat	wrong_cat;
 
+		std::cout << std::endl;
 		wrong_animal.make_sound();
 		wrong_cat.make_sound();
+		std::cout << std::endl;
+	}
+
+	std::cout << std::endl;
+
+	std::cout << "\033[1;31m******** TESTING POLYMORPHISM ********\033[0m" << std::endl;
+	{
+		std::cout << std::endl;
+		const Animal	*p_animal;
+
+		Cat	cat;
+		p_animal = &cat;
+
+		std::cout << std::endl;
+
+		p_animal->make_sound(); //access of derived object method via pointer of the base class
 		std::cout << std::endl;
 	}
 
@@ -72,9 +89,6 @@ int	main() {
 //		i->make_sound(); //will output the cat sound!
 //		j->make_sound();
 //		meta->make_sound();
-//		delete meta;
-//		delete j;
-//		delete i;
 //	}
 
 	return (0);
