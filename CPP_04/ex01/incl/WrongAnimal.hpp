@@ -23,11 +23,11 @@ protected:
 public:
 	WrongAnimal();
 	WrongAnimal(const WrongAnimal &src);
-	virtual ~WrongAnimal();
+	~WrongAnimal();
 
 	WrongAnimal	&operator=(const WrongAnimal &src);
 
-	virtual void	make_sound() const;
+	void	make_sound() const;
 };
 
 #endif

@@ -31,7 +31,7 @@ CUT			=	\033[K
 
 #source files
 SRC_FILES	=	main.cpp \
-				Animal.cpp \
+				AAnimal.cpp \
 				Dog.cpp \
 				Cat.cpp \
 				WrongAnimal.cpp \
