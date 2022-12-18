@@ -11,3 +11,12 @@
 /* ************************************************************************** */
 
 #include "../incl/Bureaucrat.hpp"
+
+Bureaucrat::Bureaucrat() : _name("Default"), _grade (150) {
+	std::cout << "Bureaucrat " << _name << " was created" << std::endl;
+}
+
+Bureaucrat::Bureaucrat(std::string &name) : _name(name), _grade (150) {
+	std::cout << "Bureaucrat " << _name << " was created" << std::endl;
+}
+
