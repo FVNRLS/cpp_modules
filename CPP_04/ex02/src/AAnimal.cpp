@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Animal.cpp                                         :+:      :+:    :+:   */
+/*   AAnimal.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmazurit <rmazurit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,34 +10,34 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incl/Animal.hpp"
+#include "../incl/AAnimal.hpp"
 
-Animal::Animal() : _type("Default animal") {
+AAnimal::AAnimal() : _type("Default animal") {
 	std::cout << _type << " was created" << std::endl;
 }
 
-Animal::Animal(const Animal &src) {
+AAnimal::AAnimal(const AAnimal &src) {
 	std::cout << "Default animal copy constructor called" << std::endl;
 	*this = src;
 }
 
-Animal::~Animal() {
+AAnimal::~AAnimal() {
 	std::cout << "Default animal was destroyed" << std::endl;
 }
 
-Animal &Animal::operator=(const Animal &src)
+AAnimal &AAnimal::operator=(const AAnimal &src)
 {
-	std::cout << "Animal assignation operator called" << std::endl;
+	std::cout << "AAnimal assignation operator called" << std::endl;
 	if (this == &src)
 		return *this;
 	_type = src._type;
 	return (*this);
 }
 
-void 	Animal::make_sound() const {
+void 	AAnimal::make_sound() const {
 	std::cout << "Default animal: default sound..." << std::endl;
 }
 
-std::string	Animal::get_type() const {
+std::string	AAnimal::get_type() const {
 	return (_type);
 }

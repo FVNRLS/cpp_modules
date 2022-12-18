@@ -15,9 +15,9 @@
 
 int main() {
 	std::cout << "\033[33m****** MAIN TEST *******\033[0m" << std::endl << std::endl;
-//	Animal	animal; // will not work, because it's a abstract class!
+//	AAnimal	animal; // will not work, because it's an abstract class!
 
-	Animal	*p_animal;
+	AAnimal	*p_animal;
 	Cat		cat;
 
 	p_animal = &cat;

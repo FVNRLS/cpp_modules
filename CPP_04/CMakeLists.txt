@@ -7,8 +7,8 @@ add_executable(CPP_04
 
         ### -- EX00 ---
 #        ex00/src/main.cpp
-#        ex00/src/Animal.cpp
-#        ex00/incl/Animal.hpp
+#        ex00/src/AAnimal.cpp
+#        ex00/incl/AAnimal.hpp
 #        ex00/src/Dog.cpp
 #        ex00/incl/Dog.hpp
 #        ex00/src/Cat.cpp
@@ -20,8 +20,8 @@ add_executable(CPP_04
 
         ### -- EX01 ---
 #        ex01/src/main.cpp
-#        ex01/src/Animal.cpp
-#        ex01/incl/Animal.hpp
+#        ex01/src/AAnimal.cpp
+#        ex01/incl/AAnimal.hpp
 #        ex01/src/Dog.cpp
 #        ex01/incl/Dog.hpp
 #        ex01/src/Cat.cpp
@@ -35,8 +35,8 @@ add_executable(CPP_04
 
         ### -- EX02 ---
         ex02/src/main.cpp
-        ex02/src/Animal.cpp
-        ex02/incl/Animal.hpp
+        ex02/src/AAnimal.cpp
+        ex02/incl/AAnimal.hpp
         ex02/src/Dog.cpp
         ex02/incl/Dog.hpp
         ex02/src/Cat.cpp

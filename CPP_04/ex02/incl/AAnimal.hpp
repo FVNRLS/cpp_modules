@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Animal.hpp                                         :+:      :+:    :+:   */
+/*   AAnimal.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmazurit <rmazurit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -15,17 +15,17 @@
 
 #include <iostream>
 
-class Animal {
+class AAnimal {
 
 protected:
 	std::string	_type;
 
 public:
-	Animal();
-	Animal(const Animal &src);
-	virtual ~Animal();
+	AAnimal();
+	AAnimal(const AAnimal &src);
+	virtual ~AAnimal();
 
-	Animal	&operator=(const Animal &src);
+	AAnimal	&operator=(const AAnimal &src);
 
 	virtual void	make_sound() const = 0;
 	std::string		get_type() const;

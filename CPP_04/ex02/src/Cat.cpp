@@ -12,7 +12,7 @@
 
 #include "../incl/Cat.hpp"
 
-Cat::Cat() : Animal() {
+Cat::Cat() : AAnimal() {
 	_type = "Cat";
 	std::cout << _type << " was created" << std::endl;
 	_brain = new Brain();
@@ -22,7 +22,7 @@ Cat::Cat() : Animal() {
 	}
 }
 
-Cat::Cat(const Cat &src) : Animal(src) {
+Cat::Cat(const Cat &src) : AAnimal(src) {
 	std::cout << _type << " copy constructor called" << std::endl;
 	*this = src;
 }
