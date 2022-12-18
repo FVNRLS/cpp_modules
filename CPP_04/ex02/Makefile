@@ -16,9 +16,9 @@ CXXFLAGS	=	-Wall -Wextra -Werror -std=c++98
 
 #directories
 PWD			=	$(shell pwd)
-SRC_DIR		=	./
+SRC_DIR		=	src/
 OBJ_DIR		=	obj/
-INC_DIR		=	./
+INC_DIR		=	incl/
 
 #controll codes
 RESET		=	\033[0m
@@ -31,7 +31,12 @@ CUT			=	\033[K
 
 #source files
 SRC_FILES	=	main.cpp \
-
+				Animal.cpp \
+				Dog.cpp \
+				Cat.cpp \
+				WrongAnimal.cpp \
+				WrongCat.cpp \
+				Brain.cpp \
 
 OBJ_FILES	=	$(SRC_FILES:.cpp=.o)
 
