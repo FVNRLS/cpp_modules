@@ -34,18 +34,18 @@ add_executable(CPP_04
 #        ex01/incl/Brain.hpp
 
         ### -- EX02 ---
-        ex02/src/main.cpp
-        ex02/src/AAnimal.cpp
-        ex02/incl/AAnimal.hpp
-        ex02/src/Dog.cpp
-        ex02/incl/Dog.hpp
-        ex02/src/Cat.cpp
-        ex02/incl/Cat.hpp
-        ex02/src/WrongAnimal.cpp
-        ex02/incl/WrongAnimal.hpp
-        ex02/src/WrongCat.cpp
-        ex02/incl/WrongCat.hpp
-        ex02/src/Brain.cpp
-        ex02/incl/Brain.hpp
+#        ex02/src/main.cpp
+#        ex02/src/AAnimal.cpp
+#        ex02/incl/AAnimal.hpp
+#        ex02/src/Dog.cpp
+#        ex02/incl/Dog.hpp
+#        ex02/src/Cat.cpp
+#        ex02/incl/Cat.hpp
+#        ex02/src/WrongAnimal.cpp
+#        ex02/incl/WrongAnimal.hpp
+#        ex02/src/WrongCat.cpp
+#        ex02/incl/WrongCat.hpp
+#        ex02/src/Brain.cpp
+#        ex02/incl/Brain.hpp
 
         )
