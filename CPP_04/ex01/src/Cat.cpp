@@ -35,15 +35,16 @@ Cat::~Cat() {
 Cat	&Cat::operator=(const Cat &src) {
 	std::cout << "Cat assignation operator called" << std::endl;
 	if (this == &src)
-		return *this;
+		return (*this);
 	_type = src._type;
-	_brain = new Brain();
+	_brain = new Brain(); //creating a deep copy of allocated brain
 	if (!_brain) {
 		perror("allocation failed");
 		exit(1);
 	}
 	*_brain = *src._brain;
-	return *this;
+	get_brain_addr(src);
+	return (*this);
 }
 
 void Cat::make_sound() const {
@@ -52,9 +53,15 @@ void Cat::make_sound() const {
 
 void	Cat::get_ideas() const {
 	for (int i = 0; i < NUM_IDEAS; i++)
-		std::cout << "\tIdea " << (i + 1) << " of the cat is: " << _brain->get_idea(i) << std::endl;
+		std::cout << "\tIdea " << (i + 1) << " of the cat is: " << _brain->get_idea(i) << std::endl << std::endl;;
 }
 
 void	Cat::set_idea(int i, const std::string &idea) {
-	this->_brain->set_idea(i, idea);
+	_brain->set_idea(i, idea);
+}
+
+void	Cat::get_brain_addr(const Cat &src) const {
+	std::cout << std::endl;
+	std::cout << "Memory address of the source cat brain:	" << &src._brain << std::endl;
+	std::cout << "Memory address of the copied cat brain:	" << &_brain << std::endl;
 }

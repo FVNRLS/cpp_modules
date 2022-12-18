@@ -26,8 +26,11 @@ Brain::~Brain() {
 }
 
 Brain	&Brain::operator=(const Brain &src) {
+	std::cout << "Brain assignation operator called" << std::endl;
+	if (this == &src)
+		return (*this);
 	for (int i = 0; i < NUM_IDEAS; i++) {
-		this->_ideas[i] = src._ideas[i];
+		set_idea(i, src._ideas[i]);
 	}
 	return (*this);
 }

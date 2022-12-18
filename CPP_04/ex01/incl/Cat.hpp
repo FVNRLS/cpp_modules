@@ -31,6 +31,7 @@ public:
 	void	make_sound() const;
 	void	get_ideas() const;
 	void	set_idea(int i, const std::string& idea);
+	void	get_brain_addr(const Cat &src) const;
 };
 
 #endif

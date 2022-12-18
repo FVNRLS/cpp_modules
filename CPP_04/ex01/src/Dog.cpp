@@ -31,11 +31,12 @@ Dog::~Dog() {
 Dog	&Dog::operator=(const Dog &src) {
 	std::cout << "Dog assignation operator called" << std::endl;
 	if (this == &src)
-		return *this;
+		return (*this);
 	_type = src._type;
 	_brain = new Brain();
 	*_brain = *src._brain;
-	return *this;
+	get_brain_addr(src);
+	return (*this);
 }
 
 void	Dog::make_sound() const {
@@ -44,9 +45,15 @@ void	Dog::make_sound() const {
 
 void	Dog::get_ideas() const {
 	for (int i = 0; i < NUM_IDEAS; i++)
-		std::cout << "\tIdea " << (i + 1) << " of the dog is: " << _brain->get_idea(i) << std::endl;
+		std::cout << "\tIdea " << (i + 1) << " of the dog is: " << _brain->get_idea(i) << std::endl << std::endl;;
 }
 
 void	Dog::set_idea(int i, const std::string &idea) {
-	this->_brain->set_idea(i, idea);
+	_brain->set_idea(i, idea);
+}
+
+void	Dog::get_brain_addr(const Dog &src) const {
+	std::cout << std::endl;
+	std::cout << "Memory address of the source dog brain:	" << &src._brain << std::endl;
+	std::cout << "Memory address of the copied dog brain:	" << &_brain << std::endl;
 }

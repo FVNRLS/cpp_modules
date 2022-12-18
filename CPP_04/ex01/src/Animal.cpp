@@ -17,7 +17,7 @@ Animal::Animal() : _type("Default animal") {
 }
 
 Animal::Animal(const Animal &src) {
-	std::cout << _type << " copy constructor called" << std::endl;
+	std::cout << "Default animal copy constructor called" << std::endl;
 	*this = src;
 }
 
@@ -34,7 +34,7 @@ Animal &Animal::operator=(const Animal &src)
 	return (*this);
 }
 
-void 	Animal::make_sound()const {
+void 	Animal::make_sound() const {
 	std::cout << "Default animal: default sound..." << std::endl;
 }
 
