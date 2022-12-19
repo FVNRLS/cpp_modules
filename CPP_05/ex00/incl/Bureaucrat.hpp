@@ -29,22 +29,22 @@ public:
 
 	Bureaucrat	&operator=(const Bureaucrat &src);
 
-	void	increment_grade(int num);
-	void 	decrement_grade(int num);
+	void		increment_grade();
+	void 		decrement_grade();
 
 	std::string get_name() const;
 	int 		get_grade() const;
 
 	class GradeTooLowException : public std::exception
 	{
-		public:
-			virtual const char *txt_except() const throw();
+	public:
+		virtual const char *txt_except() const throw();
 	};
 
 	class GradeTooHighException : public std::exception
 	{
-		public:
-			virtual const char *txt_except() const throw();
+	public:
+		virtual const char *txt_except() const throw();
 	};
 };
 

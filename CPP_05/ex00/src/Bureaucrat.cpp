@@ -50,25 +50,21 @@ const char *Bureaucrat::GradeTooHighException::txt_except() const throw() {
 	return (" is too high");
 }
 
-void	Bureaucrat::increment_grade(int num) {
-	if ((_grade + num) > 150)
-		throw GradeTooLowException();
-	else if ((_grade + num) < 1)
+void	Bureaucrat::increment_grade() {
+	if ((_grade - 1) < 1)
 		throw GradeTooHighException();
 	else {
-		_grade += num;
-		std::cout << _name << " was incremented by " << num << std::endl;
+		_grade -= 1;
+		std::cout << _name << " was incremented" << std::endl;
 	}
 }
 
-void 	Bureaucrat::decrement_grade(int num) {
-	if ((_grade - num) > 150)
+void 	Bureaucrat::decrement_grade() {
+	if ((_grade + 1) > 150)
 		throw GradeTooLowException();
-	else if ((_grade - num) < 1)
-		throw GradeTooHighException();
 	else {
-		_grade -= num;
-		std::cout << _name << " was decremented by " << num << std::endl;
+		_grade += 1;
+		std::cout << _name << " was decremented" << std::endl;
 	}
 }
 

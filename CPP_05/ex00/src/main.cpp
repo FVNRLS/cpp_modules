@@ -13,14 +13,11 @@
 #include "../incl/Bureaucrat.hpp"
 
 #define GRADE			1
-#define INCR_NUM		100
-#define DECR_NUM		250
 
 int main() {
 	int ret;
 
 	ret = 0;
-
 	//TESTING CONSTRUCTION
 	std::cout << "\033[33m****** TESTING CONSTRUCTION *******\033[0m" << std::endl;
 	Bureaucrat *bureaucrat;
@@ -42,30 +39,22 @@ int main() {
 	//TESTING INCREMENTAL
 	std::cout << "\033[33m****** TESTING INCREMENTAL *******\033[0m" << std::endl;
 	try {
-		bureaucrat->increment_grade(INCR_NUM);
+		bureaucrat->increment_grade();
 		std::cout << bureaucrat << std::endl;
 	}
 	catch (Bureaucrat::GradeTooHighException &exception) {
-		std::cerr << "Bureaucrat incremental failed: result grade " << INCR_NUM << exception.txt_except() << std::endl;
-		ret = 1;
-	}
-	catch (Bureaucrat::GradeTooLowException &exception) {
-		std::cerr << "Bureaucrat incremental failed: result grade " << INCR_NUM << exception.txt_except() << std::endl;
+		std::cerr << "Bureaucrat incremental failed: result grade " << bureaucrat->get_grade() - 1 << exception.txt_except() << std::endl;
 		ret = 1;
 	}
 
 	//TESTING DECREMENTAL
 	std::cout << "\033[33m****** TESTING DECREMENTAL *******\033[0m" << std::endl;
 	try {
-		bureaucrat->decrement_grade(DECR_NUM);
+		bureaucrat->decrement_grade();
 		std::cout << bureaucrat << std::endl;
 	}
-	catch (Bureaucrat::GradeTooHighException &exception) {
-		std::cerr << "Bureaucrat decremental failed: result grade " << DECR_NUM << exception.txt_except() << std::endl;
-		ret = 1;
-	}
 	catch (Bureaucrat::GradeTooLowException &exception) {
-		std::cerr << "Bureaucrat decremental failed: result grade " << DECR_NUM << exception.txt_except() << std::endl;
+		std::cerr << "Bureaucrat decremental failed: result grade " << bureaucrat->get_grade() + 1  << exception.txt_except() << std::endl;
 		ret = 1;
 	}
 
