@@ -31,6 +31,7 @@ CUT			=	\033[K
 
 #source files
 SRC_FILES	=	main.cpp \
+				Bureaucrat.cpp \
 
 
 OBJ_FILES	=	$(SRC_FILES:.cpp=.o)
