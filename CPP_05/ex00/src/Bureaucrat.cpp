@@ -12,7 +12,7 @@
 
 #include "../incl/Bureaucrat.hpp"
 
-Bureaucrat::Bureaucrat() : _name("Bureaucrat"), _grade (1) {
+Bureaucrat::Bureaucrat() : _name("Default bureaucrat"), _grade (1) {
 	std::cout << _name << " was created" << std::endl;
 }
 
@@ -27,7 +27,7 @@ Bureaucrat::Bureaucrat(int grade) : _name("Bureaucrat") {
 }
 
 Bureaucrat::~Bureaucrat() {
-	std::cout << "Bureaucrat " << _name << " was destroyed" << std::endl;
+	std::cout << _name << " was destroyed" << std::endl;
 }
 
 Bureaucrat::Bureaucrat(const Bureaucrat &src) {
@@ -36,6 +36,7 @@ Bureaucrat::Bureaucrat(const Bureaucrat &src) {
 }
 
 Bureaucrat	&Bureaucrat::operator=(const Bureaucrat &src) {
+	std::cout << "Bureaucrat assignment operator called" << std::endl;
 	if (this == &src)
 		return (*this);
 	this->_grade = src._grade;

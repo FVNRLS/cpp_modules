@@ -12,7 +12,7 @@
 
 #include "../incl/Bureaucrat.hpp"
 
-#define GRADE			1
+#define GRADE	1
 
 int main() {
 	int ret;

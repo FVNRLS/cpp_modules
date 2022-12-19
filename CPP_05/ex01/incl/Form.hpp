@@ -1,39 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Bureaucrat.hpp                                     :+:      :+:    :+:   */
+/*   Form.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmazurit <rmazurit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/18 19:03:48 by rmazurit          #+#    #+#             */
-/*   Updated: 2022/12/18 19:03:48 by rmazurit         ###   ########.fr       */
+/*   Created: 2022/12/19 17:02:44 by rmazurit          #+#    #+#             */
+/*   Updated: 2022/12/19 17:02:44 by rmazurit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUREAUCRAT_HPP
-# define BUREAUCRAT_HPP
+#ifndef FORM_HPP
+# define FORM_HPP
 
-#include <iostream>
+#include "Bureaucrat.hpp"
 
-class Bureaucrat {
+class Form {
 
 private:
-	std::string const	_name;
-	int 				_grade;
+	const std::string	_name;
+	const int			_sign_grade;
+	const int			_exec_grade;
+	bool 				_is_signed;
 
 public:
-	Bureaucrat();
-	Bureaucrat(int grade);
-	Bureaucrat(const Bureaucrat &src);
-	~Bureaucrat();
+	Form();
+	Form(int sign_grade, int exec_grade);
+	Form(const Form &src);
+	~Form();
 
-	Bureaucrat	&operator=(const Bureaucrat &src);
+	Form		&operator=(const Form &src);
 
-	void		increment_grade();
-	void 		decrement_grade();
+	void		be_signed(Bureaucrat &bureaucrat);
 
 	std::string get_name() const;
-	int 		get_grade() const;
+	int 		get_sign_grade() const;
+	int 		get_exec_grade() const;
 
 	class GradeTooLowException : public std::exception {
 	public:
@@ -46,6 +48,7 @@ public:
 	};
 };
 
-std::ostream	&operator<<(std::ostream &o, Bureaucrat *a);
+std::ostream &operator<<(std::ostream &o, Form *a);
 
 #endif
+
