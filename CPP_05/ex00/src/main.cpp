@@ -13,7 +13,7 @@
 #include "../incl/Bureaucrat.hpp"
 
 #define GRADE			1
-#define INCR_NUM		200
+#define INCR_NUM		100
 #define DECR_NUM		250
 
 int main() {
@@ -77,5 +77,5 @@ int main() {
 
 //	system("leaks ex00");
 
-	return (1);
+	return (ret);
 }

@@ -56,7 +56,7 @@ void	Bureaucrat::increment_grade(int num) {
 	else if ((_grade + num) < 1)
 		throw GradeTooHighException();
 	else {
-		_grade += (int)num;
+		_grade += num;
 		std::cout << _name << " was incremented by " << num << std::endl;
 	}
 }
@@ -67,7 +67,7 @@ void 	Bureaucrat::decrement_grade(int num) {
 	else if ((_grade - num) < 1)
 		throw GradeTooHighException();
 	else {
-		_grade -= (int)num;
+		_grade -= num;
 		std::cout << _name << " was decremented by " << num << std::endl;
 	}
 }
@@ -80,8 +80,7 @@ int	Bureaucrat::get_grade() const {
 	return (_grade);
 }
 
-std::ostream	&operator<<(std::ostream &o, Bureaucrat *a)
-{
+std::ostream	&operator<<(std::ostream &o, Bureaucrat *a) {
 	o << "Name: " << a->get_name() << ", grade: " << a->get_grade() << std::endl;
 	return (o);
 }
