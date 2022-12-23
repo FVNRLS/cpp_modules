@@ -6,7 +6,7 @@
 #    By: rmazurit <rmazurit@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/16 16:59:51 by rmazurit          #+#    #+#              #
-#    Updated: 2022/12/16 20:13:56 by rmazurit         ###   ########.fr        #
+#    Updated: 2022/12/23 17:35:48 by rmazurit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,11 @@ CUT			=	\033[K
 
 #source files
 SRC_FILES	=	main.cpp \
-
+				Bureaucrat.cpp \
+				AForm.cpp \
+				ShrubberyCreationForm.cpp \
+				RobotomyRequestForm.cpp  \
+				PresidentialPardonForm.cpp  \
 
 OBJ_FILES	=	$(SRC_FILES:.cpp=.o)
 
