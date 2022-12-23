@@ -10,10 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUREAUCRAT_HPP
-# define BUREAUCRAT_HPP
+#pragma once
 
+#include "Form.hpp"
 #include <iostream>
+
+class Form;
 
 class Bureaucrat {
 
@@ -31,7 +33,7 @@ public:
 
 	void		increment_grade();
 	void 		decrement_grade();
-	void		sign_form();
+	void		sign_form(Form &form);
 
 	std::string get_name() const;
 	int 		get_grade() const;
@@ -50,5 +52,3 @@ public:
 };
 
 std::ostream	&operator<<(std::ostream &o, Bureaucrat *a);
-
-#endif

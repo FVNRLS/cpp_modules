@@ -12,8 +12,8 @@
 
 #include "../incl/Form.hpp"
 
-#define GRADE		5
-#define SIGN_GRADE	1
+#define GRADE		1
+#define SIGN_GRADE	2
 #define EXEC_GRADE	1
 
 int main() {
@@ -47,15 +47,34 @@ int main() {
 		std::cout << form << std::endl;
 	}
 	catch (Form::GradeTooHighException &exception) {
-		std::cerr << "Bureaucrat instantiation failed: init grade" << exception.txt_except() << std::endl;
+		std::cerr << "Form instantiation failed: " << exception.txt_except() << std::endl;
 		delete bureaucrat;
 		return (1);
 	}
 	catch (Form::GradeTooLowException &exception) {
-		std::cerr << "Bureaucrat instantiation failed: init grade" << exception.txt_except() << std::endl;
+		std::cerr << "Form instantiation failed: " << exception.txt_except() << std::endl;
 		delete bureaucrat;
 		return (1);
 	}
+
+	//SIGN FORM
+	std::cout << "\033[33m****** TESTING SIGNING FORM *******\033[0m" << std::endl;
+	try {
+		bureaucrat->sign_form(*form);
+	}
+	catch (Form::GradeTooLowException &exception) {
+		std::cerr << bureaucrat->get_name() << " couldn’t sign " << form->get_name() << " because his "
+		<< exception.txt_except() << std::endl;
+	}
+//	try {
+//		bureaucrat->sign_form(*form);
+//	}
+//	catch (Form::GradeTooLowException &exception) {
+//		std::cerr << bureaucrat->get_name() << " couldn’t sign " << form->get_name() << " because his "
+//				  << exception.txt_except() << std::endl;
+//	}
+
+	std::cout << std::endl;
 
 	//DESTRUCTION
 	std::cout << "\033[33m****** DESTRUCTION *******\033[0m" << std::endl;
@@ -66,7 +85,7 @@ int main() {
 		delete form;
 	}
 
-	system("leaks ex01");
+//	system("leaks ex01");
 
 	return (ret);
 }

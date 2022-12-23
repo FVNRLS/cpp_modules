@@ -43,11 +43,13 @@ Form	&Form::operator=(const Form &src) {
 
 void	Form::be_signed(Bureaucrat &bureaucrat) {
 	if (_is_signed) {
-		std::cout << "The form was already signed - no need to sign twice!";
+		std::cerr << bureaucrat.get_name() << " couldn’t sign " << _name
+		<< " because the form was already signed" << std::endl;
 		return;
 	}
-	else if (bureaucrat.get_grade() > _sign_grade)
+	else if (bureaucrat.get_grade() > _sign_grade) {
 		throw(Form::GradeTooLowException());
+	}
 	_is_signed = true;
 }
 
@@ -64,16 +66,16 @@ int	Form::get_exec_grade() const {
 }
 
 const char *Form::GradeTooLowException::txt_except() const throw() {
-	return (" is too low");
+	return ("grade is too low");
 }
 
 const char *Form::GradeTooHighException::txt_except() const throw() {
-	return (" is too high");
+	return ("grade is too high");
 }
 
 std::ostream	&operator<<(std::ostream &o, Form *a) {
-	o << "Name: " << a->get_name() << ", sign grade: " << a->get_exec_grade() << " exec grade: "
-															<< a->get_exec_grade() << std::endl;
+	o << "Name: " << a->get_name() << ", Sign grade: " << a->get_sign_grade() << ", Exec grade: "
+	<< a->get_exec_grade() << std::endl;
 	return (o);
 }
 
