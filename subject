@@ -1,7 +1,0 @@
-The grades of the Form follow the same rules that apply to the Bureaucrat.
-Thus, the following exceptions will be thrown if a form grade is out of bounds:
-Form::GradeTooHighException and Form::GradeTooLowException.
-Same as before, write getters for all attributes and an overload of the insertion («) operator
-that prints all the form’s informations.
-
-
