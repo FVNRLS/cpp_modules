@@ -18,7 +18,7 @@
 
 int main() {
 	//TESTING CONSTRUCTION
-	std::cout << "\033[33m****** TESTING CONSTRUCTION BUREAUCRAT *******\033[0m" << std::endl;
+	std::cout << "\033[33m****** TESTING CONSTRUCTION *******\033[0m" << std::endl;
 	Bureaucrat *bureaucrat;
 
 	bureaucrat = NULL;

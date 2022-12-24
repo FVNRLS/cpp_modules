@@ -10,18 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incl/ShrubberyCreationForm.hpp"
-#include "../incl/RobotomyRequestForm.hpp"
-#include "../incl/PresidentialPardonForm.hpp"
+#include "../incl/Intern.hpp"
 
 #define GRADE	5
 
 int main() {
-	//TESTING CONSTRUCTION
-	std::cout << "\033[33m****** TESTING CONSTRUCTION BUREAUCRAT *******\033[0m" << std::endl;
-	Bureaucrat *bureaucrat;
+//TESTING CONSTRUCTION
+	std::cout << "\033[33m****** TESTING CONSTRUCTION *******\033[0m" << std::endl;
 
-	bureaucrat = NULL;
+	Bureaucrat	*bureaucrat = NULL;
+	AForm		*form = NULL;
+	Intern		intern;
+
 	try {
 		bureaucrat = new Bureaucrat(GRADE);
 		std::cout << bureaucrat << std::endl;
@@ -35,89 +35,40 @@ int main() {
 		return (1);
 	}
 
-	//CONSTRUCTING FORMS
-	std::string	shrubbery_name = "tree";
-	ShrubberyCreationForm shrubbery(shrubbery_name);
-	std::cout << &shrubbery;
+	std::cout << std::endl << "\033[33m****** MAKING A FORM BY INTERN *******\033[0m" << std::endl;
+	std::string	name;
+	std::string target;
 
-	std::cout << std::endl;
+	name = "ShrubberyCreationForm";
+	target = "new_tree";
 
-	std::string	robot_name = "future_robot";
-	RobotomyRequestForm	robot(robot_name);
-	std::cout << &robot;
+	form = intern.makeForm(name, target);
+	if (!form)
+		return (1);
 
-	std::cout << std::endl;
-
-	std::string	pres_name = "president";
-	PresidentialPardonForm president(pres_name);
-	std::cout << &president;
-
-	//SHRUBBERY
-	std::cout << std::endl << "\033[33m****** TESTING SHRUBBERY *******\033[0m" << std::endl;
+	std::cout << std::endl << "\033[33m****** TESTING SIGNING FORM *******\033[0m" << std::endl;
 	try {
-		bureaucrat->sign_form(shrubbery);
+		bureaucrat->sign_form(*form);
 	}
-	catch (ShrubberyCreationForm::GradeTooLowException &exception) {
-		std::cerr << bureaucrat->get_name() << " couldn’t sign ShrubberyCreationForm, because his "
-				  << exception.txt_except() << std::endl;
-	}
-//	try {
-//		bureaucrat->sign_form(shrubbery);
-//	}
-//	catch (ShrubberyCreationForm::GradeTooLowException &exception) {
-//		std::cerr << bureaucrat->get_name() << " couldn’t sign ShrubberyCreationForm, because his "
-//				  << exception.txt_except() << std::endl;
-//	}
-	try {
-		bureaucrat->execute_form(shrubbery);
-	}
-	catch (ShrubberyCreationForm::GradeTooLowException &exception) {
-		std::cerr << bureaucrat->get_name() << " couldn’t execute ShrubberyCreationForm, because his "
+	catch (AForm::GradeTooLowException &exception) {
+		std::cerr << bureaucrat->get_name() << " couldn’t sign " << name << ", because his "
 				  << exception.txt_except() << std::endl;
 	}
 
-	//ROBOTOMY
-	std::cout << std::endl << "\033[33m****** TESTING ROBOTOMY *******\033[0m" << std::endl;
+	std::cout << std::endl << "\033[33m****** TESTING EXECUTING FORM *******\033[0m" << std::endl;
 	try {
-		bureaucrat->sign_form(robot);
+		bureaucrat->execute_form(*form);
 	}
-	catch (RobotomyRequestForm::GradeTooLowException &exception) {
-		std::cerr << bureaucrat->get_name() << " couldn’t sign RobotomyRequestForm, because his "
+	catch (AForm::GradeTooLowException &exception) {
+		std::cerr << bureaucrat->get_name() << " couldn’t execute " << name << ", because his "
 				  << exception.txt_except() << std::endl;
 	}
-	try {
-		bureaucrat->execute_form(robot);
-	}
-	catch (RobotomyRequestForm::GradeTooLowException &exception) {
-		std::cerr << "Robotomy failed for " << bureaucrat->get_name() << ", because his "
-				  << exception.txt_except() << std::endl;
-	}
-
-	//PRESIDENT
-	std::cout << std::endl << "\033[33m****** TESTING PRESIDENTIAL PARDON *******\033[0m" << std::endl;
-	try {
-		bureaucrat->sign_form(president);
-	}
-	catch (PresidentialPardonForm::GradeTooLowException &exception) {
-		std::cerr << bureaucrat->get_name() << " couldn’t sign PresidentialPardonForm, because his "
-				  << exception.txt_except() << std::endl;
-	}
-	try {
-		bureaucrat->execute_form(president);
-	}
-	catch (PresidentialPardonForm::GradeTooLowException &exception) {
-		std::cerr << bureaucrat->get_name() << " couldn’t execute PresidentialPardonForm, because his "
-				  << exception.txt_except() << std::endl;
-	}
-
-	std::cout << std::endl;
 
 	//DESTRUCTION
-	std::cout << "\033[33m****** DESTRUCTION *******\033[0m" << std::endl;
-	if (bureaucrat != NULL) {
-		delete bureaucrat;
-	}
+	std::cout << std::endl << "\033[33m****** DESTRUCTION *******\033[0m" << std::endl;
+	delete bureaucrat;
+	delete form;
 
-//	system("leaks ex02");
+//	system("leaks ex03");
 	return (0);
 }
