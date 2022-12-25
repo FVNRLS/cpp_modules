@@ -12,8 +12,16 @@
 
 #include "../incl/Converter.hpp"
 
-int main () {
+int main (int argc, char **argv) {
 
+	if (argc != 2) {
+		std::cout << "Enter a number to convert" << std::endl;
+		return (0);
+	}
+
+	std::string input;
+	input = argv[1];
+	Converter	converter(input);
 
 	return (0);
 }
