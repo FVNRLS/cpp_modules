@@ -20,6 +20,7 @@ int main () {
 		identify(base);
 		identify(*base);
 		std::cout << std::endl;
+		delete base;
 	}
 	return (0);
 }
