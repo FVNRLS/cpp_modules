@@ -13,11 +13,9 @@
 #include "../incl/Converter.hpp"
 
 Converter::Converter() : _input("No input") {
-	std::cout << "Converter was created with input: " << _input << std::endl;
 }
 
 Converter::Converter(const std::string &input) : _input(input) {
-	std::cout << "Converter was created with input: " << _input << std::endl;
 	convert();
 }
 
@@ -27,7 +25,6 @@ Converter::Converter(const Converter &src) {
 }
 
 Converter::~Converter() {
-	std::cout << "Converter was destroyed" << std::endl;
 }
 
 Converter &Converter::operator=(const Converter &src) {
@@ -41,29 +38,33 @@ Converter &Converter::operator=(const Converter &src) {
 	return (*this);
 }
 
-static bool	check_sign_pos(const std::string input) {
+static bool	check_sign_pos(const std::string &input) {
 	int minus_pos;
 	int plus_pos;
 
-
 	minus_pos = input.find('-');
-	plus_pos = input.find('-');
-	std::cout << plus_pos << std::endl;
+	plus_pos = input.find('+');
+	if ((minus_pos != 0 && minus_pos != -1) || (plus_pos != 0 && plus_pos != -1))
+		return (false);
 	return (true);
 }
 
 int	Converter::identify_type() {
 
-	check_sign_pos(_input);
-	if (_input.find_first_of("+-") != _input.find_last_of("+-")) // catches any multiple or mixed use of the characters
+	if (check_sign_pos(_input) == false)
 		return (ERROR);
-	else if (check_char() == true) {
-		return (DISPL_CHAR);
-	}
+	else if (_input.find_first_of("+-") != _input.find_last_of("+-"))
+		return (ERROR);
+	else if (check_char() == true)
+			return (CHAR);
 	else if (check_int() == true)
 		return (INT);
 	else if (check_float() == true)
 		return (FLOAT);
+	else if (check_double() == true)
+		return (DOUBLE);
+	else if (check_nan_inf() == true)
+		return (NAN_INF);
 	else
 		return (ERROR);
 }
@@ -107,12 +108,13 @@ bool	Converter::check_float() const {
 			return (false);
 		else if (_input.find_first_of('.') != _input.find_last_of('.'))
 			return (false);
+		else if (_input.find('.') > _input.length())
+			return (false);
 		else if (isdigit(_input[_input.find_first_of('.') + 1]) == 0)
 			return (false);
 		else if (_input.find_first_of('f') != _input.find_last_of('f'))
 			return (false);
 		input = _input.substr(0, _input.length() - 1).c_str();
-		std::cout << input << std::endl;
 		num = strtod(input, NULL);
 		if (num < -FLT_MAX || num > FLT_MAX)
 			return (false);
@@ -130,25 +132,118 @@ bool	Converter::check_double() const {
 			return (false);
 		else if (_input[1] == '.' && (_input[0] == '-' || _input[0] == '+'))
 			return (false);
-		else if (_input[_input.length() - 1] != 'f')
-			return (false);
 		else if (_input.find_first_of('.') != _input.find_last_of('.'))
+			return (false);
+		else if (_input.find('.') > _input.length())
 			return (false);
 		else if (isdigit(_input[_input.find_first_of('.') + 1]) == 0)
 			return (false);
-		else if (_input.find_first_of('f') != _input.find_last_of('f'))
-			return (false);
-		input = _input.substr(0, _input.length() - 1).c_str();
-		std::cout << input << std::endl;
-		num = strtod(input, NULL);
-		if (num < -FLT_MAX || num > FLT_MAX)
+		input = _input.c_str();
+		num = strtold(input, NULL);
+		if (num < -DBL_MAX || num > DBL_MAX)
 			return (false);
 		return (true);
 	}
 	return (false);
 }
 
+bool	Converter::check_nan_inf() const {
+	std::string infs[6] = {"nan", "nanf", "+inf", "-inf", "+inff", "-inff"};
+
+	for (int i = 0; i < 6; i++) {
+		if (_input == infs[i])
+			return (true);
+	}
+	return (false);
+}
+
+void	Converter::convert_to_char() {
+	_char = static_cast<unsigned char>(_input[0]);
+	_int = static_cast<int>(_char);
+	_float = static_cast<float>(_char);
+	_double = static_cast<double>(_char);
+}
+
+void	Converter::convert_to_int() {
+	_int = static_cast<int>(strtol(_input.c_str(), NULL, 10));
+	_char = static_cast<unsigned char>(_int);
+	_float = static_cast<float>(_int);
+	_double = static_cast<double>(_int);
+}
+
+void	Converter::convert_to_float() {
+	_float = static_cast<float>(strtof(_input.substr(0, _input.length() - 1).c_str(), NULL));
+	_int = static_cast<int>(_float);
+	_double = static_cast<double>(_float);
+	_char = static_cast<unsigned char>(_int);
+}
+
+void	Converter::convert_to_double() {
+	_double = static_cast<double>(strtod(_input.c_str(), NULL));
+	_int = static_cast<int>(_double);
+	_char = static_cast<unsigned char>(_int);
+	_float = static_cast<float>(_double);
+}
+
+void 	Converter::print_conversion() const {
+	if (0 <= _int && _int < 32)
+		std::cout << "char: Non displayable" << std::endl;
+	else if (_int < 0 || _int > CHAR_MAX)
+		std::cout << "char: impossible"<< std::endl;
+	else
+		std::cout << "char: " << _char << std::endl;
+
+	if (_float < static_cast<float>(INT_MIN) - 1 || _float > static_cast<float>(INT_MAX) + 1
+		|| _double < static_cast<double >(INT_MIN) -1 || _double > static_cast<double >(INT_MAX) + 1)
+			std::cout << "int: impossible"<< std::endl;
+	else
+		std::cout << "int: " << _int << std::endl;
+
+	if (_float - static_cast<float>(_int) == 0)
+		std::cout << "float: " << _float << ".0f" << std::endl;
+	else
+		std::cout << "float: " << _float << "f" << std::endl;
+
+	if (_float - static_cast<double>(_int) == 0)
+		std::cout << "double: " << _double << ".0" << std::endl;
+	else
+		std::cout << "double: " << _double << std::endl;
+}
+
+void	Converter::print_nan_inf() {
+	std::cout << "char: impossible" << std::endl;
+	std::cout << "int: imbossible" << std::endl;
+	if (_input == "nan" || _input == "nanf") {
+		std::cout << "float: nanf" << std::endl;
+		std::cout << "double: nan" << std::endl;
+	}
+	else if (_input == "+inf" || _input == "+inff") {
+		std::cout << "float: +inff" << std::endl;
+		std::cout << "double: +inf" << std::endl;
+	}
+	else {
+		std::cout << "float: -inff" << std::endl;
+		std::cout << "double: -inf" << std::endl;
+	}
+}
+
 void	Converter::convert() {
 	_type = identify_type();
-	std::cout << _type << std::endl;
+	if (_type == ERROR) {
+		std::cout << "Error: invalid input" << std::endl;
+		return;
+	}
+	else if (_type == NAN_INF) {
+		print_nan_inf();
+		return;
+	}
+	else if (_type == CHAR)
+		convert_to_char();
+	else if (_type == INT)
+		convert_to_int();
+	else if (_type == FLOAT)
+		convert_to_float();
+	else
+		convert_to_double();
+	print_conversion();
 }
