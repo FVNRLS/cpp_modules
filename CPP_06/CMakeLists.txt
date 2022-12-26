@@ -11,7 +11,13 @@ add_executable(CPP_06
 #        ex00/incl/Converter.hpp
 
         ### -- EX01 ---
-        ex01/src/main.cpp
-        ex01/src/Serializer.cpp
-        ex01/incl/Serializer.hpp
+#        ex01/src/main.cpp
+#        ex01/src/Serializer.cpp
+#        ex01/incl/Serializer.hpp
+
+        ### -- EX02 ---
+
+        ex02/src/main.cpp
+        ex02/src/TypeIdentifier.cpp
+        ex02/incl/TypeIdentifier.hpp
         )
