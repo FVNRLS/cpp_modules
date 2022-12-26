@@ -13,9 +13,11 @@
 #include "../incl/Converter.hpp"
 
 Converter::Converter() : _input("No input") {
+	std::cout << "Converter was constructed with input: " << _input << std::endl << std::endl;
 }
 
 Converter::Converter(const std::string &input) : _input(input) {
+	std::cout << "Converter was constructed with input: " << _input << std::endl << std::endl;
 	convert();
 }
 
@@ -25,6 +27,7 @@ Converter::Converter(const Converter &src) {
 }
 
 Converter::~Converter() {
+	std::cout << std::endl << "Converter was destroyed" << std::endl;
 }
 
 Converter &Converter::operator=(const Converter &src) {
@@ -69,12 +72,6 @@ int	Converter::identify_type() {
 		return (ERROR);
 }
 
-/*
- * Preliminaries for a CHAR:
- * 1)	should bea alphanum
- * 2) 	should be printable
- * 3) 	Length should be 1
- * */
 bool	Converter::check_char() const {
 	if (_input.length() == 1 && std::isalpha(_input[0]) && (std::isprint(_input[0]) == 1))
 		return (true);
