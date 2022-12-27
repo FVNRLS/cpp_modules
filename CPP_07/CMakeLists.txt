@@ -10,10 +10,10 @@ add_executable(CPP_07
 #        ex00/incl/whatever.hpp
 
         ### -- EX01 ---
-        ex01/src/main.cpp
-        ex01/incl/iter.hpp
+#        ex01/src/main.cpp
+#        ex01/incl/iter.hpp
 
         ### -- EX02 ---
-
-
+        ex02/src/main.cpp
+        ex02/incl/Array.hpp
         )
