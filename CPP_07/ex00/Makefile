@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME		=	convert
+NAME		=	ex00
 CXX			=	c++
 CXXFLAGS	=	-Wall -Wextra -Werror -std=c++98
 
@@ -31,8 +31,6 @@ CUT			=	\033[K
 
 #source files
 SRC_FILES	=	main.cpp \
-				whatever.cpp \
-
 
 OBJ_FILES	=	$(SRC_FILES:.cpp=.o)
 

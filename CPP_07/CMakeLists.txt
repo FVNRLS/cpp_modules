@@ -7,7 +7,6 @@ add_executable(CPP_07
 
         ### -- EX00 ---
         ex00/src/main.cpp
-        ex00/src/whatever.cpp
         ex00/incl/whatever.hpp
 
         ### -- EX01 ---

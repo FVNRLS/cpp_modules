@@ -14,3 +14,28 @@
 
 #include "iostream"
 
+template<typename S>
+
+void	swap(S &x, S &y) {
+	S temp = x;
+	x = y;
+	y = temp;
+}
+
+template<class X>
+
+const X	&max(const X &x, const X &y) {
+	if (x > y)
+		return (x);
+	else
+		return (y);
+}
+
+template<typename N>
+
+const N	&min(const N &x, const N &y) {
+	if (x < y)
+		return (x);
+	else
+		return (y);
+}
