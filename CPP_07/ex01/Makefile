@@ -6,11 +6,11 @@
 #    By: rmazurit <rmazurit@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/16 16:59:51 by rmazurit          #+#    #+#              #
-#    Updated: 2022/12/26 19:45:55 by rmazurit         ###   ########.fr        #
+#    Updated: 2022/12/27 15:31:23 by rmazurit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		=	convert
+NAME		=	ex01
 CXX			=	c++
 CXXFLAGS	=	-Wall -Wextra -Werror -std=c++98
 
