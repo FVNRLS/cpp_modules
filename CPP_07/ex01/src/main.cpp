@@ -21,9 +21,9 @@ void	to_upper(char &c) {
 }
 
 //template printer function - just for better visualisation
-template <typename T>
+template <typename P>
 
-void print_tab(T *tab) {
+void print_tab(P *tab) {
 	for (int i = 0; i < 5; i++) {
 		if (i < 4)
 			std::cout << tab[i] << ", ";
