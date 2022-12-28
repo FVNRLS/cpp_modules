@@ -6,11 +6,14 @@ set(CMAKE_CXX_STANDARD 98)
 add_executable(CPP_08
 
         ### -- EX00 ---
-        ex00/src/main.cpp
-        ex00/incl/easyfind.hpp
+#        ex00/src/main.cpp
+#        ex00/incl/easyfind.hpp
 
-        ### -- EX00 ---
+        ### -- EX01 ---
+        ex01/src/main.cpp
+        ex01/src/Span.cpp
+        ex01/incl/Span.hpp
 
-
+        ### -- EX02 ---
 
         )
