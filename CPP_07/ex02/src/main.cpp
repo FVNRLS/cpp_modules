@@ -85,10 +85,6 @@ int main() {
 			std::cerr << "Error: " << e.what() << std::endl;
 		}
 
-
-
-
-
 		std::cout << std::endl;
 		std::cout << std::endl << "\033[33m****** TESTING DESTRUCTOR*******\033[0m" << std::endl << std::endl;
 	}
