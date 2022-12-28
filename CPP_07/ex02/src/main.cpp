@@ -77,7 +77,7 @@ int main() {
 			copy[i]++;
 			std::cout << copy[i] << " ";
 		}
-		std::cout << std::endl << "Trying to access index out of range:" << std::endl;
+		std::cout << std::endl << std::endl << "Trying to access index out of range:" << std::endl;
 		try {
 			std::cout << copy[NUM + 1] << std::endl;
 		}
