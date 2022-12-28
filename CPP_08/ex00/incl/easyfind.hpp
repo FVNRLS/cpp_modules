@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   easyfind.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmazurit <rmazurit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/28 14:11:45 by rmazurit          #+#    #+#             */
-/*   Updated: 2022/12/28 14:11:45 by rmazurit         ###   ########.fr       */
+/*   Created: 2022/12/28 12:49:53 by rmazurit          #+#    #+#             */
+/*   Updated: 2022/12/28 12:49:53 by rmazurit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incl/easyfind.hpp"
+#pragma once
 
-int main() {
+#include <iostream>
+#include <vector>
 
-	std::vector<char> v;
+template <typename T>
 
-	v.push_back('a');
-	v.push_back('b');
-	v.push_back('c');
+int easyfind(T container, int value) {
+	typename T::iterator it;
 
-	int pos = easyfind(v, 'a');
-	if (pos == -1)
-		std::cout << "Item not found" << std::endl;
-	else
-		std::cout << "Item found at position: " << pos << std::endl;
-
-	return 0;
+	for (it = container.begin(); it != container.end(); ++it) {
+		if (*it == value)
+			return std::distance(container.begin(), it);
+	}
+	return (-1);
 }
+
+
+
