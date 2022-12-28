@@ -77,6 +77,17 @@ int main() {
 			copy[i]++;
 			std::cout << copy[i] << " ";
 		}
+		std::cout << std::endl << "Trying to access index out of range:" << std::endl;
+		try {
+			std::cout << copy[NUM + 1] << std::endl;
+		}
+		catch (const std::exception &e) {
+			std::cerr << "Error: " << e.what() << std::endl;
+		}
+
+
+
+
 
 		std::cout << std::endl;
 		std::cout << std::endl << "\033[33m****** TESTING DESTRUCTOR*******\033[0m" << std::endl << std::endl;
