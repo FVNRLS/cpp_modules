@@ -10,10 +10,11 @@ add_executable(CPP_08
 #        ex00/incl/easyfind.hpp
 
         ### -- EX01 ---
-        ex01/src/main.cpp
-        ex01/src/Span.cpp
-        ex01/incl/Span.hpp
+#        ex01/src/main.cpp
+#        ex01/src/Span.cpp
+#        ex01/incl/Span.hpp
 
         ### -- EX02 ---
-
+        ex02/src/main.cpp
+        ex02/incl/MutantStack.hpp
         )
