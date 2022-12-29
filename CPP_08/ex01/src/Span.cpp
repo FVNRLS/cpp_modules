@@ -50,7 +50,7 @@ int	Span::shortest_span() {
 
 	if (_n > 1 && !_vector.empty()) {
 		sort(copy.begin(), copy.end());
-		for (int i = 0; i < copy.size() - 1; i++) {
+		for (size_t i = 0; i < copy.size() - 1; i++) {
 			span = abs(copy[i] - copy[i + 1]);
 			if (span < shortest_span)
 				shortest_span = span;
