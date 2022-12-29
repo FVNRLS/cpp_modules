@@ -12,10 +12,10 @@
 
 #include "../incl/Span.hpp"
 
-#define MAX 5
+#define MAX 10000
 
 int	main () {
-	srand(time(0));
+	srand(time(NULL));
 	int rand_num;
 
 	std::cout << "\033[33m****** CONSTRUCTOR *******\033[0m" << std::endl;
@@ -29,11 +29,11 @@ int	main () {
 			span.add_number(rand_num);
 			std::cout << "Adding number	" << rand_num << std::endl;
 		}
+//		span.add_number(rand_num); //uncomment to overflow the container
 	}
 	catch (const std::exception &e) {
 		std::cerr << "Error: " << e.what() << std::endl;
 	}
-
 
 	std::cout << std::endl << "\033[33m****** TESTING SHORTEST SPAN *******\033[0m" << std::endl;
 	try {

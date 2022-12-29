@@ -14,11 +14,11 @@
 
 
 Span::Span() : _n(0) {
-	std::cout << "Default span of size " << _n << " was created" << std::endl;
+	std::cout << "Default container of size " << _n << " was created" << std::endl;
 }
 
 Span::Span(unsigned int n) : _n(n) {
-	std::cout << "Parameterised span of size " << _n << " was created" << std::endl;
+	std::cout << "Parameterised container of size " << _n << " was created" << std::endl;
 }
 
 Span::Span(const Span &src) {
@@ -26,7 +26,7 @@ Span::Span(const Span &src) {
 }
 
 Span::~Span() {
-	std::cout << "Span of size " << _n << " was destroyed" << std::endl;
+	std::cout << "Container of size " << _n << " was destroyed" << std::endl;
 }
 
 Span	&Span::operator=(const Span &src) {
@@ -40,40 +40,37 @@ void	Span::add_number(int num) {
 	if (_vector.size() < _n)
 		_vector.push_back(num);
 	else
-		throw std::out_of_range ("can't add more items - maximum limit of items was reached");
+		throw std::out_of_range ("can't add more items - maximum limit of items reached");
 }
 
 int	Span::shortest_span() {
-	std::vector<int>	_copy = _vector;
+	std::vector<int>	copy = _vector;
 	int 				shortest_span = INT_MAX;
 	int 				span;
 
 	if (_n > 1 && !_vector.empty()) {
-		sort(_copy.begin(), _copy.end());
-		for (int i = 0; i < _copy.size() - 1; i++) {
-			span = abs(_copy[i] - _copy[i + 1]);
+		sort(copy.begin(), copy.end());
+		for (int i = 0; i < copy.size() - 1; i++) {
+			span = abs(copy[i] - copy[i + 1]);
 			if (span < shortest_span)
 				shortest_span = span;
 		}
 		return (shortest_span);
 	}
-	throw std::out_of_range ("vector is empty");
+	throw std::out_of_range ("container is empty");
 }
 
-//todo: check again
 int	Span::longest_span() {
-	std::vector<int>	_copy = _vector;
-	int 				longest_span = INT_MIN;
+	std::vector<int>	copy = _vector;
+	int 				longest_span = 0;
 	int 				span;
 
 	if (_n > 1 && !_vector.empty()) {
-		sort(_copy.begin(), _copy.end()); //todo: wrong!
-		for (int i = 0; i < _copy.size() - 1; i++) {
-			span = abs(_copy[i] - _copy[i + 1]);
-			if (span > longest_span)
+		sort(copy.begin(), copy.end());
+		span = abs(copy.front() - copy.back());
+		if (span > longest_span)
 				longest_span = span;
-		}
 		return (longest_span);
 	}
-	throw std::out_of_range ("vector is empty");
+	throw std::out_of_range ("container is empty");
 }
