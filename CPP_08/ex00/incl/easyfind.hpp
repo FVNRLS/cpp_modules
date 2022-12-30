@@ -17,6 +17,7 @@
 #include <algorithm>
 
 template <typename T>
+
 int easyfind(T container, int val) {
 	int pos;
 	typename T::iterator it;
