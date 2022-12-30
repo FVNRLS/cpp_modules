@@ -43,6 +43,23 @@ void	Span::add_number(int num) {
 		throw std::out_of_range ("can't add more items - maximum limit of items reached");
 }
 
+void	Span::add_number(unsigned int range, time_t seed)
+{
+	srand(seed);
+	int num;
+
+	for (size_t i = 0; i < range; i++) {
+		try {
+			num = rand();
+			add_number(num);
+			std::cout << "Adding number	" << num << std::endl;
+		}
+		catch(const std::exception& e) {
+			std::cerr << e.what() << '\n';
+		}
+	}
+}
+
 int	Span::shortest_span() {
 	std::vector<int>	copy = _vector;
 	int 				shortest_span = INT_MAX;

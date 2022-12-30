@@ -31,6 +31,7 @@ public:
 	Span &operator=(const Span &src);
 
 	void	add_number(int num);
+	void	add_number(unsigned int range, time_t seed);
 	int 	shortest_span();
 	int 	longest_span();
 };

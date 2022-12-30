@@ -35,6 +35,12 @@ int	main () {
 		std::cerr << "Error: " << e.what() << std::endl;
 	}
 
+	std::cout << std::endl << "\033[33m****** TESTING WITH MANY NUMBERS *******\033[0m" << std::endl;
+	{
+		Span	span(5);
+		span.add_number(5, time(NULL));
+	}
+
 	std::cout << std::endl << "\033[33m****** TESTING SHORTEST SPAN *******\033[0m" << std::endl;
 	try {
 		int shortest_span = span.shortest_span();
