@@ -13,18 +13,17 @@
 #include "../incl/easyfind.hpp"
 
 int main() {
+	std::vector<int> v;
 
-	std::vector<char> v;
+	v.push_back(1);
+	v.push_back(2);
+	v.push_back(3);
 
-	v.push_back('a');
-	v.push_back('b');
-	v.push_back('c');
-
-	int pos = easyfind(v, 'a');
-	if (pos == -1)
+	unsigned int pos = easyfind(v, 3);
+	if (pos == v.size())
 		std::cout << "Item not found" << std::endl;
 	else
-		std::cout << "Item found at position: " << pos << std::endl;
+		std::cout << "Item found at position " << pos << std::endl;
 
 	return 0;
 }

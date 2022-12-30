@@ -14,17 +14,16 @@
 
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 template <typename T>
-
-int easyfind(T container, int value) {
+int easyfind(T container, int val) {
+	int pos;
 	typename T::iterator it;
 
-	for (it = container.begin(); it != container.end(); ++it) {
-		if (*it == value)
-			return std::distance(container.begin(), it);
-	}
-	return (-1);
+	it = std::find(container.begin(), container.end(), val);
+	pos = std::distance(container.begin(), it);
+	return (pos);
 }
 
 
