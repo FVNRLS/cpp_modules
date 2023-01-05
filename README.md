@@ -15,8 +15,11 @@ Various exercises and practices with the programming language C++
 This project is divided into 9 modules and includes the study and implementation of basic OOP principles:
 
 Module 0 module: classes;
+
 Module 1 module: Coplien form, stack and heap in C++;
+
 Module 2: module: bitwise shift;
+
 Module 3: inheritance;
 Module 4: abstract classes, polymorphism;
 Module 5: throw, try, and catch operators;
