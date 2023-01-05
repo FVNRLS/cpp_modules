@@ -21,11 +21,17 @@ Module 1 module: Coplien form, stack and heap in C++;
 Module 2: module: bitwise shift;
 
 Module 3: inheritance;
+
 Module 4: abstract classes, polymorphism;
+
 Module 5: throw, try, and catch operators;
+
 Module 6: type conversion;
+
 Module 7: function template, class template;
+
 Module 8: inheritance from a standard class, iterators;
+
 For each module tests are presented. The project was implemented on the basis of the C++ 98 standard.
 
 
