@@ -23,7 +23,7 @@ This project is divided into 9 modules and includes the study and implementation
 * Module 6: type conversion;
 * Module 7: function template, class template;
 * Module 8: inheritance from a standard class, iterators;
-* Module 9: usage of data structures: vector, list, set, map;
+* Module 9: usage of STL: vector, list, set, map;
 
 For each module tests are presented. The project was implemented on the basis of the C++ 98 standard.
 
