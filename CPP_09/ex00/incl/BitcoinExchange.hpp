@@ -14,14 +14,25 @@
 
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <string>
 #include <map>
+#include <deque>
+#include <unistd.h>
 
 enum errors {
-	BAD_PERMISSIONS,
 	BAD_FILEPATH,
+	BAD_PERMISSIONS,
+	BAD_INPUT,
+	BAD_DATA,
+	BAD_VALUE,
 
 };
+
+#define SPACE	' '
+#define TAB		'\t'
+#define PIPE	'|'
+#define MINUS	'-'
 
 class BitcoinExchanger {
 
@@ -30,8 +41,13 @@ private:
 	std::string 				_path;
 	std::ifstream 				_file;
 
-	int							print_error(int &error);
-	int 						open_file(std::string &path);
+	int 						open_file();
+	int 						parse_data();
+	int							print_error(int error);
+	std::deque<std::string>		tokenize_line(std::string &line, char c);
+	std::string 				trim(std::string &str);
+	int 						check_data(std::string &data);
+	int 						check_value(std::string &str_val);
 
 public:
 	BitcoinExchanger();

@@ -15,12 +15,14 @@
 int main(int argc, char **argv) {
 	std::string	file_path;
 
-	if (argc != 2)
+	if (argc != 2) {
 		std::cout << "Error: Invalid number of arguments" << std::endl;
+		return EXIT_FAILURE;
+	}
 	file_path = argv[1];
 
 	BitcoinExchanger	btc_exc(file_path);
 	if (btc_exc.exchange() == EXIT_FAILURE)
-		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
+		return EXIT_FAILURE;
+	return EXIT_SUCCESS;
 }
