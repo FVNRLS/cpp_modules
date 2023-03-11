@@ -121,20 +121,18 @@ std::string	BitcoinExchanger::trim(std::string &s) {
 }
 
 static bool validate_date(int year, int month, int day) {
-	if (year < 1 || month < 1 || month > 12 || day < 1) {
+	if (year < 2011 || year > 2023 || month < 1 || month > 12 || day < 1)
 		return false;
-	}
 	if (month == 2) {
-		if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) {
+		if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) //calculating leap year
 			return day <= 29;
-		} else {
+		else
 			return day <= 28;
-		}
-	} else if (month == 4 || month == 6 || month == 9 || month == 11) {
-		return day <= 30;
-	} else {
-		return day <= 31;
 	}
+	else if (month == 4 || month == 6 || month == 9 || month == 11)
+		return day <= 30;
+	else
+		return day <= 31;
 }
 
 int BitcoinExchanger::check_data(std::string &date) {
