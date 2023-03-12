@@ -10,3 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "PmergeMe.hpp"
+
+int	main(int argc, char **argv) {
+	if (argc < 2) {
+		std::cout << "Error: Invalid number of arguments" << std::endl;
+		return EXIT_FAILURE;
+	}
+	PmergeMe sorter(argv);
+	if (sorter.compare_containers() == EXIT_FAILURE)
+		return EXIT_FAILURE;
+	return EXIT_SUCCESS;
+}

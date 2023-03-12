@@ -13,17 +13,34 @@
 #pragma once
 
 #include <iostream>
+#include <sstream>
 #include <vector>
-#include <map>
+#include <unordered_set>
 
 enum errors {
 
 };
 
+#define SPACE	' '
+#define TAB		'\t'
+
+
 class PmergeMe {
 
 private:
+	char 					**_args;
+	std::vector<int>		_vector;
+	std::unordered_set<int>	_set;
+
+	//MEMBER FUNCTIONS
+	int 					parse_input();
 
 public:
+	PmergeMe();
+	PmergeMe(char **argv);
+	PmergeMe(const PmergeMe &src);
+	PmergeMe &operator=(const PmergeMe &src);
+	~PmergeMe();
 
+	int	compare_containers();
 };
