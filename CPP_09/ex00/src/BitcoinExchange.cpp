@@ -34,6 +34,7 @@ int	BitcoinExchanger::exchange() {
 	if (open_file() == EXIT_FAILURE)
 		return EXIT_FAILURE;
 	parse_data();
+	//TODO: parse exchange rate and calculate prices!
 	return EXIT_SUCCESS;
 }
 
