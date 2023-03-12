@@ -13,10 +13,14 @@
 #include "RPN.hpp"
 
 int main(int argc, char **argv) {
+	std::string	input;
 	if (argc != 2) {
 		std::cout << "Error: Invalid number of arguments" << std::endl;
 		return EXIT_FAILURE;
 	}
-
+	input = argv[1];
+	RPN	rpn(input);
+	if (rpn.calculate() == EXIT_FAILURE)
+		return EXIT_FAILURE;
 	return EXIT_SUCCESS;
-};
+}

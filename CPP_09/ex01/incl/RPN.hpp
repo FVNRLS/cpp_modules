@@ -28,6 +28,15 @@ class RPN {
 private:
 	std::list<int>	_data;
 	int 			_res;
+	std::string 	_input;
 
+	int 			parse_input();
 public:
+	RPN();
+	RPN(const std::string &input);
+	RPN(const RPN &src);
+	RPN &operator=(const RPN &src);
+	~RPN();
+
+	int calculate();
 };
