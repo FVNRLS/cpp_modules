@@ -1,8 +1,33 @@
-//
-// Created by Roman Mazuritskiy on 3/12/23.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   RPN.hpp                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmazurit <rmazurit@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/12 12:54:13 by rmazurit          #+#    #+#             */
+/*   Updated: 2023/03/12 12:54:13 by rmazurit         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#ifndef CPP_09_RPN_HPP
-#define CPP_09_RPN_HPP
+#pragma once
 
-#endif //CPP_09_RPN_HPP
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <string>
+#include <list>
+#include <unistd.h>
+#include <algorithm>
+
+enum errors {
+
+};
+
+class RPN {
+private:
+	std::list<int>	_data;
+	int 			_res;
+
+public:
+};

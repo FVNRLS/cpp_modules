@@ -20,6 +20,7 @@ OBJ_DIR		=	obj/
 INC_DIR		=	incl/
 
 SRC_FILES	=	main.cpp \
+				RPN.cpp \
 
 OBJ_FILES	=	$(SRC_FILES:.cpp=.o)
 
