@@ -16,4 +16,7 @@ add_executable(CPP_09
         ex01/src/main.cpp
         ex01/src/RPN.cpp
         ex01/incl/RPN.hpp
-        )
+
+        #ex02
+
+        ex02/src/main.cpp ex02/src/PmergeMe.cpp ex02/incl/PmergeMe.hpp)
