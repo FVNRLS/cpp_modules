@@ -6,7 +6,7 @@
 #    By: rmazurit <rmazurit@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/16 16:59:51 by rmazurit          #+#    #+#              #
-#    Updated: 2023/03/09 17:05:28 by rmazurit         ###   ########.fr        #
+#    Updated: 2023/03/12 11:14:14 by rmazurit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ OBJ_DIR		=	obj/
 INC_DIR		=	incl/
 
 SRC_FILES	=	main.cpp \
+				BitcoinExchange.cpp \
 
 OBJ_FILES	=	$(SRC_FILES:.cpp=.o)
 

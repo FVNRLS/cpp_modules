@@ -19,12 +19,13 @@
 #include <map>
 #include <deque>
 #include <unistd.h>
+#include <algorithm>
 
 enum errors {
 	BAD_FILEPATH,
 	BAD_PERMISSIONS,
-	BAD_INPUT,
-	BAD_DATA,
+	BAD_INPUT_FORMAT,
+	BAD_DATE,
 	BAD_VALUE,
 
 };
@@ -37,17 +38,24 @@ enum errors {
 class BitcoinExchanger {
 
 private:
-	std::map<std::string, int>	_data;
-	std::string 				_path;
-	std::ifstream 				_file;
+	std::deque<std::pair<std::string, float> >	_data;
+	std::string 								_path;
+	std::ifstream 								_file;
+	int 										_year;
+	int 										_month;
+	int 										_day;
+	float 										_value;
 
-	int 						open_file();
-	int 						parse_data();
-	int							print_error(int error);
-	std::deque<std::string>		tokenize_line(std::string &line, char c);
-	std::string 				trim(std::string &str);
-	int 						check_data(std::string &data);
-	int 						check_value(std::string &str_val);
+	//MEMBER FUNCTIONS
+	int 										open_file();
+	void 										parse_data();
+	std::deque<std::string>						tokenize_line(std::string &line, char c);
+	std::string 								trim(std::string &str);
+	int 										check_data(std::string &data);
+	int 										check_value(std::string &str_val);
+
+	//ERROR MANAGEMENT
+	int								print_error(int error, std::string &str);
 
 public:
 	BitcoinExchanger();

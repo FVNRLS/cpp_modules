@@ -24,7 +24,6 @@ BitcoinExchanger	&BitcoinExchanger::operator=(const BitcoinExchanger &src) {
 		return *this;
 	_data = src._data;
 	_path = src._path;
-	_file = src._file;
 	return *this;
 }
 
@@ -34,51 +33,52 @@ BitcoinExchanger::~BitcoinExchanger() {}
 int	BitcoinExchanger::exchange() {
 	if (open_file() == EXIT_FAILURE)
 		return EXIT_FAILURE;
-	if (parse_data() == EXIT_FAILURE)
-		return EXIT_FAILURE;
+	parse_data();
 	return EXIT_SUCCESS;
 }
 
 int BitcoinExchanger::open_file() {
 	if (_path.empty() || access(_path.c_str(), F_OK))
-		return print_error(BAD_FILEPATH);
+		return print_error(BAD_FILEPATH, _path);
 	_file.open(_path);
 	if (_file.bad() || !_file.is_open())
-		return print_error(BAD_PERMISSIONS);
+		return print_error(BAD_PERMISSIONS, _path);
 	return EXIT_SUCCESS;
 }
 
-int BitcoinExchanger::parse_data() {
+bool compare_pairs(const std::pair<std::string, float> &left, const std::pair<std::string, float> &right) {
+	return left.first < right.first;
+}
+
+void	BitcoinExchanger::parse_data() {
 	std::string					line;
-	std::pair<std::string, int>	data_sequence;
+	std::pair<std::string, float>	data_sequence;
 	std::deque<std::string>		tokens;
 
+	std::getline(_file, line);
 	while (std::getline(_file, line)) {
 		tokens = tokenize_line(line, PIPE);
 		if (tokens.size() == 2) {
 			if (check_data(tokens[0]) == EXIT_SUCCESS)
 				data_sequence.first = tokens[0];
 			else {
-				print_error(BAD_DATA);
+				print_error(BAD_DATE, tokens[0]);
 				continue;
 			}
 			if (check_value(tokens[1]) == EXIT_SUCCESS)
-				data_sequence.second = static_cast<int>(std::strtol(tokens[1].c_str(), NULL, 10));
+				data_sequence.second = _value;
 			else {
-				print_error(BAD_VALUE);
+				print_error(BAD_VALUE, tokens[1]);
 				continue;
 			}
-			_data.insert(data_sequence);
+			_data.push_back(data_sequence);
+//			std::cout << tokens[0] << " => " << std::setw(6) << std::right << tokens[1] << std::endl;
 		}
 		else
-			print_error(BAD_INPUT);
-
-
-
-
-//		_data.insert(data_sequence);
+			print_error(BAD_INPUT_FORMAT, line);
+		tokens.clear();
 	}
-	return EXIT_SUCCESS;
+	std::sort(_data.begin(), _data.end(), compare_pairs);
 }
 
 std::deque<std::string> BitcoinExchanger::tokenize_line(std::string &line, char sep) {
@@ -137,51 +137,59 @@ static bool validate_date(int year, int month, int day) {
 
 int BitcoinExchanger::check_data(std::string &date) {
 	std::deque<std::string>	tokens;
-	int 					year;
-	int 					month;
-	int 					day;
 	bool 					date_valid;
 
 	tokens = tokenize_line(date, MINUS);
 	if (tokens.size() != 3)
 		return EXIT_FAILURE;
-	year = std::strtol(tokens[0].c_str(), NULL, 10);
-	month = std::strtol(tokens[1].c_str(), NULL, 10);
-	day = std::strtol(tokens[2].c_str(), NULL, 10);
-	date_valid = validate_date(year, month, day);
+	try {
+		_year = static_cast<int>(std::strtol(tokens[0].c_str(), NULL, 10));
+		_month = static_cast<int>(std::strtol(tokens[1].c_str(), NULL, 10));
+		_day = static_cast<int>(std::strtol(tokens[2].c_str(), NULL, 10));
+	}
+	catch (...) {
+		return EXIT_FAILURE;
+	}
+	date_valid = validate_date(_year, _month, _day);
 	if (!date_valid)
-		return (BAD_DATA);
+		return EXIT_FAILURE;
 	return EXIT_SUCCESS;
 }
 
 int BitcoinExchanger::check_value(std::string &str_val) {
-
-
+	try {
+		_value = (std::strtof(str_val.c_str(), NULL));
+	}
+	catch (...) {
+		return EXIT_FAILURE;
+	}
+	if (_value < 0 || _value > 1000)
+		return EXIT_FAILURE;
 	return EXIT_SUCCESS;
 }
 
 
 //ERROR MANAGEMENT
-int	BitcoinExchanger::print_error(int error) {
+int	BitcoinExchanger::print_error(int error, std::string &str) {
 	switch (error) {
 		case BAD_PERMISSIONS: {
-			std::cerr << "Error: invalid file path: " << _path << std::endl;
+			std::cerr << "Error: access denied on path: " << str << std::endl;
 			break;
 		}
 		case BAD_FILEPATH: {
-			std::cerr << "Error: access denied on path: " << _path << std::endl;
+			std::cerr << "Error: invalid file path: " << str << std::endl;
 			break;
 		}
-		case BAD_INPUT: {
-			std::cerr << "Error: bad input" << std::endl;
+		case BAD_INPUT_FORMAT: {
+			std::cerr << "Error: bad input: " << str << std::endl;
 			break;
 		}
-		case BAD_DATA: {
-			std::cerr << "Error: invalid data format" << std::endl;
+		case BAD_DATE: {
+			std::cerr << "Error: invalid data format: " << str << std::endl;
 			break;
 		}
 		case BAD_VALUE: {
-			std::cerr << "Error: invalid value" << std::endl;
+			std::cerr << "Error: invalid value: " << str << std::endl;
 			break;
 		}
 		default:
