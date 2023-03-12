@@ -15,11 +15,8 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include <string>
-#include <map>
 #include <deque>
 #include <unistd.h>
-#include <algorithm>
 
 enum errors {
 	BAD_FILEPATH,
