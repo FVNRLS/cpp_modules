@@ -6,5 +6,7 @@ cmake-build-debug/**
 **/*.a
 **/*.o
 a.out
+RPN
+btc
 megaphone
 .DS_Store
