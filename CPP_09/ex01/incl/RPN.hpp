@@ -26,11 +26,13 @@ enum errors {
 
 class RPN {
 private:
-	std::list<int>	_data;
+	std::list<char>	_rpn_data;
+	std::list<char>	_norm_data;
 	int 			_res;
 	std::string 	_input;
 
 	int 			parse_input();
+	int 			normalize_rpn();
 public:
 	RPN();
 	RPN(const std::string &input);
