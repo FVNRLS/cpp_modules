@@ -31,17 +31,7 @@ RPN	&RPN::operator=(const RPN &src) {
 
 RPN::~RPN() {}
 
-//MEMBER FUNCTIONS
-int RPN::calculate() {
-	if (parse_input() == EXIT_FAILURE)
-		return EXIT_FAILURE;
-	if (normalize_rpn() == EXIT_FAILURE) {
-		std::cerr << "Error" << std::endl;
-		return EXIT_FAILURE;
-	}
-	return EXIT_SUCCESS;
-}
-
+//TOOLS
 static bool	is_valid_operator(char c) {
 	std::string valid_operators = "-+*/ ";
 	for (std::string::iterator it = valid_operators.begin(); it != valid_operators.end(); it++) {
@@ -49,6 +39,46 @@ static bool	is_valid_operator(char c) {
 			return true;
 	}
 	return false;
+}
+
+//MEMBER FUNCTIONS
+//TODO: find out if res should be float/double or only int?
+int RPN::calculate() {
+	std::list<char>::iterator	it;
+	char 						curr_operator;
+	int 						num;
+
+
+	if (parse_input() == EXIT_FAILURE)
+		return EXIT_FAILURE;
+	if (normalize_rpn() == EXIT_FAILURE) {
+		std::cerr << "Error" << std::endl;
+		return EXIT_FAILURE;
+	}
+	if (!_norm_data.empty()) {
+		_res = _norm_data.front() - '0';
+		for (it = _norm_data.begin()++; it != _norm_data.end(); it++) {
+			if (is_valid_operator(*it))
+				curr_operator = *it;
+			else {
+				num = *it - '0';
+				if (curr_operator == '*')
+					_res *= num;
+				else if (curr_operator == '/')
+					_res /= num;
+				else if (curr_operator == '+')
+					_res += num;
+				else if (curr_operator == '-')
+					_res -= num;
+			}
+			if (_res > INT32_MAX || _res < INT32_MIN) {
+				std::cerr << "Error" << std::endl;
+				return EXIT_FAILURE;
+			}
+		}
+	}
+	std::cout << "RESULT	" << _res << std::endl;
+	return EXIT_SUCCESS;
 }
 
 int RPN::parse_input() {

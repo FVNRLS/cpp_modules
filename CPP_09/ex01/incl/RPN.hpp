@@ -28,7 +28,7 @@ class RPN {
 private:
 	std::list<char>	_rpn_data;
 	std::list<char>	_norm_data;
-	int 			_res;
+	long 			_res;
 	std::string 	_input;
 
 	int 			parse_input();
