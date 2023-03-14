@@ -14,8 +14,8 @@
 
 #include <iostream>
 #include <fstream>
-#include <sstream>
-#include <deque>
+#include <limits>
+#include <map>
 #include <unistd.h>
 
 enum errors {
@@ -24,42 +24,47 @@ enum errors {
 	BAD_INPUT_FORMAT,
 	BAD_DATE,
 	BAD_VALUE,
+	DATE_NOT_IN_CSV,
+	DUPLICATE_ENTRY,
 
 };
 
 #define SPACE	' '
 #define TAB		'\t'
 #define PIPE	'|'
-#define MINUS	'-'
+#define DASH	'-'
+#define COMMA	','
 
-class BitcoinExchanger {
+const std::string PATH_TO_DATA_CSV = "data.csv";
+
+struct	info {
+	float 						exch_rate;
+	bool 						is_set;
+};
+
+class BitcoinExchange {
 
 private:
-	std::deque<std::pair<std::string, float> >	_data;
-	std::string 								_path;
-	std::ifstream 								_file;
-	int 										_year;
-	int 										_month;
-	int 										_day;
-	float 										_value;
+	std::map<int, struct info> 	_data;
+	std::string 				_path_to_input_txt;
+	std::ifstream 				_file;
+	int 						_year;
+	int 						_month;
+	int 						_day;
 
 	//MEMBER FUNCTIONS
-	int 										open_file();
-	void 										parse_data();
-	std::deque<std::string>						tokenize_line(std::string &line, char c);
-	std::string 								trim(std::string &str);
-	int 										check_data(std::string &data);
-	int 										check_value(std::string &str_val);
-
-	//ERROR MANAGEMENT
-	int								print_error(int error, std::string &str);
+	int 						open_file(const std::string &path);
+	void 						parse_data_csv();
+	void 						parse_input_txt();
+	int 						extract_date(std::string &date);
+	int 						check_value(std::string &str_val);
 
 public:
-	BitcoinExchanger();
-	BitcoinExchanger(std::string &file_path);
-	BitcoinExchanger(const BitcoinExchanger &src);
-	BitcoinExchanger &operator=(const BitcoinExchanger &src);
-	~BitcoinExchanger();
+	BitcoinExchange();
+	BitcoinExchange(std::string &file_path);
+	BitcoinExchange(const BitcoinExchange &src);
+	BitcoinExchange &operator=(const BitcoinExchange &src);
+	~BitcoinExchange();
 
 	int	exchange();
 };

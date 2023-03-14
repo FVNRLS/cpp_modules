@@ -13,91 +13,25 @@
 #include "BitcoinExchange.hpp"
 
 //BASIC CLASS SETUP
-BitcoinExchanger::BitcoinExchanger() : _data(), _path(), _file() {}
+BitcoinExchange::BitcoinExchange() : _data(), _path_to_input_txt(), _file() {}
 
-BitcoinExchanger::BitcoinExchanger(std::string &file_path) : _path(file_path), _file() {}
+BitcoinExchange::BitcoinExchange(std::string &file_path) : _path_to_input_txt(file_path), _file() {}
 
-BitcoinExchanger::BitcoinExchanger(const BitcoinExchanger &src) { *this = src; }
+BitcoinExchange::BitcoinExchange(const BitcoinExchange &src) { *this = src; }
 
-BitcoinExchanger	&BitcoinExchanger::operator=(const BitcoinExchanger &src) {
+BitcoinExchange	&BitcoinExchange::operator=(const BitcoinExchange &src) {
 	if (this == &src)
 		return *this;
 	_data = src._data;
-	_path = src._path;
+	_path_to_input_txt = src._path_to_input_txt;
 	return *this;
 }
 
-BitcoinExchanger::~BitcoinExchanger() {}
+BitcoinExchange::~BitcoinExchange() {}
 
-//MEMBER FUNCTIONS
-int	BitcoinExchanger::exchange() {
-	if (open_file() == EXIT_FAILURE)
-		return EXIT_FAILURE;
-	parse_data();
-	//TODO: parse exchange rate and calculate prices!
-	return EXIT_SUCCESS;
-}
 
-int BitcoinExchanger::open_file() {
-	if (_path.empty() || access(_path.c_str(), F_OK))
-		return print_error(BAD_FILEPATH, _path);
-	_file.open(_path);
-	if (_file.bad() || !_file.is_open())
-		return print_error(BAD_PERMISSIONS, _path);
-	return EXIT_SUCCESS;
-}
-
-bool compare_pairs(const std::pair<std::string, float> &left, const std::pair<std::string, float> &right) {
-	return left.first < right.first;
-}
-
-void	BitcoinExchanger::parse_data() {
-	std::string					line;
-	std::pair<std::string, float>	data_sequence;
-	std::deque<std::string>		tokens;
-
-	std::getline(_file, line);
-	while (std::getline(_file, line)) {
-		tokens = tokenize_line(line, PIPE);
-		if (tokens.size() == 2) {
-			if (check_data(tokens[0]) == EXIT_SUCCESS)
-				data_sequence.first = tokens[0];
-			else {
-				print_error(BAD_DATE, tokens[0]);
-				continue;
-			}
-			if (check_value(tokens[1]) == EXIT_SUCCESS)
-				data_sequence.second = _value;
-			else {
-				print_error(BAD_VALUE, tokens[1]);
-				continue;
-			}
-			_data.push_back(data_sequence);
-//			std::cout << tokens[0] << " => " << std::setw(6) << std::right << tokens[1] << std::endl;
-		}
-		else
-			print_error(BAD_INPUT_FORMAT, line);
-		tokens.clear();
-	}
-	std::sort(_data.begin(), _data.end(), compare_pairs);
-}
-
-std::deque<std::string> BitcoinExchanger::tokenize_line(std::string &line, char sep) {
-	line = trim(line);
-	std::deque<std::string>		tokens;
-	std::string 				tok;
-	std::istringstream 			iss(line);
-
-	while (getline(iss, tok, sep)) {
-		tok = trim(tok);
-		if (tok.empty())
-			continue;
-		tokens.push_back(tok);
-	}
-	return (tokens);
-}
-
-std::string	BitcoinExchanger::trim(std::string &s) {
+//TOOLS
+std::string	trim(std::string &s) {
 	size_t 	front_pos;
 	size_t 	back_pos;
 
@@ -121,8 +55,147 @@ std::string	BitcoinExchanger::trim(std::string &s) {
 	return (s);
 }
 
+//ERROR MANAGEMENT
+int	print_error(int error, const std::string &str) {
+	switch (error) {
+		case BAD_PERMISSIONS: {
+			std::cerr << "\033[31mError: access denied on path: " << str << "\033[0m" << std::endl;
+			break;
+		}
+		case BAD_FILEPATH: {
+			std::cerr << "\033[31mError: invalid file path: " << str << "\033[0m" << std::endl;
+			break;
+		}
+		case BAD_INPUT_FORMAT: {
+			std::cerr << "\033[31mError: bad input: " << str << "\033[0m" << std::endl;
+			break;
+		}
+		case BAD_DATE: {
+			std::cerr << "\033[31mError: invalid data format: " << str << "\033[0m" << std::endl;
+			break;
+		}
+		case BAD_VALUE: {
+			std::cerr << "\033[31mError: invalid exch_rate: " << str << "\033[0m" << std::endl;
+			break;
+		}
+		case DATE_NOT_IN_CSV: {
+			std::cerr << "\033[31mError: date not in .csv table: " << str << "\033[0m" << std::endl;
+			break;
+		}
+		case DUPLICATE_ENTRY: {
+			std::cerr << "\033[31mError: duplicated input for date: " << str << "\033[0m" << std::endl;
+			break;
+		}
+		default:
+			std::cerr << "Unknown error" << std::endl;
+	}
+	return EXIT_FAILURE;
+}
+
+//MEMBER FUNCTIONS
+int	BitcoinExchange::exchange() {
+	if (open_file(PATH_TO_DATA_CSV) == EXIT_FAILURE)
+		return EXIT_FAILURE;
+	parse_data_csv();
+	_file.close();
+	if (open_file(_path_to_input_txt) == EXIT_FAILURE)
+		return EXIT_FAILURE;
+	parse_input_txt();
+	return EXIT_SUCCESS;
+}
+
+int BitcoinExchange::open_file(const std::string &path) {
+	if (path.empty() || access(path.c_str(), F_OK))
+		return print_error(BAD_FILEPATH, path);
+	_file.open(path);
+	if (_file.bad() || !_file.is_open())
+		return print_error(BAD_PERMISSIONS, path);
+	return EXIT_SUCCESS;
+}
+
+void	BitcoinExchange::parse_data_csv() {
+	std::string						line;
+	std::pair<int, struct info>		data_sequence;
+	size_t 							num_sep;
+	std::string 					date;
+	std::string						value;
+
+	std::getline(_file, line);
+	while (std::getline(_file, line)) {
+		num_sep = count(line.begin(), line.end(), COMMA);
+		if (num_sep == 1) {
+			date = line.substr(0, line.find(COMMA));;
+			value = line.substr(line.find(COMMA) + 1, line.length());
+			if (extract_date(date) == EXIT_SUCCESS)
+				data_sequence.first = (_year * 1000) + (_month * 100) + _day;
+			else {
+				print_error(BAD_DATE, date);
+				continue;
+			}
+			if (check_value(value) == EXIT_SUCCESS) {
+				data_sequence.second.exch_rate = std::strtof(value.c_str(), NULL);
+				data_sequence.second.is_set = false;
+			}
+			else {
+				print_error(BAD_VALUE, value);
+				continue;
+			}
+			_data.insert(data_sequence);
+		}
+		else
+			print_error(BAD_INPUT_FORMAT, line);
+	}
+}
+
+void BitcoinExchange::parse_input_txt() {
+	std::string								line;
+	size_t 									num_sep;
+	std::string 							date;
+	std::string								value;
+	int 									date_val;
+	float 									input_val;
+	std::map<int, struct info>::iterator	it;
+	float 									price;
+
+	std::getline(_file, line);
+	while (std::getline(_file, line)) {
+		num_sep = count(line.begin(), line.end(), PIPE);
+		if (num_sep == 1) {
+			date = line.substr(0, line.find(PIPE));
+			value = line.substr(line.find(PIPE) + 1, line.length());
+			if (extract_date(date) == EXIT_SUCCESS)
+				date_val = (_year * 1000) + (_month * 100) + _day;
+			else {
+				print_error(BAD_DATE, date);
+				continue;
+			}
+			if (check_value(value) == EXIT_SUCCESS)
+				input_val = std::strtof(value.c_str(), NULL);
+			else {
+				print_error(BAD_VALUE, value);
+				continue;
+			}
+		}
+		else {
+			print_error(BAD_INPUT_FORMAT, line);
+			continue;
+		}
+
+		it = _data.find(date_val);
+		if (it == _data.end())
+			print_error(DATE_NOT_IN_CSV, date);
+		else if (it->second.is_set)
+			print_error(DUPLICATE_ENTRY, date);
+		else {
+			price = it->second.exch_rate * input_val;
+			std::cout << "\033[32m" << date << " =>" << std::setw(10) << std::right << price << "\033[0m" << std::endl;
+			it->second.is_set = true;
+		}
+	}
+}
+
 static bool validate_date(int year, int month, int day) {
-	if (year < 2011 || year > 2023 || month < 1 || month > 12 || day < 1)
+	if (year < 2009 || year > 2023 || month < 1 || month > 12 || day < 1)
 		return false;
 	if (month == 2) {
 		if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) //calculating leap year
@@ -136,17 +209,35 @@ static bool validate_date(int year, int month, int day) {
 		return day <= 31;
 }
 
-int BitcoinExchanger::check_data(std::string &date) {
+int BitcoinExchange::extract_date(std::string &date) {
 	std::deque<std::string>	tokens;
 	bool 					date_valid;
+	size_t 					num_sep;
+	std::string 			year;
+	std::string 			month;
+	std::string 			day;
+	size_t 					first_dash_pos;
+	size_t 					second_dash_pos;
 
-	tokens = tokenize_line(date, MINUS);
-	if (tokens.size() != 3)
+	num_sep = count(date.begin(), date.end(), DASH);
+	if (num_sep != 2)
 		return EXIT_FAILURE;
+
+	first_dash_pos = date.find(DASH);
+	second_dash_pos = date.find(DASH, first_dash_pos + 1);
+
+	year = date.substr(0, first_dash_pos);
+	month = date.substr(first_dash_pos + 1, second_dash_pos - first_dash_pos - 1);
+	day = date.substr(second_dash_pos + 1, date.length());
+
+	year = trim(year);
+	month = trim(month);
+	day = trim(day);
+
 	try {
-		_year = static_cast<int>(std::strtol(tokens[0].c_str(), NULL, 10));
-		_month = static_cast<int>(std::strtol(tokens[1].c_str(), NULL, 10));
-		_day = static_cast<int>(std::strtol(tokens[2].c_str(), NULL, 10));
+		_year = static_cast<int>(std::strtol(year.c_str(), NULL, 10));
+		_month = static_cast<int>(std::strtol(month.c_str(), NULL, 10));
+		_day = static_cast<int>(std::strtol(day.c_str(), NULL, 10));
 	}
 	catch (...) {
 		return EXIT_FAILURE;
@@ -157,44 +248,16 @@ int BitcoinExchanger::check_data(std::string &date) {
 	return EXIT_SUCCESS;
 }
 
-int BitcoinExchanger::check_value(std::string &str_val) {
+int BitcoinExchange::check_value(std::string &str_val) {
+	float	val;
 	try {
-		_value = (std::strtof(str_val.c_str(), NULL));
+		val = (std::strtof(str_val.c_str(), NULL));
 	}
 	catch (...) {
 		return EXIT_FAILURE;
 	}
-	if (_value < 0 || _value > 1000)
+	if (val < 0 || val > static_cast<float>(INT_MAX))
 		return EXIT_FAILURE;
 	return EXIT_SUCCESS;
 }
 
-
-//ERROR MANAGEMENT
-int	BitcoinExchanger::print_error(int error, std::string &str) {
-	switch (error) {
-		case BAD_PERMISSIONS: {
-			std::cerr << "Error: access denied on path: " << str << std::endl;
-			break;
-		}
-		case BAD_FILEPATH: {
-			std::cerr << "Error: invalid file path: " << str << std::endl;
-			break;
-		}
-		case BAD_INPUT_FORMAT: {
-			std::cerr << "Error: bad input: " << str << std::endl;
-			break;
-		}
-		case BAD_DATE: {
-			std::cerr << "Error: invalid data format: " << str << std::endl;
-			break;
-		}
-		case BAD_VALUE: {
-			std::cerr << "Error: invalid value: " << str << std::endl;
-			break;
-		}
-		default:
-			std::cerr << "Unknown error" << std::endl;
-	}
-	return EXIT_FAILURE;
-}

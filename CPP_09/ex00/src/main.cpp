@@ -21,7 +21,7 @@ int main(int argc, char **argv) {
 	}
 	file_path = argv[1];
 
-	BitcoinExchanger	btc_exc(file_path);
+	BitcoinExchange	btc_exc(file_path);
 	if (btc_exc.exchange() == EXIT_FAILURE)
 		return EXIT_FAILURE;
 	return EXIT_SUCCESS;
