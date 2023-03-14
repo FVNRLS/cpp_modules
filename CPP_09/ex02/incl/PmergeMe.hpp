@@ -15,8 +15,8 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
+#include <deque>
 #include <limits>
-#include <unordered_set>
 
 enum errors {
 
@@ -29,12 +29,16 @@ enum errors {
 class PmergeMe {
 
 private:
-	char 					**_args;
-	std::vector<int>		_vector;
-	std::unordered_set<int>	_set;
+	char 				**_args;
+	std::vector<int>	_vector;
+	std::deque<int>		_deque;
+	bool 				_values_sorted;
 
 	//MEMBER FUNCTIONS
-	int 					parse_input();
+	int 				parse_input();
+	void 				print_container_values();
+	void 				sort_vector();
+	void 				sort_deque();
 
 public:
 	PmergeMe();

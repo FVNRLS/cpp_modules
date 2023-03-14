@@ -13,9 +13,9 @@
 #include "PmergeMe.hpp"
 
 //BASIC CLASS SETUP
-PmergeMe::PmergeMe() : _args(NULL), _vector(), _set() {}
+PmergeMe::PmergeMe() : _args(NULL), _vector(), _deque(), _values_sorted(false) {}
 
-PmergeMe::PmergeMe(char **argv) : _args(argv), _vector(), _set() {}
+PmergeMe::PmergeMe(char **argv) : _args(argv), _vector(), _deque(), _values_sorted(false) {}
 
 PmergeMe::PmergeMe(const PmergeMe &src) { *this = src; }
 
@@ -24,7 +24,8 @@ PmergeMe &PmergeMe::operator=(const PmergeMe &src) {
 		return *this;
 	_args = src._args;
 	_vector = src._vector;
-	_set = src._set;
+	_deque = src._deque;
+	_values_sorted = src._values_sorted;
 	return *this;
 }
 
@@ -79,12 +80,13 @@ int	PmergeMe::compare_containers() {
 		std::cerr << "Error" << std::endl;
 		return EXIT_FAILURE;
 	}
-
-
+	print_container_values();
+	sort_vector();
+	sort_deque();
+	print_container_values();
 	return EXIT_SUCCESS;
 }
 
-//TODO: cont here!
 int PmergeMe::parse_input() {
 	int 						i;
 	std::string					chunk;
@@ -113,21 +115,43 @@ int PmergeMe::parse_input() {
 					break;
 				}
 			}
-			if (!duplicate_found)
+			if (!duplicate_found) {
 				_vector.push_back(static_cast<int>(val));
-			_set.insert(static_cast<int>(val));
+				_deque.push_back(static_cast<int>(val));
+			}
 		}
 		i++;
 	}
 	return EXIT_SUCCESS;
 }
 
+void PmergeMe::print_container_values() {
+	if (!_values_sorted)
+		std::cout << "UNSORTED VALUES FOR VECTOR:		";
+	else
+		std::cout << "SORTED VALUES FOR VECTOR:		";
+	for (std::vector<int>::iterator it = _vector.begin(); it != _vector.end(); it++) {
+		std::cout << *it << " ";
+	}
+	std::cout << std::endl;
+
+	if (_values_sorted)
+		std::cout << "UNSORTED VALUES FOR DEQUE:		";
+	else
+		std::cout << "SORTED VALUES FOR DEQUE:		";
+	for (std::deque<int>::iterator it = _deque.begin(); it != _deque.end(); it++) {
+		std::cout << *it << " ";
+	}
+	std::cout << std::endl;
+
+}
+
+void	PmergeMe::sort_vector() {
+}
+
+void	PmergeMe::sort_deque() {
+}
+
 
 //"1 4 3 7 1 4 2 77 85 34 22" "2 7 1 11 22 4" 8 9 10
 
-
-
-
-
-
-//ERROR MANAGEMENT
