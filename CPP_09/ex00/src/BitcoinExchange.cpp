@@ -75,7 +75,7 @@ int	print_error(int error, const std::string &str) {
 			break;
 		}
 		case BAD_VALUE: {
-			std::cerr << "\033[31mError: invalid exch_rate: " << str << "\033[0m" << std::endl;
+			std::cerr << "\033[31mError: invalid value: " << str << "\033[0m" << std::endl;
 			break;
 		}
 		case DATE_NOT_IN_CSV: {
@@ -169,8 +169,13 @@ void BitcoinExchange::parse_input_txt() {
 				print_error(BAD_DATE, date);
 				continue;
 			}
-			if (check_value(value) == EXIT_SUCCESS)
+			if (check_value(value) == EXIT_SUCCESS) {
 				input_val = std::strtof(value.c_str(), NULL);
+				if (input_val > 1000) {
+					print_error(BAD_VALUE, value);
+					continue;
+				}
+			}
 			else {
 				print_error(BAD_VALUE, value);
 				continue;
