@@ -23,6 +23,7 @@ private:
 	long 			_res;
 	std::string 	_input;
 
+	//MEMBER FUNCTIONS
 	int 			parse_input();
 	int 			normalize_rpn();
 

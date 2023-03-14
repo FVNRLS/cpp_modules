@@ -42,12 +42,10 @@ static bool	is_valid_operator(char c) {
 }
 
 //MEMBER FUNCTIONS
-//TODO: find out if res should be float/double or only int?
 int RPN::calculate() {
 	std::list<char>::iterator	it;
 	char 						curr_operator;
 	int 						num;
-
 
 	if (parse_input() == EXIT_FAILURE)
 		return EXIT_FAILURE;
@@ -77,7 +75,7 @@ int RPN::calculate() {
 			}
 		}
 	}
-	std::cout << "RESULT	" << _res << std::endl;
+	std::cout << "RESULT:			" << _res << std::endl;
 	return EXIT_SUCCESS;
 }
 
@@ -132,6 +130,7 @@ int	RPN::normalize_rpn() {
 	}
 	_norm_data.erase(_norm_data.begin());
 
+	std::cout << "NORMALIZED EXPRESSION:	";
 	for (std::list<char>::iterator it = _norm_data.begin(); it != _norm_data.end(); it++)
 		std::cout << *it << " ";
 	std::cout << std::endl;

@@ -100,6 +100,8 @@ int	print_error(int error, const std::string &str) {
 
 //MEMBER FUNCTIONS
 int	BitcoinExchange::exchange() {
+	if (_path_to_input_txt.empty())
+		return (EXIT_FAILURE);
 	if (open_file(PATH_TO_DATA_CSV) == EXIT_FAILURE)
 		return EXIT_FAILURE;
 	parse_data_csv();
