@@ -133,7 +133,7 @@ void	BitcoinExchange::parse_data_csv() {
 				continue;
 			}
 			if (check_value(value) == EXIT_SUCCESS) {
-				data_sequence.second.exch_rate = std::strtof(value.c_str(), NULL);
+				data_sequence.second.price = std::strtof(value.c_str(), NULL);
 				data_sequence.second.is_set = false;
 			}
 			else {
@@ -153,9 +153,9 @@ void BitcoinExchange::parse_input_txt() {
 	std::string 							date;
 	std::string								value;
 	int 									date_val;
-	float 									input_val;
+	float 									exch_rate;
 	std::map<int, struct info>::iterator	it;
-	float 									price;
+	float 									res;
 
 	std::getline(_file, line);
 	while (std::getline(_file, line)) {
@@ -170,8 +170,8 @@ void BitcoinExchange::parse_input_txt() {
 				continue;
 			}
 			if (check_value(value) == EXIT_SUCCESS) {
-				input_val = std::strtof(value.c_str(), NULL);
-				if (input_val > 1000) {
+				exch_rate = std::strtof(value.c_str(), NULL);
+				if (exch_rate > 1000) {
 					print_error(BAD_VALUE, value);
 					continue;
 				}
@@ -192,8 +192,9 @@ void BitcoinExchange::parse_input_txt() {
 		else if (it->second.is_set)
 			print_error(DUPLICATE_ENTRY, date);
 		else {
-			price = it->second.exch_rate * input_val;
-			std::cout << "\033[32m" << date << " =>" << std::setw(10) << std::right << price << "\033[0m" << std::endl;
+			res = it->second.price * exch_rate;
+			std::cout << "\033[32m" << date << 	" =>  "  << std::setw(10) << std::right << exch_rate <<
+												" = " << std::setw(10) << std::right << res << "\033[0m" << std::endl;
 			it->second.is_set = true;
 		}
 	}

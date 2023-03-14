@@ -38,7 +38,7 @@ enum errors {
 const std::string PATH_TO_DATA_CSV = "data.csv";
 
 struct	info {
-	float 						exch_rate;
+	float 						price;
 	bool 						is_set;
 };
 
