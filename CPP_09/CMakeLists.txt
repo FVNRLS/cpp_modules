@@ -13,9 +13,9 @@ add_executable(CPP_09
         ex00/incl/BitcoinExchange.hpp
 
         # ex01
-#        ex01/src/main.cpp
-#        ex01/src/RPN.cpp
-#        ex01/incl/RPN.hpp
+        ex01/src/main.cpp
+        ex01/src/RPN.cpp
+        ex01/incl/RPN.hpp
 #
 #       #ex02
 #        ex02/src/main.cpp

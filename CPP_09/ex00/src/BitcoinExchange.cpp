@@ -13,9 +13,9 @@
 #include "BitcoinExchange.hpp"
 
 //BASIC CLASS SETUP
-BitcoinExchange::BitcoinExchange() : _data(), _path_to_input_txt(), _file() {}
+BitcoinExchange::BitcoinExchange() : _data(), _path_to_input_txt(), _file(), _year(), _month(), _day() {}
 
-BitcoinExchange::BitcoinExchange(std::string &file_path) : _path_to_input_txt(file_path), _file() {}
+BitcoinExchange::BitcoinExchange(std::string &file_path) : _path_to_input_txt(file_path), _file(), _year(), _month(), _day() {}
 
 BitcoinExchange::BitcoinExchange(const BitcoinExchange &src) { *this = src; }
 
@@ -24,6 +24,12 @@ BitcoinExchange	&BitcoinExchange::operator=(const BitcoinExchange &src) {
 		return *this;
 	_data = src._data;
 	_path_to_input_txt = src._path_to_input_txt;
+	_file.close();
+	if (open_file(_path_to_input_txt) == EXIT_FAILURE)
+		std::cerr << "Assignment operator failed on opening the file " << _path_to_input_txt << std::endl;
+	_year = src._year;
+	_month = src._month;
+	_day = src._day;
 	return *this;
 }
 
