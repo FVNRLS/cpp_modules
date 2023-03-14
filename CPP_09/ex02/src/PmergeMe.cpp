@@ -71,6 +71,10 @@ std::vector<std::string> tokenize(std::string &line, char sep) {
 	return (tokens);
 }
 
+bool index_is_even(size_t index) {
+	return index % 2 == 0;
+}
+
 //MEMBER FUNCTIONS
 int	PmergeMe::compare_containers() {
 	if (_args == NULL)
@@ -146,9 +150,41 @@ void PmergeMe::print_container_values() {
 
 }
 
-void	PmergeMe::sort_vector() {
+//VECTOR-SORT HELPERS
+static std::vector<std::pair<int, int> >	split_vector_in_pairs(std::vector<int> &vec) {
+	std::vector<std::pair<int, int> >	vec_pairs;
+	std::pair<int, int>					pair;
+	size_t 								index;
+
+	for (std::vector<int>::iterator it = vec.begin(); it != vec.end(); it++) {
+		index = it - vec.begin();
+		if (index_is_even(index))
+			pair.first = *it;
+		else {
+			pair.second = *it;
+			vec_pairs.push_back(pair);
+		}
+	}
+	if (vec.size() % 2 == 1) {
+		pair.first = *vec.end();
+		pair.second = INT_MAX; //todo: cont here!
+		vec_pairs.push_back(pair);
+	}
+
+	return vec_pairs;
 }
 
+//VECTOR
+void	PmergeMe::sort_vector() {
+	std::vector<std::pair<int, int> >	pairs;
+
+	pairs = split_vector_in_pairs(_vector);
+}
+
+//DEQUE-SORT HELPERS
+
+
+//DEQUE
 void	PmergeMe::sort_deque() {
 }
 
