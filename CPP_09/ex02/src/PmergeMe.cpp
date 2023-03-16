@@ -75,6 +75,17 @@ bool index_is_even(size_t index) {
 	return index % 2 == 0;
 }
 
+void print_time(clock_t start, clock_t end, const std::string &cont_type) {
+	clock_t	res;
+
+	res = static_cast<double>(end - start) / CLOCKS_PER_SEC * 10000000;
+	std::cout << "NEEDED TIME FOR " << std::setw(15) << std::left << cont_type;
+	if (res > 10000)
+		std::cout << res / 1000 << " MILLISECONDS" << std::endl;
+	else
+		std::cout <<  res << " MICROSECONDS" << std::endl;
+}
+
 //!MEMBER FUNCTIONS!
 int	PmergeMe::compare_containers() {
 	clock_t start_time;
@@ -87,22 +98,24 @@ int	PmergeMe::compare_containers() {
 		std::cerr << "Error" << std::endl;
 		return EXIT_FAILURE;
 	}
+	if (std::is_sorted(_vector.begin(), _vector.end())) {
+		std::cout << "The sequence is already sorted!" << std::endl;
+		return EXIT_SUCCESS;
+	}
 	print_container_values();
 
 	start_time = std::clock();
 	_vector = sort_vector();
 	end_time = std::clock();
-	std::cout << "NEEDED TIME FOR VECTOR:			" << static_cast<double>(end_time - start_time) / CLOCKS_PER_SEC * 10000000
-				<< " MICROSECONDS"  << std::endl;
+	print_time(start_time, end_time, "VECTOR");
+	_values_sorted = true;
+	print_container_values();
+
 
 	start_time = std::clock();
 	_deque = sort_deque();
 	end_time = std::clock();
-	std::cout << "NEEDED TIME FOR DEQUE:			" << static_cast<double>(end_time - start_time) / CLOCKS_PER_SEC * 10000000
-			 << " MICROSECONDS" << std::endl;
-
-	_values_sorted = true;
-	print_container_values();
+	print_time(start_time, end_time, "DEQUE");
 	return EXIT_SUCCESS;
 }
 
@@ -118,15 +131,21 @@ int PmergeMe::parse_input() {
 		chunk = _args[i];
 		chunk = trim(chunk);
 		tokens = tokenize(chunk, SPACE);
+		char *endptr = NULL;
+
 		for (std::vector<std::string>::iterator it = tokens.begin(); it != tokens.end(); it++) {
 			try {
-				val = std::strtol(it->c_str(), NULL, 10);
+				val = std::strtol(it->c_str(), &endptr, 10);
+				if (*endptr != '\0' || val < 0 || val > INT_MAX) {
+					throw std::invalid_argument("");
+				}
+			}
+			catch (std::invalid_argument &e) {
+				return EXIT_FAILURE;
 			}
 			catch (...) {
 				return EXIT_FAILURE;
 			}
-			if (val < INT_MIN || val > INT_MAX)
-				return EXIT_FAILURE;
 			duplicate_found = false;
 			for (std::vector<long>::iterator it= _vector.begin(); it != _vector.end(); it++) {
 				if (*it == val) {
@@ -154,20 +173,20 @@ void PmergeMe::print_container_values() {
 	}
 	std::cout << std::endl;
 
-	if (_values_sorted)
-		std::cout << "SORTED VALUES FOR DEQUE:		";
-	else
-		std::cout << "UNSORTED VALUES FOR DEQUE:		";
-	for (std::deque<long>::iterator it = _deque.begin(); it != _deque.end(); it++) {
-		std::cout << *it << " ";
-	}
-	std::cout << std::endl;
+//	if (_values_sorted)
+//		std::cout << "SORTED VALUES FOR DEQUE:		";
+//	else
+//		std::cout << "UNSORTED VALUES FOR DEQUE:		";
+//	for (std::deque<long>::iterator it = _deque.begin(); it != _deque.end(); it++) {
+//		std::cout << *it << " ";
+//	}
+//	std::cout << std::endl;
 
 }
 
 
 //VECTOR-SORT HELPERS
-static std::vector<std::pair<long, long> >	split_deque_in_pairs(std::vector<long> &vec) {
+static std::vector<std::pair<long, long> >	split_vector_in_pairs(std::vector<long> &vec) {
 	std::vector<std::pair<long, long> >		vec_pairs;
 	std::pair<long, long>					pair;
 	size_t 									index;
@@ -189,7 +208,7 @@ static std::vector<std::pair<long, long> >	split_deque_in_pairs(std::vector<long
 	return vec_pairs;
 }
 
-static std::vector<std::pair<long, long> > sort_deque_first_second(std::vector<std::pair<long, long> > &pairs) {
+static std::vector<std::pair<long, long> > sort_vector_first_second(std::vector<std::pair<long, long> > &pairs) {
 	for (std::vector<std::pair<long, long> >::iterator it = pairs.begin(); it != pairs.end(); it++) {
 		if (it->first > it->second)
 			std::swap(it->first, it->second);
@@ -213,7 +232,7 @@ static std::vector<std::pair<long, long> > sort_deque_first_second(std::vector<s
  * This is because the vector needs to allocate new memory, copy the existing elements to the new memory,
  * and then deallocate the old memory.
  * */
-static std::vector<std::pair<long, long> >	sort_deque_pairs_recursively(std::vector<std::pair<long, long> > &pairs) {
+static std::vector<std::pair<long, long> >	sort_vector_pairs_recursively(std::vector<std::pair<long, long> > &pairs) {
 	if (pairs.size() <= 1)
 		return pairs;
 
@@ -229,8 +248,8 @@ static std::vector<std::pair<long, long> >	sort_deque_pairs_recursively(std::vec
 			greater.push_back(*it);
 	}
 
-	less = sort_deque_pairs_recursively(less);
-	greater = sort_deque_pairs_recursively(greater);
+	less = sort_vector_pairs_recursively(less);
+	greater = sort_vector_pairs_recursively(greater);
 
 	result.reserve(less.size() + greater.size() + 1);
 	result.insert(result.end(), less.begin(), less.end());
@@ -240,7 +259,7 @@ static std::vector<std::pair<long, long> >	sort_deque_pairs_recursively(std::vec
 	return result;
 }
 
-static std::vector<long>	create_deque_main_chain(std::vector<std::pair<long, long> > &pairs) {
+static std::vector<long>	create_vector_main_chain(std::vector<std::pair<long, long> > &pairs) {
 	std::vector<long>	main_chain;
 	size_t 				size;
 
@@ -255,23 +274,18 @@ static std::vector<long>	create_deque_main_chain(std::vector<std::pair<long, lon
  * Uses binary search to find the position for number to insert in the main chain.
  * Returns the insert position.
  * */
-static size_t find_deque_insert_pos(std::vector<long> &main_chain, long num) {
-	size_t	left;
-	size_t	right;
-	size_t	pos;
+static size_t find_vector_insert_pos(std::vector<long>& main_chain, long num) {
+	size_t left = 0;
+	size_t right = main_chain.size();
 
-	left = 0;
-	right = main_chain.size() - 1;
-	if (main_chain.empty())
-		return 0;
-	while (left <= right) {
-		pos = left + (right - left) / 2;
-		if (main_chain[pos] < num)
-			left = pos + 1;
+	while (left < right) {
+		size_t mid = left + (right - left) / 2;
+		if (main_chain[mid] < num)
+			left = mid + 1;
 		else
-			right = pos - 1;
+			right = mid;
 	}
-	return (pos);
+	return left;
 }
 
 
@@ -281,23 +295,25 @@ std::vector<long>	PmergeMe::sort_vector() {
 	std::vector<long>					main_chain;
 	size_t								pos;
 
-	pairs = split_deque_in_pairs(_vector);
-	pairs = sort_deque_first_second(pairs);
-	pairs = sort_deque_pairs_recursively(pairs);
-	main_chain = create_deque_main_chain(pairs);
+	pairs = split_vector_in_pairs(_vector);
+	pairs = sort_vector_first_second(pairs);
+	pairs = sort_vector_pairs_recursively(pairs);
+	main_chain = create_vector_main_chain(pairs);
 
 	main_chain.reserve(_vector.size());
 	for (std::vector<std::pair<long, long> >::iterator it = pairs.begin(); it != pairs.end(); it++) {
 		if (it->second == LONG_MAX)
 			continue;
-		pos = find_deque_insert_pos(main_chain, it->second);
+		pos = find_vector_insert_pos(main_chain, it->second);
 		if (pos == main_chain.size() - 1)
 			main_chain.push_back(it->second);
 		else
 			main_chain.insert((main_chain.begin() + pos), it->second);
 	}
+	std::swap(main_chain.back(), main_chain.at(main_chain.size() - 2));
 	return main_chain;
 }
+
 
 //DEQUE-SORT HELPERS
 static std::deque<std::pair<long, long> >	split_deque_in_pairs(std::deque<long> &deq) {
@@ -369,22 +385,17 @@ static std::deque<long>	create_deque_main_chain(std::deque<std::pair<long, long>
  * Returns the insert position.
  * */
 static size_t find_deque_insert_pos(std::deque<long> &main_chain, long num) {
-	size_t	left;
-	size_t	right;
-	size_t	pos;
+	size_t left = 0;
+	size_t right = main_chain.size();
 
-	left = 0;
-	right = main_chain.size() - 1;
-	if (main_chain.empty())
-		return 0;
-	while (left <= right) {
-		pos = left + (right - left) / 2;
-		if (main_chain[pos] < num)
-			left = pos + 1;
+	while (left < right) {
+		size_t mid = left + (right - left) / 2;
+		if (main_chain[mid] < num)
+			left = mid + 1;
 		else
-			right = pos - 1;
+			right = mid;
 	}
-	return (pos);
+	return left;
 }
 
 
@@ -408,6 +419,7 @@ std::deque<long>	PmergeMe::sort_deque() {
 		else
 			main_chain.insert((main_chain.begin() + pos), it->second);
 	}
+	std::swap(main_chain.back(), main_chain.at(main_chain.size() - 2));
 	return main_chain;
 }
 
