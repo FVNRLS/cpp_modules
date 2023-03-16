@@ -75,7 +75,7 @@ bool index_is_even(size_t index) {
 	return index % 2 == 0;
 }
 
-//MEMBER FUNCTIONS
+//!MEMBER FUNCTIONS!
 int	PmergeMe::compare_containers() {
 	if (_args == NULL)
 		return EXIT_FAILURE;
@@ -113,7 +113,7 @@ int PmergeMe::parse_input() {
 			if (val < INT_MIN || val > INT_MAX)
 				return EXIT_FAILURE;
 			duplicate_found = false;
-			for (std::vector<int>::iterator it= _vector.begin(); it != _vector.end(); it++) {
+			for (std::vector<long>::iterator it= _vector.begin(); it != _vector.end(); it++) {
 				if (*it == val) {
 					duplicate_found = true;
 					break;
@@ -134,7 +134,7 @@ void PmergeMe::print_container_values() {
 		std::cout << "UNSORTED VALUES FOR VECTOR:		";
 	else
 		std::cout << "SORTED VALUES FOR VECTOR:		";
-	for (std::vector<int>::iterator it = _vector.begin(); it != _vector.end(); it++) {
+	for (std::vector<long>::iterator it = _vector.begin(); it != _vector.end(); it++) {
 		std::cout << *it << " ";
 	}
 	std::cout << std::endl;
@@ -143,7 +143,7 @@ void PmergeMe::print_container_values() {
 		std::cout << "UNSORTED VALUES FOR DEQUE:		";
 	else
 		std::cout << "SORTED VALUES FOR DEQUE:		";
-	for (std::deque<int>::iterator it = _deque.begin(); it != _deque.end(); it++) {
+	for (std::deque<long>::iterator it = _deque.begin(); it != _deque.end(); it++) {
 		std::cout << *it << " ";
 	}
 	std::cout << std::endl;
@@ -151,12 +151,12 @@ void PmergeMe::print_container_values() {
 }
 
 //VECTOR-SORT HELPERS
-static std::vector<std::pair<int, int> >	split_vector_in_pairs(std::vector<int> &vec) {
-	std::vector<std::pair<int, int> >	vec_pairs;
-	std::pair<int, int>					pair;
-	size_t 								index;
+static std::vector<std::pair<long, long> >	split_vector_in_pairs(std::vector<long> &vec) {
+	std::vector<std::pair<long, long> >		vec_pairs;
+	std::pair<long, long>					pair;
+	size_t 									index;
 
-	for (std::vector<int>::iterator it = vec.begin(); it != vec.end(); it++) {
+	for (std::vector<long>::iterator it = vec.begin(); it != vec.end(); it++) {
 		index = it - vec.begin();
 		if (index_is_even(index))
 			pair.first = *it;
@@ -166,19 +166,107 @@ static std::vector<std::pair<int, int> >	split_vector_in_pairs(std::vector<int> 
 		}
 	}
 	if (vec.size() % 2 == 1) {
-		pair.first = *vec.end();
-		pair.second = INT_MAX; //todo: cont here!
+		pair.first = vec.back();
+		pair.second = LONG_MAX;
 		vec_pairs.push_back(pair);
 	}
-
 	return vec_pairs;
+}
+
+static std::vector<std::pair<long, long> > sort_vector_first_second(std::vector<std::pair<long, long> > &pairs) {
+	for (std::vector<std::pair<long, long> >::iterator it = pairs.begin(); it != pairs.end(); it++) {
+		if (it->first > it->second)
+			std::swap(it->first, it->second);
+	}
+	return (pairs);
+}
+
+/*
+ * Recursion pair-sorting algorithm based on first pair item.
+ * Define a pivot element to compare the other elements to (first_pair).
+ * Define 2 vectors of pairs to store pairs:
+ * 		less = stores pairs which first item is < pivot.
+ * 		greater = stores pairs which first item is > pivot.
+ * Sort pairs into less/greater vectors.
+ * Sort the less and greater vectors recursively, like the input pair vector. (again with first_pair as pivot and for loop)
+ * Save the result accordingly in less and greater and in the end combine less, greater and pivot into 1 final result.
+ *
+ * HINT:
+ * With reserving space we optimize the algorithm a little, because without reserving space,
+ * the vector may need to allocate additional memory as it grows, which can be a relatively expensive operation.
+ * This is because the vector needs to allocate new memory, copy the existing elements to the new memory,
+ * and then deallocate the old memory.
+ * */
+static std::vector<std::pair<long, long> > sort_vector_pairs_recursively(std::vector<std::pair<long, long> > &pairs) {
+	if (pairs.size() <= 1)
+		return pairs;
+
+	std::vector<std::pair<long, long> > less;
+	std::vector<std::pair<long, long> > greater;
+	std::vector<std::pair<long, long> > result;
+	std::pair<long, long> first_pair = pairs.front();
+
+	for (std::vector<std::pair<long, long> >::iterator it = pairs.begin() + 1; it != pairs.end(); it++) {
+		if (it->first < first_pair.first)
+			less.push_back(*it);
+		else
+			greater.push_back(*it);
+	}
+
+	less = sort_vector_pairs_recursively(less);
+	greater = sort_vector_pairs_recursively(greater);
+
+	result.reserve(less.size() + greater.size() + 1);
+	result.insert(result.end(), less.begin(), less.end());
+	result.push_back(first_pair);
+	result.insert(result.end(), greater.begin(), greater.end());
+
+	return result;
+}
+
+// Calculate the n-th Jacobsthal number recursively
+long jacobsthal(long n) {
+	if (n == 0 || n == 1)
+		return n;
+	return jacobsthal(n - 1) + (2 * jacobsthal(n - 2));
+}
+
+// Create the main chain by following the Jacobsthal sequence
+std::vector<std::pair<long, long> > create_main_chain(std::vector<std::pair<long, long> > &pairs) {
+	std::vector<std::pair<long, long> > main_chain;
+	long a = 0;
+	long b = 1;
+	long tmp;
+	long n;
+
+	for (std::vector<std::pair<long, long> >::iterator it = pairs.begin(); it != pairs.end(); it++) {
+		n = it->first;
+		while (n <= b) {
+			main_chain.push_back(std::make_pair(a, 0));
+			tmp = 2 * a + b;
+			a = b;
+			b = tmp;
+		}
+		main_chain.push_back(*it);
+	}
+	n = main_chain.back().first;
+	while (n <= b) {
+		main_chain.push_back(std::make_pair(a, 0));
+		tmp = 2 * a + b;
+		a = b;
+		b = tmp;
+	}
+	return main_chain;
 }
 
 //VECTOR
 void	PmergeMe::sort_vector() {
-	std::vector<std::pair<int, int> >	pairs;
+	std::vector<std::pair<long, long> >	pairs;
 
 	pairs = split_vector_in_pairs(_vector);
+	pairs = sort_vector_first_second(pairs);
+	pairs = sort_vector_pairs_recursively(pairs);
+	pairs = create_main_chain(pairs);
 }
 
 //DEQUE-SORT HELPERS

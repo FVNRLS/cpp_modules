@@ -30,8 +30,8 @@ class PmergeMe {
 
 private:
 	char 				**_args;
-	std::vector<int>	_vector;
-	std::deque<int>		_deque;
+	std::vector<long>	_vector;
+	std::deque<long>	_deque;
 	bool 				_values_sorted;
 
 	//MEMBER FUNCTIONS
