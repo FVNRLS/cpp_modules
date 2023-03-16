@@ -77,6 +77,9 @@ bool index_is_even(size_t index) {
 
 //!MEMBER FUNCTIONS!
 int	PmergeMe::compare_containers() {
+	clock_t start_time;
+	clock_t end_time;
+
 	if (_args == NULL)
 		return EXIT_FAILURE;
 
@@ -85,8 +88,19 @@ int	PmergeMe::compare_containers() {
 		return EXIT_FAILURE;
 	}
 	print_container_values();
+
+	start_time = std::clock();
 	_vector = sort_vector();
+	end_time = std::clock();
+	std::cout << "NEEDED TIME FOR VECTOR:			" << static_cast<double>(end_time - start_time) / CLOCKS_PER_SEC * 10000000
+				<< " MICROSECONDS"  << std::endl;
+
+	start_time = std::clock();
 	_deque = sort_deque();
+	end_time = std::clock();
+	std::cout << "NEEDED TIME FOR DEQUE:			" << static_cast<double>(end_time - start_time) / CLOCKS_PER_SEC * 10000000
+			 << " MICROSECONDS" << std::endl;
+
 	_values_sorted = true;
 	print_container_values();
 	return EXIT_SUCCESS;
@@ -141,9 +155,9 @@ void PmergeMe::print_container_values() {
 	std::cout << std::endl;
 
 	if (_values_sorted)
-		std::cout << "UNSORTED VALUES FOR DEQUE:		";
-	else
 		std::cout << "SORTED VALUES FOR DEQUE:		";
+	else
+		std::cout << "UNSORTED VALUES FOR DEQUE:		";
 	for (std::deque<long>::iterator it = _deque.begin(); it != _deque.end(); it++) {
 		std::cout << *it << " ";
 	}

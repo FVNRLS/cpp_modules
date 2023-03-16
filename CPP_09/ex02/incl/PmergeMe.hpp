@@ -17,10 +17,8 @@
 #include <vector>
 #include <deque>
 #include <limits>
-
-enum errors {
-
-};
+#include <ctime>
+#include <iomanip>
 
 #define SPACE	' '
 #define TAB		'\t'
