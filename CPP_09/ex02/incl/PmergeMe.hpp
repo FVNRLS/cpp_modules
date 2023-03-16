@@ -36,9 +36,9 @@ private:
 
 	//MEMBER FUNCTIONS
 	int 				parse_input();
+	std::vector<long>	sort_vector();
+	std::deque<long> 	sort_deque();
 	void 				print_container_values();
-	void 				sort_vector();
-	void 				sort_deque();
 
 public:
 	PmergeMe();

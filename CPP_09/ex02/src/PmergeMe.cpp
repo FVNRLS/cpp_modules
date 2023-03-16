@@ -85,8 +85,9 @@ int	PmergeMe::compare_containers() {
 		return EXIT_FAILURE;
 	}
 	print_container_values();
-	sort_vector();
-	sort_deque();
+	_vector = sort_vector();
+	_deque = sort_deque();
+	_values_sorted = true;
 	print_container_values();
 	return EXIT_SUCCESS;
 }
@@ -197,7 +198,7 @@ static std::vector<std::pair<long, long> > sort_vector_first_second(std::vector<
  * This is because the vector needs to allocate new memory, copy the existing elements to the new memory,
  * and then deallocate the old memory.
  * */
-static std::vector<std::pair<long, long> > sort_vector_pairs_recursively(std::vector<std::pair<long, long> > &pairs) {
+static std::vector<std::pair<long, long> >	sort_vector_pairs_recursively(std::vector<std::pair<long, long> > &pairs) {
 	if (pairs.size() <= 1)
 		return pairs;
 
@@ -224,56 +225,69 @@ static std::vector<std::pair<long, long> > sort_vector_pairs_recursively(std::ve
 	return result;
 }
 
-// Calculate the n-th Jacobsthal number recursively
-long jacobsthal(long n) {
-	if (n == 0 || n == 1)
-		return n;
-	return jacobsthal(n - 1) + (2 * jacobsthal(n - 2));
-}
+static std::vector<long>	create_main_chain(std::vector<std::pair<long, long> > &pairs) {
+	std::vector<long>	main_chain;
+	size_t 				size;
 
-// Create the main chain by following the Jacobsthal sequence
-std::vector<std::pair<long, long> > create_main_chain(std::vector<std::pair<long, long> > &pairs) {
-	std::vector<std::pair<long, long> > main_chain;
-	long a = 0;
-	long b = 1;
-	long tmp;
-	long n;
-
-	for (std::vector<std::pair<long, long> >::iterator it = pairs.begin(); it != pairs.end(); it++) {
-		n = it->first;
-		while (n <= b) {
-			main_chain.push_back(std::make_pair(a, 0));
-			tmp = 2 * a + b;
-			a = b;
-			b = tmp;
-		}
-		main_chain.push_back(*it);
-	}
-	n = main_chain.back().first;
-	while (n <= b) {
-		main_chain.push_back(std::make_pair(a, 0));
-		tmp = 2 * a + b;
-		a = b;
-		b = tmp;
-	}
+	size = pairs.size();
+	main_chain.reserve(size);
+	for (std::vector<std::pair<long, long> >::iterator it = pairs.begin(); it != pairs.end(); it++)
+		main_chain.push_back(it->first);
 	return main_chain;
 }
 
+/*
+ * Uses binary search to find the position for number to insert in the main chain.
+ * Returns the insert position.
+ * */
+static size_t find_insert_pos(std::vector<long>	&main_chain, long num) {
+	size_t	left;
+	size_t	right;
+	size_t	pos;
+
+	left = 0;
+	right = main_chain.size() - 1;
+	if (main_chain.empty())
+		return 0;
+	while (left <= right) {
+		pos = left + (right - left) / 2;
+		if (main_chain[pos] < num)
+			left = pos + 1;
+		else
+			right = pos - 1;
+	}
+	return (pos);
+}
+
 //VECTOR
-void	PmergeMe::sort_vector() {
+std::vector<long>	PmergeMe::sort_vector() {
 	std::vector<std::pair<long, long> >	pairs;
+	std::vector<long>					main_chain;
+	size_t								pos;
 
 	pairs = split_vector_in_pairs(_vector);
 	pairs = sort_vector_first_second(pairs);
 	pairs = sort_vector_pairs_recursively(pairs);
-	pairs = create_main_chain(pairs);
+	main_chain = create_main_chain(pairs);
+
+	main_chain.reserve(_vector.size());
+	for (std::vector<std::pair<long, long> >::iterator it = pairs.begin(); it != pairs.end(); it++) {
+		if (it->second == LONG_MAX)
+			continue;
+		pos = find_insert_pos(main_chain, it->second);
+		if (pos == main_chain.size() - 1)
+			main_chain.push_back(it->second);
+		else
+			main_chain.insert((main_chain.begin() + pos), it->second);
+	}
+	return main_chain;
 }
 
 //DEQUE-SORT HELPERS
 
 
 //DEQUE
-void	PmergeMe::sort_deque() {
+std::deque<long>	PmergeMe::sort_deque() {
 }
 
 
