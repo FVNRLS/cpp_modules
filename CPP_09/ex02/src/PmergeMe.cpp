@@ -310,7 +310,8 @@ std::vector<long>	PmergeMe::sort_vector() {
 		else
 			main_chain.insert((main_chain.begin() + pos), it->second);
 	}
-	std::swap(main_chain.back(), main_chain.at(main_chain.size() - 2));
+	if (main_chain.back() < main_chain.at(main_chain.size() - 2))
+		std::swap(main_chain.back(), main_chain.at(main_chain.size() - 2));
 	return main_chain;
 }
 
@@ -419,7 +420,8 @@ std::deque<long>	PmergeMe::sort_deque() {
 		else
 			main_chain.insert((main_chain.begin() + pos), it->second);
 	}
-	std::swap(main_chain.back(), main_chain.at(main_chain.size() - 2));
+	if (main_chain.back() < main_chain.at(main_chain.size() - 2))
+		std::swap(main_chain.back(), main_chain.at(main_chain.size() - 2));
 	return main_chain;
 }
 
