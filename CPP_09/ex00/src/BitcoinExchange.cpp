@@ -88,10 +88,6 @@ int	print_error(int error, const std::string &str) {
 			std::cerr << "\033[31mError: invalid value: " << str << "\033[0m" << std::endl;
 			break;
 		}
-		case DATE_NOT_IN_CSV: {
-			std::cerr << "\033[31mError: date not in .csv table: " << str << "\033[0m" << std::endl;
-			break;
-		}
 		case DUPLICATE_ENTRY: {
 			std::cerr << "\033[31mError: duplicated input for date: " << str << "\033[0m" << std::endl;
 			break;
@@ -108,8 +104,10 @@ int	BitcoinExchange::exchange() {
 		return (EXIT_FAILURE);
 	if (open_file(PATH_TO_DATA_CSV) == EXIT_FAILURE)
 		return EXIT_FAILURE;
-	parse_data_csv();
+	if (parse_data_csv() == EXIT_FAILURE)
+		return EXIT_FAILURE;
 	_file.close();
+
 	if (open_file(_path_to_input_txt) == EXIT_FAILURE)
 		return EXIT_FAILURE;
 	if (parse_input_txt() == EXIT_FAILURE)
@@ -126,7 +124,7 @@ int BitcoinExchange::open_file(const std::string &path) {
 	return EXIT_SUCCESS;
 }
 
-void	BitcoinExchange::parse_data_csv() {
+int	BitcoinExchange::parse_data_csv() {
 	std::string						line;
 	std::pair<int, struct info>		data_sequence;
 	size_t 							num_sep;
@@ -134,13 +132,15 @@ void	BitcoinExchange::parse_data_csv() {
 	std::string						value;
 
 	std::getline(_file, line);
+	if (line.empty())
+		return print_error(EMPTY_FILE, PATH_TO_DATA_CSV);
 	while (std::getline(_file, line)) {
 		num_sep = count(line.begin(), line.end(), COMMA);
 		if (num_sep == 1) {
 			date = line.substr(0, line.find(COMMA));;
 			value = line.substr(line.find(COMMA) + 1, line.length());
 			if (extract_date(date) == EXIT_SUCCESS)
-				data_sequence.first = (_year * 1000) + (_month * 100) + _day;
+				data_sequence.first = (_year * 10000) + (_month * 100) + _day;
 			else {
 				print_error(BAD_DATE, date);
 				continue;
@@ -158,6 +158,25 @@ void	BitcoinExchange::parse_data_csv() {
 		else
 			print_error(BAD_INPUT_FORMAT, line);
 	}
+	return EXIT_SUCCESS;
+}
+
+std::string reformat_date(int date) {
+	std::stringstream 	ss;
+	std::string 		conv_date;
+	std::string 		year;
+	std::string 		month;
+	std::string 		day;
+	std::string 		res;
+
+	ss << date;
+	conv_date = ss.str();
+
+	year = conv_date.substr(0, 4);
+	month = conv_date.substr(4, 2);
+	day = conv_date.substr(6, 2);
+	res = year + "-" + month + "-" + day;
+	return res;
 }
 
 int	BitcoinExchange::parse_input_txt() {
@@ -179,7 +198,7 @@ int	BitcoinExchange::parse_input_txt() {
 			date = line.substr(0, line.find(PIPE));
 			value = line.substr(line.find(PIPE) + 1, line.length());
 			if (extract_date(date) == EXIT_SUCCESS)
-				date_val = (_year * 1000) + (_month * 100) + _day;
+				date_val = (_year * 10000) + (_month * 100) + _day;
 			else {
 				print_error(BAD_DATE, date);
 				continue;
@@ -202,9 +221,15 @@ int	BitcoinExchange::parse_input_txt() {
 		}
 
 		it = _data.find(date_val);
-		if (it == _data.end()) //todo::cont here!
-			print_error(DATE_NOT_IN_CSV, date);
-		else if (it->second.is_set)
+		if (it == _data.end()) {
+			it = find_closest_lower_date(date_val);
+			if (it == _data.end()) {
+				print_error(BAD_DATE, date);
+				continue;
+			}
+			date = reformat_date(it->first);
+		}
+		if (it->second.is_set)
 			print_error(DUPLICATE_ENTRY, date);
 		else {
 			res = it->second.price * exch_rate;
@@ -214,6 +239,17 @@ int	BitcoinExchange::parse_input_txt() {
 		}
 	}
 	return EXIT_SUCCESS;
+}
+
+/* If the input date is less than or equal to the smallest key, return an invalid iterator
+ * Otherwise, return the iterator to the previous element
+ * */
+std::map<int, struct info>::iterator BitcoinExchange::find_closest_lower_date(int date_val) {
+	std::map<int, struct info>::iterator it = _data.lower_bound(date_val);
+
+	if (it == _data.begin())
+		return _data.end();
+	return (--it);
 }
 
 static bool validate_date(int year, int month, int day) {

@@ -13,6 +13,7 @@
 #pragma once
 
 #include <iostream>
+#include <sstream>
 #include <fstream>
 #include <limits>
 #include <map>
@@ -25,7 +26,6 @@ enum errors {
 	BAD_INPUT_FORMAT,
 	BAD_DATE,
 	BAD_VALUE,
-	DATE_NOT_IN_CSV,
 	DUPLICATE_ENTRY,
 
 };
@@ -55,10 +55,11 @@ private:
 
 	//MEMBER FUNCTIONS
 	int 						open_file(const std::string &path);
-	void 						parse_data_csv();
+	int 						parse_data_csv();
 	int 						parse_input_txt();
 	int 						extract_date(std::string &date);
 	int 						check_value(std::string &str_val);
+	std::map<int, struct info>::iterator	find_closest_lower_date(int date_val);
 
 public:
 	BitcoinExchange();
