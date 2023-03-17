@@ -13,19 +13,18 @@
 #pragma once
 
 #include <iostream>
-#include <list>
+#include <stack>
+#include <string>
+#include <cstdlib>
+#include <climits>
+
+#define SPACE	' '
 
 class RPN {
 
 private:
-	std::list<char>	_rpn_data;
-	std::list<char>	_norm_data;
-	long 			_res;
-	std::string 	_input;
-
-	//MEMBER FUNCTIONS
-	int 			parse_input();
-	int 			normalize_rpn();
+	std::stack<long>	_operands;
+	std::string 		_input;
 
 public:
 	RPN();

@@ -13,9 +13,12 @@
 #pragma once
 
 #include <iostream>
+#include <iomanip>
 #include <sstream>
+#include <cstdlib>
+#include <algorithm>
 #include <fstream>
-#include <limits>
+#include <climits>
 #include <map>
 #include <unistd.h>
 

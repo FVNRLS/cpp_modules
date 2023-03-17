@@ -25,7 +25,7 @@ BitcoinExchange	&BitcoinExchange::operator=(const BitcoinExchange &src) {
 	_data = src._data;
 	_path_to_input_txt = src._path_to_input_txt;
 	_file.close();
-	if (open_file(_path_to_input_txt) == EXIT_FAILURE)
+	if (open_file(_path_to_input_txt.c_str()) == EXIT_FAILURE)
 		std::cerr << "Assignment operator failed on opening the file " << _path_to_input_txt << std::endl;
 	_year = src._year;
 	_month = src._month;
@@ -118,7 +118,7 @@ int	BitcoinExchange::exchange() {
 int BitcoinExchange::open_file(const std::string &path) {
 	if (path.empty() || access(path.c_str(), F_OK))
 		return print_error(BAD_FILEPATH, path);
-	_file.open(path);
+	_file.open(path.c_str());
 	if (_file.bad() || !_file.is_open())
 		return print_error(BAD_PERMISSIONS, path);
 	return EXIT_SUCCESS;
@@ -268,7 +268,6 @@ static bool validate_date(int year, int month, int day) {
 }
 
 int BitcoinExchange::extract_date(std::string &date) {
-	std::deque<std::string>	tokens;
 	bool 					date_valid;
 	size_t 					num_sep;
 	std::string 			year;
