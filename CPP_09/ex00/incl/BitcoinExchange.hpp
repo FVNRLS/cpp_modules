@@ -21,6 +21,7 @@
 enum errors {
 	BAD_FILEPATH,
 	BAD_PERMISSIONS,
+	EMPTY_FILE,
 	BAD_INPUT_FORMAT,
 	BAD_DATE,
 	BAD_VALUE,
@@ -55,7 +56,7 @@ private:
 	//MEMBER FUNCTIONS
 	int 						open_file(const std::string &path);
 	void 						parse_data_csv();
-	void 						parse_input_txt();
+	int 						parse_input_txt();
 	int 						extract_date(std::string &date);
 	int 						check_value(std::string &str_val);
 

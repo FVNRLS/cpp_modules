@@ -72,6 +72,10 @@ int	print_error(int error, const std::string &str) {
 			std::cerr << "\033[31mError: invalid file path: " << str << "\033[0m" << std::endl;
 			break;
 		}
+		case EMPTY_FILE: {
+			std::cerr << "\033[31mError: file is empty: " << str << "\033[0m" << std::endl;
+			break;
+		}
 		case BAD_INPUT_FORMAT: {
 			std::cerr << "\033[31mError: bad input: " << str << "\033[0m" << std::endl;
 			break;
@@ -108,7 +112,8 @@ int	BitcoinExchange::exchange() {
 	_file.close();
 	if (open_file(_path_to_input_txt) == EXIT_FAILURE)
 		return EXIT_FAILURE;
-	parse_input_txt();
+	if (parse_input_txt() == EXIT_FAILURE)
+		return EXIT_FAILURE;
 	return EXIT_SUCCESS;
 }
 
@@ -155,7 +160,7 @@ void	BitcoinExchange::parse_data_csv() {
 	}
 }
 
-void BitcoinExchange::parse_input_txt() {
+int	BitcoinExchange::parse_input_txt() {
 	std::string								line;
 	size_t 									num_sep;
 	std::string 							date;
@@ -166,6 +171,8 @@ void BitcoinExchange::parse_input_txt() {
 	float 									res;
 
 	std::getline(_file, line);
+	if (line.empty())
+		return print_error(EMPTY_FILE, _path_to_input_txt);
 	while (std::getline(_file, line)) {
 		num_sep = count(line.begin(), line.end(), PIPE);
 		if (num_sep == 1) {
@@ -195,7 +202,7 @@ void BitcoinExchange::parse_input_txt() {
 		}
 
 		it = _data.find(date_val);
-		if (it == _data.end())
+		if (it == _data.end()) //todo::cont here!
 			print_error(DATE_NOT_IN_CSV, date);
 		else if (it->second.is_set)
 			print_error(DUPLICATE_ENTRY, date);
@@ -206,6 +213,7 @@ void BitcoinExchange::parse_input_txt() {
 			it->second.is_set = true;
 		}
 	}
+	return EXIT_SUCCESS;
 }
 
 static bool validate_date(int year, int month, int day) {
