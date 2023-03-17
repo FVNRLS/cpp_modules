@@ -79,7 +79,7 @@ void print_time(clock_t start, clock_t end, const std::string &cont_type) {
 	clock_t	res;
 
 	res = static_cast<double>(end - start) / CLOCKS_PER_SEC * 10000000;
-	std::cout << "NEEDED TIME FOR " << std::setw(15) << std::left << cont_type;
+	std::cout << "NEEDED TIME FOR " << std::setw(24) << std::left << cont_type;
 	if (res > 10000)
 		std::cout << res / 1000 << " MILLISECONDS" << std::endl;
 	else
