@@ -107,9 +107,9 @@ int	PmergeMe::compare_containers() {
 	start_time = std::clock();
 	_vector = sort_vector();
 	end_time = std::clock();
-	print_time(start_time, end_time, "VECTOR");
 	_values_sorted = true;
 	print_container_values();
+	print_time(start_time, end_time, "VECTOR");
 
 
 	start_time = std::clock();
@@ -305,7 +305,7 @@ std::vector<long>	PmergeMe::sort_vector() {
 		if (it->second == LONG_MAX)
 			continue;
 		pos = find_vector_insert_pos(main_chain, it->second);
-		if (pos == main_chain.size() - 1)
+		if (pos == main_chain.size())
 			main_chain.push_back(it->second);
 		else
 			main_chain.insert((main_chain.begin() + pos), it->second);
@@ -415,7 +415,7 @@ std::deque<long>	PmergeMe::sort_deque() {
 		if (it->second == LONG_MAX)
 			continue;
 		pos = find_deque_insert_pos(main_chain, it->second);
-		if (pos == main_chain.size() - 1)
+		if (pos == main_chain.size())
 			main_chain.push_back(it->second);
 		else
 			main_chain.insert((main_chain.begin() + pos), it->second);
