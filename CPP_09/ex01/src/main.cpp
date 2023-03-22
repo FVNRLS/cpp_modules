@@ -20,7 +20,7 @@ int main(int argc, char **argv) {
 	}
 	input = argv[1];
 	if (input.empty()) {
-		std::cout << "Error: Invalid number of arguments" << std::endl;
+		std::cout << "Error: invalid input" << std::endl;
 		return EXIT_FAILURE;
 	}
 	RPN	rpn(input);

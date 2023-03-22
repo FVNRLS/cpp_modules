@@ -36,6 +36,11 @@ int RPN::calculate() {
 	long 	op_2;
 	long 	res;
 
+	if (_input.size() < 2) {
+		std::cout << "Error: invalid input" << std::endl;
+		return EXIT_FAILURE;
+	}
+
 	for (std::string::iterator it = _input.begin(); it != _input.end(); it++) {
 		c = *it;
 		if (isdigit(c))
@@ -71,8 +76,12 @@ int RPN::calculate() {
 		}
 	}
 	res = _operands.top();
+	if (_operands.size() != 1) {
+		std::cout << "Error: invalid input" << std::endl;
+		return EXIT_FAILURE;
+	}
 	if (res < INT_MIN || res > INT_MAX) {
-		std::cout << "Error: calculation result out of range" << std::endl;
+		std::cout << "Error: calculation result out of integer range" << std::endl;
 		return EXIT_FAILURE;
 	}
 	std::cout << res << std::endl;

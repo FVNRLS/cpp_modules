@@ -86,6 +86,14 @@ void print_time(clock_t start, clock_t end, const std::string &cont_type) {
 		std::cout <<  res << " MICROSECONDS" << std::endl;
 }
 
+bool check_if_sorted(const std::vector<long> &vec) {
+	for (std::vector<long>::const_iterator it = vec.begin() + 1; it != vec.end(); it++) {
+		if (*it < *(it - 1))
+			return false;
+	}
+	return true;
+}
+
 //!MEMBER FUNCTIONS!
 int	PmergeMe::compare_containers() {
 	clock_t start_time;
@@ -98,7 +106,7 @@ int	PmergeMe::compare_containers() {
 		std::cerr << "Error" << std::endl;
 		return EXIT_FAILURE;
 	}
-	if (std::is_sorted(_vector.begin(), _vector.end())) {
+	if (_vector.size() < 2 || check_if_sorted(_vector) == true) {
 		std::cout << "The sequence is already sorted!" << std::endl;
 		return EXIT_SUCCESS;
 	}
@@ -129,6 +137,8 @@ int PmergeMe::parse_input() {
 	i = 1;
 	while (_args[i] != NULL) {
 		chunk = _args[i];
+		if (chunk.empty())
+			return EXIT_FAILURE;
 		chunk = trim(chunk);
 		tokens = tokenize(chunk, SPACE);
 		char *endptr = NULL;
@@ -424,7 +434,4 @@ std::deque<long>	PmergeMe::sort_deque() {
 		std::swap(main_chain.back(), main_chain.at(main_chain.size() - 2));
 	return main_chain;
 }
-
-
-//"1 4 3 7 1 4 2 77 85 34 22" "2 7 1 11 22 4" 8 9 10
 
