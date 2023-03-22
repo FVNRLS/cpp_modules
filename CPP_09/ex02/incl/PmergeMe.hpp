@@ -19,6 +19,8 @@
 #include <limits>
 #include <ctime>
 #include <iomanip>
+#include <stdlib.h>
+#include <limits.h>
 
 #define SPACE	' '
 #define TAB		'\t'

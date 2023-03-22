@@ -20,6 +20,10 @@ int main(int argc, char **argv) {
 		return EXIT_FAILURE;
 	}
 	file_path = argv[1];
+	if (file_path.empty()) {
+		std::cout << "Error: Invalid input" << std::endl;
+		return EXIT_FAILURE;
+	}
 
 	BitcoinExchange	btc_exc(file_path);
 	if (btc_exc.exchange() == EXIT_FAILURE)
