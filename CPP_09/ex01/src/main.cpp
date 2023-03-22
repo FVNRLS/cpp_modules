@@ -19,6 +19,10 @@ int main(int argc, char **argv) {
 		return EXIT_FAILURE;
 	}
 	input = argv[1];
+	if (input.empty()) {
+		std::cout << "Error: Invalid number of arguments" << std::endl;
+		return EXIT_FAILURE;
+	}
 	RPN	rpn(input);
 	if (rpn.calculate() == EXIT_FAILURE)
 		return EXIT_FAILURE;
