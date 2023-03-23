@@ -29,6 +29,22 @@ RPN	&RPN::operator=(const RPN &src) {
 
 RPN::~RPN() {}
 
+
+//TOOLS
+std::string trim(const std::string &s) {
+	if (s.empty())
+		return "";
+	// Trim spaces from the beginning and end of the string
+	size_t front_pos = s.find_first_not_of(" \t\r\n");
+	size_t back_pos = s.find_last_not_of(" \t\r\n");
+
+	// String is all whitespace
+	if (front_pos == std::string::npos || back_pos == std::string::npos)
+		return "";
+
+	return s.substr(front_pos, back_pos - front_pos + 1);
+}
+
 //MEMBER FUNCTIONS
 int RPN::calculate() {
 	char	c;
@@ -36,6 +52,7 @@ int RPN::calculate() {
 	long 	op_2;
 	long 	res;
 
+	_input = trim(_input);
 	if (_input.size() < 2) {
 		std::cout << "Error: invalid input" << std::endl;
 		return EXIT_FAILURE;
@@ -75,11 +92,11 @@ int RPN::calculate() {
 			}
 		}
 	}
-	res = _operands.top();
 	if (_operands.size() != 1) {
 		std::cout << "Error: invalid input" << std::endl;
 		return EXIT_FAILURE;
 	}
+	res = _operands.top();
 	if (res < INT_MIN || res > INT_MAX) {
 		std::cout << "Error: calculation result out of integer range" << std::endl;
 		return EXIT_FAILURE;

@@ -61,6 +61,11 @@ std::string	trim(std::string &s) {
 	return (s);
 }
 
+bool file_is_empty(const char *filename) {
+	std::ifstream file(filename);
+	return file.peek() == std::ifstream::traits_type::eof();
+}
+
 //ERROR MANAGEMENT
 int	print_error(int error, const std::string &str) {
 	switch (error) {
@@ -131,9 +136,9 @@ int	BitcoinExchange::parse_data_csv() {
 	std::string 					date;
 	std::string						value;
 
-	std::getline(_file, line);
-	if (line.empty())
+	if (file_is_empty(PATH_TO_DATA_CSV.c_str()))
 		return print_error(EMPTY_FILE, PATH_TO_DATA_CSV);
+	std::getline(_file, line);
 	while (std::getline(_file, line)) {
 		num_sep = count(line.begin(), line.end(), COMMA);
 		if (num_sep == 1) {
@@ -189,9 +194,9 @@ int	BitcoinExchange::parse_input_txt() {
 	std::map<int, struct info>::iterator	it;
 	float 									res;
 
-	std::getline(_file, line);
-	if (line.empty())
+	if (file_is_empty(_path_to_input_txt.c_str()))
 		return print_error(EMPTY_FILE, _path_to_input_txt);
+	std::getline(_file, line);
 	while (std::getline(_file, line)) {
 		num_sep = count(line.begin(), line.end(), PIPE);
 		if (num_sep == 1) {
