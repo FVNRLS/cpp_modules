@@ -45,6 +45,7 @@ std::string trim(const std::string &s) {
 	return s.substr(front_pos, back_pos - front_pos + 1);
 }
 
+
 //MEMBER FUNCTIONS
 int RPN::calculate() {
 	char	c;
